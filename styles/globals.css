@@ -1,0 +1,61 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: "Roboto", sans-serif;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0;
+  color: var(--text-color);
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --mall-blue: #013a93;
+  --cloud-orange: #b86e00;
+  --sky-blue: #e0ecff;
+  --neutral-gray: #8f8f8f;
+  --text-color: #3e4044;
+  --light-green: #ddeedd;
+  --light-red: #fff9ec;
+  --text-red: #dd2525;
+  --text-green: #56ac55;
+  --light-blue: #e7edff;
+  --neutral-gray-2: #ebebeb;
+  --deep-green: #1cbe49;
+}
+
+/* store-layout */
+.itemButton {
+  color: white;
+  margin-left: 20px;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  height: 50px;
+  width: 120px;
+}
+
+/* hide pill overflow scroll-bar */
+.pill-group::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.pill-group {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

@@ -1,0 +1,11 @@
+{
+  "restaurant": ["Groceries", "Restaurant", "Pharmacy", "Bookstore", "Mall"],
+  "store": [
+    "Delicacies",
+    "Breakfast",
+    "Swallow",
+    "Dessert",
+    "Brunch",
+    "Cookies"
+  ]
+}

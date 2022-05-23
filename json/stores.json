@@ -1,0 +1,58 @@
+[
+  {
+    "name": "Ongbonna",
+    "type": "Restaurant",
+    "location": "Ibadan road...",
+    "status": "Open",
+    "distance": "4km away"
+  },
+  {
+    "name": "Country-Kitchen",
+    "type": "Restaurant",
+    "location": "Ibadan road...",
+    "status": "Closed",
+    "distance": "4km away"
+  },
+  {
+    "name": "G-2-G",
+    "type": "Restaurant",
+    "location": "Ibadan road...",
+    "status": "Open",
+    "distance": "4km away"
+  },
+  {
+    "name": "Captain-Cook",
+    "type": "Restaurant",
+    "location": "Ibadan road...",
+    "status": "Closed",
+    "distance": "4km away"
+  },
+  {
+    "name": "Hotsoup-n-more",
+    "type": "Restaurant",
+    "location": "Ibadan road...",
+    "status": "Open",
+    "distance": "4km away"
+  },
+  {
+    "name": "Amala-joint",
+    "type": "Restaurant",
+    "location": "Ibadan road...",
+    "status": "Closed",
+    "distance": "4km away"
+  },
+  {
+    "name": "Cubana",
+    "type": "Restaurant",
+    "location": "Ibadan road...",
+    "status": "Open",
+    "distance": "4km away"
+  },
+  {
+    "name": "Banwil",
+    "type": "Restaurant",
+    "location": "Ibadan road...",
+    "status": "Closed",
+    "distance": "4km away"
+  }
+]
