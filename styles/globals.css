@@ -36,6 +36,8 @@ a {
   --light-blue: #e7edff;
   --neutral-gray-2: #ebebeb;
   --deep-green: #1cbe49;
+  --faded-text: #6e7073;
+  --leaf-green: #06a317;
 }
 
 /* store-layout */
@@ -44,9 +46,25 @@ a {
   margin-left: 20px;
   padding: 5px 10px;
   border: none;
+  font-family: "Roboto", sans-serif;
+  font-style: normal;
   border-radius: 5px;
   height: 50px;
   width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.itemButton.no-order {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 20px;
+  width: 150px;
+  background-color: var(--mall-blue);
+  display: flex;
+  align-items: center;
+  margin-left: unset;
 }
 
 /* hide pill overflow scroll-bar */
