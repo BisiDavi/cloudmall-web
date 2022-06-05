@@ -9,8 +9,14 @@ export default function LoginQuestionModal({
 }: ModalProps) {
   const router = useRouter();
 
-  function onClickHandler() {
+  function newUserHandler() {
+    closeModal();
     return router.push("/auth/login");
+  }
+
+  function oldUserHandler() {
+    closeModal();
+    return router.push("/delivery-details");
   }
 
   return (
@@ -19,8 +25,12 @@ export default function LoginQuestionModal({
         <div className="modal-view">
           <p>Do you have an existing Cloudmall account?</p>
           <div className="button-group">
-            <button className="no">No</button>
-            <button className="yes">Yes</button>
+            <button className="no" onClick={newUserHandler}>
+              No
+            </button>
+            <button className="yes" onClick={oldUserHandler}>
+              Yes
+            </button>
           </div>
         </div>
       </Modal>
