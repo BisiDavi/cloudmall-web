@@ -17,8 +17,18 @@ export default function StoreLayoutPage({
 }: PropsWithChildren<Props>) {
   return (
     <DefaultLayout title={title} search={<SearchStore />} padding={padding}>
-      {children}
-      {showFooter && <Footer />}
+      <>
+        <div className="children-view">{children}</div>
+        {showFooter && <Footer />}
+        <style jsx>
+          {`
+            .childen-view {
+              height: calc(85vh-65px);
+              overflow-y: scroll;
+            }
+          `}
+        </style>
+      </>
     </DefaultLayout>
   );
 }
