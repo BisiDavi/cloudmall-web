@@ -76,6 +76,14 @@ a {
   height: 40px;
 }
 
+/* login page */
+.loginForm .itemButton {
+  width: 100%;
+  margin: auto;
+  height: 40px;
+  margin-top: 20px;
+}
+
 /* hide pill overflow scroll-bar */
 .pill-group::-webkit-scrollbar {
   display: none;
