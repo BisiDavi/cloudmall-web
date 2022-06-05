@@ -24,8 +24,18 @@ export const cartSlice = createSlice({
       );
       const tempCart = state.cart;
       if (selectedCartitem) {
-        const selectedCartitemIndex = state.cart.indexOf(selectedCartitem);
+        const selectedCartitemIndex = state.cart.indexOf(selectedCartitem[0]);
         state.cart = tempCart.splice(selectedCartitemIndex, 1);
+      }
+    },
+    updateCartItemQuantity: (
+      state,
+      action: PayloadAction<{ type: "inc" | "dec"; cartItemID: string }>
+    ) => {
+      if (action.payload.type === "inc") {
+        const cartItem = state.cart.filter(
+          (cartItem) => cartItem.name === action.payload.cartItemID
+        );
       }
     },
   },

@@ -1,3 +1,4 @@
+import useCartMutationAction from "@/hooks/useCartMutationAction";
 import useCart from "@/hooks/useCart";
 import { productType } from "@/types/product-types";
 import Image from "next/image";
@@ -16,10 +17,14 @@ export default function CartItem({ cart }: cartProps) {
   const { cart: cartData } = useCart();
   const quantityText = cart.name.includes("Oranges") ? " piece " : " pack ";
   const vv = cartData.map((cartItem) => cartItem === cart.name);
-  console.log("vv", vv, "cartData", cartData);
+  const { useAddToCart, useRemoveCartItem } = useCartMutationAction();
+  const addToCart = useAddToCart();
+  const removeCartItem = useRemoveCartItem();
+
   const quantity = cartData.filter(
     (cartItem) => cartItem.name === cart.name
   ).length;
+
   return (
     <>
       <div className="cartItem">
@@ -39,11 +44,17 @@ export default function CartItem({ cart }: cartProps) {
             <TrashIcon />
             <NoteIcon />
             <div className="controls">
-              <SubtractIcon />
+              <button
+              // onClick={() => removeCartItem.mutate(cart.name)}
+              >
+                <SubtractIcon />
+              </button>
               <span>
                 {quantity} {quantityText}
               </span>
-              <AddIcon fill="#013a93" />
+              <button onClick={() => addToCart.mutate(cart)}>
+                <AddIcon fill="#013a93" />
+              </button>
             </div>
           </div>
         </div>
@@ -61,6 +72,10 @@ export default function CartItem({ cart }: cartProps) {
             width: 100%;
             margin-left: 20px;
           }
+          .cart-controls button {
+            border: none;
+            background-color: transparent;
+          }
           .layer {
             display: flex;
             justify-content: space-between;
@@ -72,7 +87,7 @@ export default function CartItem({ cart }: cartProps) {
             margin-top: 10px;
           }
           .controls {
-            width: 50%;
+            width: 55%;
             display: flex;
             align-items: center;
             justify-content: space-between;

@@ -3,60 +3,70 @@
     "name": "Oranges-1",
     "image": "/orange.png",
     "price": 500,
-    "store": "G-mart"
+    "store": "G-mart",
+    "quantity": 0
   },
   {
     "name": "A pack of Coke-1",
     "image": "/coca-cola.png",
     "price": 500,
-    "store": "Ongbonna"
+    "store": "Ongbonna",
+    "quantity": 0
   },
   {
     "name": "Oranges-2",
     "image": "/orange.png",
     "price": 500,
-    "store": "G-mart"
+    "store": "G-mart",
+    "quantity": 0
   },
   {
     "name": "A pack of Coke-2",
     "image": "/coca-cola.png",
     "price": 500,
-    "store": "Banwil"
+    "store": "Banwil",
+    "quantity": 0
   },
   {
     "name": "Oranges-3",
     "image": "/orange.png",
     "price": 500,
-    "store": "Ongbonna"
+    "store": "Ongbonna",
+    "quantity": 0
   },
   {
     "name": "A pack of Coke-3",
     "image": "/coca-cola.png",
     "price": 500,
-    "store": "G-mart"
+    "store": "G-mart",
+    "quantity": 0
   },
   {
     "name": "Oranges-4",
     "image": "/orange.png",
     "price": 500,
-    "store": "Ongbonna"
+    "store": "Ongbonna",
+    "quantity": 0
   },
   {
     "name": "A pack of Coke-4",
     "image": "/coca-cola.png",
     "price": 500,
-    "store": "G-mart"
+    "store": "G-mart",
+    "quantity": 0
   },
   {
     "name": "Oranges-5",
     "image": "/orange.png",
     "price": 500,
-    "store": "Ongbonna"
+    "store": "Ongbonna",
+    "quantity": 0
   },
   {
     "name": "A pack of Coke-5",
     "image": "/coca-cola.png",
     "price": 500,
-    "store": "G-mart"
+    "store": "G-mart",
+    "quantity": 0
   }
 ]

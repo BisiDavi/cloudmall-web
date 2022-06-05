@@ -11,9 +11,15 @@ export default function Footer() {
   cart?.map((cartItem) => uniqueCartItems.push(cartItem.name));
   const uniqueCartItem = new Set(uniqueCartItems);
   const uniqueCartItemArray = Array.from(uniqueCartItem);
-  const noOfCartItems =
-    uniqueCartItemArray.length > 0 ? uniqueCartItemArray.length : "";
-  const buttontext = `${noOfCartItems} Items`;
+  console.log("uniqueCartItemArray", uniqueCartItemArray.length);
+  const buttontext =
+    uniqueCartItemArray.length === 1
+      ? `${uniqueCartItemArray.length} item`
+      : uniqueCartItemArray.length > 1
+      ? `${uniqueCartItemArray.length} items`
+      : "Cart is empty";
+  const disableButton = uniqueCartItemArray.length === 0 ? true : false;
+  const disableClassName = uniqueCartItemArray.length === 0 ? true : false;
 
   return (
     <>
@@ -25,6 +31,7 @@ export default function Footer() {
               className="itemButton"
               icon={<CartIcon />}
               text={buttontext}
+              disabled={disableButton}
             />
           </a>
         </Link>

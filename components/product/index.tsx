@@ -2,7 +2,7 @@ import Image from "next/image";
 
 import AddIcon from "@/components/icons/AddIcon";
 import useCart from "@/hooks/useCart";
-import useMutationAction from "@/hooks/useMutation";
+import useCartMutationAction from "@/hooks/useCartMutationAction";
 
 type productType = {
   name: string;
@@ -15,8 +15,8 @@ interface Props {
 }
 
 export default function Product({ product }: Props) {
-  const { useCartActions, cart } = useMutationAction();
-  const cartActions = useCartActions();
+  const { useAddToCart, cart } = useCartMutationAction();
+  const cartActions = useAddToCart();
 
   const productCount = cart?.filter(
     (cartItem) => cartItem?.name === product?.name
