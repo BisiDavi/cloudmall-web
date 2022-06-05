@@ -27,6 +27,7 @@ export default function Select({ input }: SelectProps) {
           border-radius: 5px;
           margin: 2px 0px;
           display: flex;
+          width: 100%;
           align-items: center;
           padding: 5px 8px;
           height: 40px;

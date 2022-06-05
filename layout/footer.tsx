@@ -44,6 +44,7 @@ export default function Footer() {
             left: 0px;
             width: 100%;
             padding: 12px 20px;
+            z-index: 40;
             justify-content: space-between;
             background-color: var(--light-blue);
             height: 65px;

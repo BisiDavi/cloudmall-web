@@ -15,6 +15,7 @@ export default function ProcuctGridView() {
             gap: 20px;
             padding: 0px 30px;
             margin-top: 20px;
+            margin-bottom: 80px;
           }
         `}
       </style>

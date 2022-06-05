@@ -12,7 +12,13 @@
     "elementType": "select",
     "name": "deliveryCategory",
     "id": "delivery-category",
-    "type": "select"
+    "type": "select",
+    "options": [
+      { "text": "Home", "value": "home" },
+      { "text": "School", "value": "school" },
+      { "text": "Work", "value": "Work" },
+      { "text": "Others - Enter Name", "value": "others" }
+    ]
   },
   {
     "placeholder": "9 Omole Estate Mayfair",
