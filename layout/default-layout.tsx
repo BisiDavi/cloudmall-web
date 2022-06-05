@@ -28,7 +28,7 @@ export default function DefaultLayout({
 
             <h3>{title}</h3>
           </div>
-          {search}
+          <div className="search-view">{search}</div>
         </div>
         <section className="section">{children}</section>
       </main>
@@ -36,9 +36,12 @@ export default function DefaultLayout({
         .store-layout {
           height: 100vh;
         }
+        .search-view {
+          padding: 0px 20px;
+        }
         .header {
           display: flex;
-          padding: 15px 20px;
+          padding: 15px 0px;
           flex-direction: column;
         }
         .top-view {
@@ -47,6 +50,7 @@ export default function DefaultLayout({
           align-items: center;
           position: relative;
           justify-content: center;
+          padding: 0px;
         }
         .top-view button.button {
           position: absolute;
@@ -67,19 +71,8 @@ export default function DefaultLayout({
         }
         .section {
           height: 75vh;
+          padding: 0px 20px;
           overflow: scroll;
-        }
-        .footer {
-          display: flex;
-          padding: 0px 10px;
-          position: fixed;
-          bottom: 0px;
-          background-color: white;
-          padding: 12px 20px;
-          height: 80px;
-          align-items: center;
-          width: 100%;
-          border-top: 1px solid rgba(62, 64, 68, 0.25);
         }
       `}</style>
     </>

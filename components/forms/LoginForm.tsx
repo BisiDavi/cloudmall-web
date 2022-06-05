@@ -1,5 +1,6 @@
 import Input from "./FormElements/Input";
 import Button from "@/components/buttons";
+import { useRouter } from "next/router";
 
 const formContent = [
   {
@@ -21,13 +22,18 @@ const formContent = [
 ];
 
 export default function LoginForm() {
+  const router = useRouter();
+  function buttonHandler() {
+    return router.push("/delivery-details");
+  }
   return (
     <>
       <form className="loginForm">
         {formContent.map((inputContent) => (
           <Input input={inputContent} key={inputContent.name} />
         ))}
-        <Button text="Login" className="itemButton" />
+
+        <Button text="Login" className="itemButton" onClick={buttonHandler} />
       </form>
       <style jsx>{`
         .loginForm {

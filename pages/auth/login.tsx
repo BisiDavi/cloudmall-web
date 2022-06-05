@@ -29,7 +29,6 @@ export default function login() {
           }
           .loginPage {
             width: 100%;
-            padding: 0px 20px;
           }
           button.google-login {
             border: 1px solid var(--text-color);

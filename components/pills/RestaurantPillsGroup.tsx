@@ -19,7 +19,6 @@ export default function RestaurantPillsGroup({ storeType }: Props) {
           .pill-group {
             display: flex;
             align-items: center;
-            margin-left: 20px;
             overflow-x: scroll;
           }
           .gray {

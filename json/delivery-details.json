@@ -1,0 +1,41 @@
+[
+  {
+    "placeholder": "9 Omole Estate Mayfair",
+    "label": "Delivery Address",
+    "elementType": "input",
+    "name": "deliveryAddress",
+    "id": "delivery-address",
+    "type": "text"
+  },
+  {
+    "label": "Delivery Category",
+    "elementType": "select",
+    "name": "deliveryCategory",
+    "id": "delivery-category",
+    "type": "select"
+  },
+  {
+    "placeholder": "9 Omole Estate Mayfair",
+    "label": "Address description",
+    "elementType": "input",
+    "name": "deliveryDescription",
+    "id": "delivery-description",
+    "type": "text"
+  },
+  {
+    "placeholder": "Select Delivery Time",
+    "label": "Delivery Time",
+    "elementType": "clickDiv",
+    "name": "deliveryTime",
+    "id": "delivery-time",
+    "type": "number"
+  },
+  {
+    "placeholder": "*************",
+    "label": "Password",
+    "elementType": "input",
+    "id": "login-password",
+    "type": "password",
+    "name": "password"
+  }
+]

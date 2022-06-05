@@ -19,7 +19,6 @@ export default function Footer() {
       ? `${uniqueCartItemArray.length} items`
       : "Cart is empty";
   const disableButton = uniqueCartItemArray.length === 0 ? true : false;
-  const disableClassName = uniqueCartItemArray.length === 0 ? true : false;
 
   return (
     <>
@@ -40,14 +39,15 @@ export default function Footer() {
         {`
           .footer {
             display: flex;
-            padding: 0px 10px;
             position: fixed;
             bottom: 0px;
+            left:0px;
+            width:100%;
             background-color: white;
             padding: 12px 20px;
+            justify-content:space-between
             height: 80px;
             align-items: center;
-            width: 100%;
             border-top: 1px solid rgba(62, 64, 68, 0.25);
           }
         `}

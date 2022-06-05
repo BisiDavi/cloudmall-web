@@ -4,6 +4,7 @@ interface Props {
   type?: "button" | "reset" | "submit";
   className?: string;
   disabled?: boolean;
+  onClick?: () => void;
 }
 export default function Button({
   text,
@@ -11,10 +12,16 @@ export default function Button({
   type = "button",
   className,
   disabled = false,
+  onClick,
 }: Props) {
   return (
     <>
-      <button className={`button ${className}`} type={type} disabled={disabled}>
+      <button
+        onClick={onClick}
+        className={`button ${className}`}
+        type={type}
+        disabled={disabled}
+      >
         {icon && <span>{icon}</span>}
         {text}
       </button>

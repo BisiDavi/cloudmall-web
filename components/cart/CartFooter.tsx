@@ -39,7 +39,7 @@ export default function CartFooter({ total }: any) {
             justify-content: space-between;
             background-color: var(--light-gray);
             padding: 20px;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
           }
         `}
       </style>

@@ -2,7 +2,6 @@ import stores from "@/json//stores.json";
 import StoreviewList from "@/components/store-view/StoreviewList";
 
 export default function Storeview() {
-  
   return (
     <>
       <div className="store-view">
@@ -15,6 +14,7 @@ export default function Storeview() {
           .store-view {
             display: flex;
             flex-direction: column;
+            padding-bottom: 50px;
           }
         `}
       </style>

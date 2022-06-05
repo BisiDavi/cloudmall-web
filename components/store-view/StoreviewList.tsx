@@ -44,7 +44,6 @@ export default function StoreviewList({ store }: Props) {
             display: flex;
             align-items: center;
             border-bottom: 1px solid rgba(62, 64, 68, 0.25);
-            padding: 15px 20px;
             height: 110px;
           }
           .content {
