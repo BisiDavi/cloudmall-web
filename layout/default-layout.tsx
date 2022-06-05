@@ -57,7 +57,7 @@ export default function DefaultLayout({
         .top-view button.button {
           position: absolute;
           top: 15px;
-          left: 5px;
+          left: 10px;
           border: none;
           background-color: transparent;
         }

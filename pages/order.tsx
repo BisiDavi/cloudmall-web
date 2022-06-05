@@ -3,7 +3,7 @@ import StoreLayoutPage from "@/layout/store-layout";
 
 export default function OrderPage() {
   return (
-    <StoreLayoutPage title="Orders" showFooter={false}>
+    <StoreLayoutPage title="Orders" showFooter={false} padding="0px">
       <OrderlistView />
     </StoreLayoutPage>
   );

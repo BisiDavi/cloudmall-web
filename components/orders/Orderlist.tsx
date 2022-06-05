@@ -32,21 +32,33 @@ export default function Orderlist({ store }: OrderlistProps) {
       <style jsx>{`
         .order-list {
           border-bottom: 1px solid rgba(62, 64, 68, 0.25);
-          padding: 10px 0px;
+          padding: 10px 20px;
           color: var(--text-color);
           font-family: "Roboto", sans-serif;
           font-style: normal;
+          height: 80px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
         }
         .order-list .view {
           display: flex;
           align-items: center;
+          height: 20px;
           justify-content: space-between;
+        }
+
+        .top p {
+          font-size: 11px;
+          font-style: italic;
+          font-weight: 400;
         }
 
         .top h4 {
           font-weight: 500;
           line-height: 16px;
           letter-spacing: 0.0025em;
+          font-size: 14px;
         }
 
         .bottom h6 {

@@ -24,7 +24,7 @@ export default function Footer() {
     <>
       <div className="footer">
         <UpdateLocation />
-        <Link passHref href="/cart">
+        <Link passHref href="/order">
           <a>
             <Button
               className="itemButton"

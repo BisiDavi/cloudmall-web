@@ -39,7 +39,7 @@ export default function OrderListItem({ orderList }: Props) {
           display: flex;
           align-items: center;
           border-bottom: 1px solid rgba(62, 64, 68, 0.25);
-          padding: 10px 0px;
+          padding: 10px 20px;
           width: 100%;
         }
         .image-wrapper {

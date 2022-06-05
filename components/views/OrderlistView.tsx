@@ -12,9 +12,7 @@ export default function OrderlistView() {
       <style jsx>
         {`
           .order-list-view {
-            padding: 10px 20px;
-            display: flex;
-            flex-direction: column;
+            border-top: 1px solid rgba(62, 64, 68, 0.25);
           }
         `}
       </style>

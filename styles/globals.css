@@ -71,7 +71,7 @@ a {
 
 /* cart */
 .itemButton.cart {
-  width: 80%;
+  width: 85%;
   margin: auto;
   background-color: var(--mall-blue);
   height: 40px;

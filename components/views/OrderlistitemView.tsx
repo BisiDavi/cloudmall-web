@@ -16,10 +16,17 @@ export default function OrderlistitemView({ orderList, storeName }: Props) {
             <OrderListItem orderList={order} key={order.orderId} />
           ))}
         </div>
+        <div className="total">
+          <div className="total-view">
+            <p>Total</p>
+            <p>4,500.00</p>
+          </div>
+          <button className="proceed">Proceed</button>
+        </div>
       </div>
       <style jsx>{`
-        .order-list-item-view {
-          padding: 0px 20px;
+        .list {
+          border-top: 1px solid rgba(62, 64, 68, 0.25);
         }
         .order-list-item-view h3 {
           font-family: "Roboto", sans-serif;
@@ -29,9 +36,40 @@ export default function OrderlistitemView({ orderList, storeName }: Props) {
           line-height: 16px;
           letter-spacing: 0.0025em;
           color: black;
+          padding: 0px 20px;
         }
         .list {
           margin-top: 20px;
+        }
+        .total-view {
+          display: flex;
+          width: 50%;
+          justify-content: space-between;
+          justify-items: end;
+          align-items: flex-end;
+        }
+        .total {
+          position: fixed;
+          bottom: 0px;
+          border-top: 1px solid rgba(62, 64, 68, 0.25);
+          height: 100px;
+          display: flex;
+          flex-direction: column;
+          padding: 0px 20px;
+          margin-bottom: 15px;
+          width: 100%;
+          align-items: flex-end;
+        }
+        .proceed {
+          background-color: var(--mall-blue);
+          color: white;
+          width: 100%;
+          display: flex;
+          justify-content: center;
+          border: none;
+          margin: auto;
+          padding: 10px;
+          border-radius: 5px;
         }
       `}</style>
     </>

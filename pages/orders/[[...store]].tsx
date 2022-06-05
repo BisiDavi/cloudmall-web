@@ -17,7 +17,7 @@ export default function Index() {
   return (
     <>
       {orderList.length > 0 ? (
-        <DefaultLayout title="List of Items">
+        <DefaultLayout title="List of Items" padding="0px">
           <OrderlistitemView
             orderList={orderList}
             storeName={orderData[0].name}
