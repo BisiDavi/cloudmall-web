@@ -15,11 +15,9 @@ export default function CartFooter({ total }: any) {
           <h4>Total Cost</h4>
           <h4>N {total}</h4>
         </div>
-        {/* <Link href="/auth/login" passHref> */}
         <a className="itemButton cart" onClick={onCheckoutHandler}>
           Checkout
         </a>
-        {/* </Link> */}
       </div>
       <style jsx>
         {`
@@ -30,6 +28,7 @@ export default function CartFooter({ total }: any) {
             margin: auto;
             bottom: 0px;
             width: 100%;
+            background-color: white;
             left: 0px;
             padding-bottom: 10px;
           }

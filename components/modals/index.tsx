@@ -1,8 +1,6 @@
 import { ModalProps } from "@/types/modal-types";
 import { PropsWithChildren } from "react";
 
-
-
 export default function Modal({
   children,
   closeModal,
@@ -32,6 +30,7 @@ export default function Modal({
             left: 0;
             bottom: 0;
             z-index: 100;
+            height: 100vh;
             background-color: rgba(10, 10, 10, 0.86);
           }
 
