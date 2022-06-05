@@ -1,6 +1,11 @@
-import ArrowleftIcon from "@/components/icons/ArrowleftIcon";
 import { useRouter } from "next/router";
 import { PropsWithChildren } from "react";
+
+import ArrowleftIcon from "@/components/icons/ArrowleftIcon";
+import LoginQuestionModal from "@/components/modals/LoginQuestionModal";
+import { useAppSelector } from "@/hooks/useRedux";
+import { updateModal } from "@/redux/ui-slice";
+import { useDispatch } from "react-redux";
 
 interface Props {
   title: string;
@@ -17,12 +22,23 @@ export default function DefaultLayout({
   showArrow = true,
 }: PropsWithChildren<Props>) {
   const router = useRouter();
+  const { modal } = useAppSelector((state) => state.ui);
+  const dispatch = useDispatch();
 
+  const handleModalClose = () => {
+    dispatch(updateModal({ type: null, visible: false }));
+  };
   function goBack() {
     router.back();
   }
   return (
     <>
+      {modal.visible && modal.type === "loginQuestionModal" && (
+        <LoginQuestionModal
+          closeModal={handleModalClose}
+          showModal={modal.visible}
+        />
+      )}
       <main className="store-layout">
         <div className="header">
           <div className="top-view">

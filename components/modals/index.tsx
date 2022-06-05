@@ -1,19 +1,17 @@
-import { PropsWithChildren, useState } from "react";
+import { ModalProps } from "@/types/modal-types";
+import { PropsWithChildren } from "react";
 
-export default function Modal({ children }: PropsWithChildren<{}>) {
-  const [show, setShow] = useState(false);
 
-  const handleModalClose = () => {
-    setShow(false);
-  };
 
-  const handleModalOpen = () => {
-    setShow(true);
-  };
+export default function Modal({
+  children,
+  closeModal,
+  showModal,
+}: PropsWithChildren<ModalProps>) {
   return (
     <div>
-      <div hidden={!show}>
-        <div className="modal-background" onClick={handleModalClose}>
+      <div hidden={!showModal}>
+        <div className="modal-background" onClick={closeModal}>
           <div className="modal-card">{children}</div>
         </div>
       </div>
@@ -33,17 +31,18 @@ export default function Modal({ children }: PropsWithChildren<{}>) {
             top: 0;
             left: 0;
             bottom: 0;
+            z-index: 100;
             background-color: rgba(10, 10, 10, 0.86);
           }
 
           .modal-card {
-            margin: 0 auto;
+            margin: 20% auto;
             display: block;
-            margin-top: 250px;
             width: 300px;
-            height: 300px;
-            background-color: lightgray;
+            height: auto;
+            background-color: white;
             border-radius: 5px;
+            padding: 20px;
           }
         `}
       </style>

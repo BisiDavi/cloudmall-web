@@ -1,11 +1,11 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { updateModal } from "@/redux/ui-slice";
 
 export default function CartFooter({ total }: any) {
-  const router = useRouter();
+  const dispatch = useAppDispatch();
 
-  function onClickHandler() {
-    return router.push("/auth/login");
+  function onCheckoutHandler() {
+    dispatch(updateModal({ type: "loginQuestionModal", visible: true }));
   }
 
   return (
@@ -15,11 +15,11 @@ export default function CartFooter({ total }: any) {
           <h4>Total Cost</h4>
           <h4>N {total}</h4>
         </div>
-        <Link href="/auth/login" passHref>
-          <a className="itemButton cart" onClick={onClickHandler}>
-            Checkout
-          </a>
-        </Link>
+        {/* <Link href="/auth/login" passHref> */}
+        <a className="itemButton cart" onClick={onCheckoutHandler}>
+          Checkout
+        </a>
+        {/* </Link> */}
       </div>
       <style jsx>
         {`
