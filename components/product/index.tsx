@@ -18,11 +18,10 @@ export default function Product({ product }: Props) {
   const { useCartActions, cart } = useMutationAction();
   const cartActions = useCartActions();
 
-  const productCount = cart.filter(
-    (cartItem) => cartItem.name === product.name
+  const productCount = cart?.filter(
+    (cartItem) => cartItem?.name === product?.name
   ).length;
   const quantiy = productCount > 0 ? productCount : "";
-  console.log("productCount", productCount);
   const buttonClassName = productCount > 0 ? "added" : "product-button";
 
   return (

@@ -8,14 +8,18 @@ import { productType } from "@/types/product-types";
 export default function useMutationAction() {
   const queryClient = useQueryClient();
   const { loadingToast, updateToast } = useToast();
-  const { addToCartHandler , cart} = useCart();
+  const { addToCartHandler, cart } = useCart();
 
   function useCartActions() {
     const toastID = useRef(null);
 
     return useMutation(
-      (product: productType): any => addToCartHandler(product),
+      (product: productType): any => {
+        console.log("product", product);
+        addToCartHandler(product);
+      },
       {
+        mutationKey: "addProductToCart",
         onMutate: () => {
           loadingToast(toastID);
         },
@@ -25,7 +29,8 @@ export default function useMutationAction() {
         onSuccess: () => {
           updateToast(toastID, toast.TYPE.SUCCESS, "product added to cart");
         },
-        onError: () => {
+        onError: (err) => {
+          console.log("err", err);
           updateToast(
             toastID,
             toast.TYPE.ERROR,

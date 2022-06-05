@@ -72,12 +72,16 @@ export default function CartItem({ cart }: cartProps) {
             margin-top: 10px;
           }
           .controls {
-            width: 40%;
+            width: 50%;
             display: flex;
             align-items: center;
+            justify-content: space-between;
           }
           .controls span {
-            margin: 0px 15px;
+            margin: 0px 10px;
+            font-size: 12px;
+            color: var(--text-color);
+            font-weight: 300;
           }
           .store {
             display: flex;

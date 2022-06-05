@@ -8,7 +8,7 @@ import { useAppSelector } from "@/hooks/useRedux";
 export default function Footer() {
   const { cart } = useAppSelector((state) => state.cart);
   let uniqueCartItems: any = [];
-  cart.map((cartItem) => uniqueCartItems.push(cartItem.name));
+  cart?.map((cartItem) => uniqueCartItems.push(cartItem.name));
   const uniqueCartItem = new Set(uniqueCartItems);
   const uniqueCartItemArray = Array.from(uniqueCartItem);
   const noOfCartItems =

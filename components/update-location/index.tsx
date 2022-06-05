@@ -29,6 +29,7 @@ export default function UpdateLocation() {
           .updatelocation h3 {
             font-weight: 500;
             margin-right: 10px;
+            font-size: 12px;
           }
           .updatelocation div {
             display: flex;

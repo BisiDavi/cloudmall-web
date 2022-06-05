@@ -38,6 +38,7 @@ a {
   --deep-green: #1cbe49;
   --faded-text: #6e7073;
   --leaf-green: #06a317;
+  --light-gray: #f5f5f5;
 }
 
 /* store-layout */
@@ -65,6 +66,13 @@ a {
   display: flex;
   align-items: center;
   margin-left: unset;
+}
+
+/* cart */
+.itemButton.cart {
+  width: 80%;
+  margin: auto;
+  height: 40px;
 }
 
 /* hide pill overflow scroll-bar */
