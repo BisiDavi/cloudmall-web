@@ -31,11 +31,11 @@
     "type": "number"
   },
   {
-    "placeholder": "*************",
-    "label": "Password",
+    "placeholder": "Phone Number",
+    "label": "Phone Number",
     "elementType": "input",
-    "id": "login-password",
-    "type": "password",
-    "name": "password"
+    "name": "phonenumber",
+    "id": "phone-number",
+    "type": "number"
   }
 ]

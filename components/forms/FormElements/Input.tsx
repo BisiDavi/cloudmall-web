@@ -28,16 +28,16 @@ export default function Input({ input }: Props) {
           padding: 5px 10px;
           color: var(--faded-text);
           border-radius: 5px;
-          margin: 5px 0px;
+          margin: 2px 0px;
           display: flex;
           align-items: center;
-          padding: 5px;
+          padding: 5px 8px;
           height: 40px;
         }
         .form-element {
           display: flex;
           flex-direction: column;
-          margin: 5px 0px;
+          margin: 10px 0px;
           font-family: Roboto;
           font-style: normal;
         }
