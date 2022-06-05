@@ -4,6 +4,7 @@ import NoteIcon from "@/components/icons/NoteIcon";
 import InfoIcon from "@/components/icons/InfoIcon";
 import Button from "@/components/buttons";
 import { useRouter } from "next/router";
+import SelectFormElement from "./SelectFormElement";
 
 const totalItems = [
   { text: "Items", price: "N3100" },
@@ -24,7 +25,7 @@ export default function DeliverydetailsForm() {
       <form className="delivery-details">
         <div className="form-input">
           {formContent.map((inputContent) => (
-            <Input input={inputContent} key={inputContent.id} />
+            <SelectFormElement input={inputContent} key={inputContent.id} />
           ))}
         </div>
         <div className="order-note">
