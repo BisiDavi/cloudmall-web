@@ -3,6 +3,7 @@ import Input from "@/components/forms/FormElements/Input";
 import NoteIcon from "@/components/icons/NoteIcon";
 import InfoIcon from "@/components/icons/InfoIcon";
 import Button from "@/components/buttons";
+import { useRouter } from "next/router";
 
 const totalItems = [
   { text: "Items", price: "N3100" },
@@ -12,6 +13,12 @@ const totalItems = [
 ];
 
 export default function DeliverydetailsForm() {
+  const router = useRouter();
+
+  function buttonHandler() {
+    return router.push("/payment-confirmation");
+  }
+
   return (
     <>
       <form className="delivery-details">
@@ -35,7 +42,11 @@ export default function DeliverydetailsForm() {
             </li>
           ))}
         </ul>
-        <Button className="itemButton" text="Complete Payment" />
+        <Button
+          className="itemButton"
+          text="Complete Payment"
+          onClick={buttonHandler}
+        />
       </form>
       <style jsx>
         {`

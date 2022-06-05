@@ -1,4 +1,5 @@
 import { orderListType } from "@/types/order-types";
+import Link from "next/link";
 import OrderListItem from "../orders/OrderListItem";
 
 interface Props {
@@ -13,7 +14,7 @@ export default function OrderlistitemView({ orderList, storeName }: Props) {
         <h3>{storeName}</h3>
         <div className="list">
           {orderList.map((order) => (
-            <OrderListItem orderList={order} key={order.orderId} />
+            <OrderListItem orderList={order} key={order?.orderId} />
           ))}
         </div>
         <div className="total">
@@ -21,7 +22,9 @@ export default function OrderlistitemView({ orderList, storeName }: Props) {
             <p>Total</p>
             <p>4,500.00</p>
           </div>
-          <button className="proceed">Proceed</button>
+          <Link href="/cart" passHref>
+            <a className="proceed">Proceed</a>
+          </Link>
         </div>
       </div>
       <style jsx>{`

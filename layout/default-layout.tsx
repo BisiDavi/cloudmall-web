@@ -6,6 +6,7 @@ interface Props {
   title: string;
   search?: JSX.Element;
   padding?: string;
+  showArrow?: boolean;
 }
 
 export default function DefaultLayout({
@@ -13,6 +14,7 @@ export default function DefaultLayout({
   children,
   search,
   padding = "0px 20px",
+  showArrow = true,
 }: PropsWithChildren<Props>) {
   const router = useRouter();
 
@@ -24,9 +26,11 @@ export default function DefaultLayout({
       <main className="store-layout">
         <div className="header">
           <div className="top-view">
-            <button type="button" className="button" onClick={goBack}>
-              <ArrowleftIcon />
-            </button>
+            {showArrow && (
+              <button type="button" className="button" onClick={goBack}>
+                <ArrowleftIcon />
+              </button>
+            )}
 
             <h3>{title}</h3>
           </div>
