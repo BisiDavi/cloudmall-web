@@ -12,8 +12,8 @@ export default function ProcuctGridView() {
           .gridview {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            padding: 0px 20px;
+            gap: 20px;
+            padding: 0px 30px;
             margin-top: 20px;
           }
         `}

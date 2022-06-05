@@ -41,12 +41,12 @@ export default function Footer() {
             display: flex;
             position: fixed;
             bottom: 0px;
-            left:0px;
-            width:100%;
-            background-color: white;
+            left: 0px;
+            width: 100%;
             padding: 12px 20px;
-            justify-content:space-between
-            height: 80px;
+            justify-content: space-between;
+            background-color: var(--light-blue);
+            height: 65px;
             align-items: center;
             border-top: 1px solid rgba(62, 64, 68, 0.25);
           }

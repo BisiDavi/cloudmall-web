@@ -20,6 +20,7 @@ export default function RestaurantPillsGroup({ storeType }: Props) {
             display: flex;
             align-items: center;
             overflow-x: scroll;
+            padding-left: 20px;
           }
           .gray {
             background-color: var(--neutral-gray-2);

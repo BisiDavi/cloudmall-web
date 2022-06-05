@@ -15,13 +15,13 @@ export default function UpdateLocation() {
         {`
           .updatelocation {
             width: 100%;
-            background-color: var(--light-blue);
             font-size: 12px;
             font-style: normal;
             line-height: 18px;
-            padding: 10px 15px;
+            padding: 0px;
             height: 90%;
-            box-shadow: 0px 4px 3px 0px #00000059;
+            margin-top: 0px;
+            margin-left: 0px;
           }
           .updatelocation span {
             font-weight: 300;

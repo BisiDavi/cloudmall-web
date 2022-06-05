@@ -5,12 +5,14 @@ import { PropsWithChildren } from "react";
 interface Props {
   title: string;
   search?: JSX.Element;
+  padding?: string;
 }
 
 export default function DefaultLayout({
   title,
   children,
   search,
+  padding = "0px 20px",
 }: PropsWithChildren<Props>) {
   const router = useRouter();
 
@@ -70,8 +72,7 @@ export default function DefaultLayout({
           color: var(--text-color);
         }
         .section {
-          height: 75vh;
-          padding: 0px 20px;
+          padding: ${padding};
           overflow: scroll;
         }
       `}</style>
