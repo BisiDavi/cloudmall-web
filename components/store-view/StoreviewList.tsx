@@ -2,39 +2,47 @@ import Link from "next/link";
 
 import StoreIcon from "@/components/store-view/store-icon";
 import MapIcon from "@/components/icons/MapIcon";
+import Image from "next/image";
+import { storeType } from "@/types/store-types";
 
 interface Props {
-  store: {
-    name: string;
-    type: string;
-    status: string;
-    distance: string;
-    location: string;
-  };
+  store: storeType;
 }
 
 export default function StoreviewList({ store }: Props) {
-  const statusClassName = store.status === "Open" ? "active" : "inactive";
+  const statusClassName = store.isCurrentlyOpen ? "active" : "inactive";
+  const storeStatus = store.isCurrentlyOpen ? "OPEN" : "CLOSED";
   return (
     <>
       <Link passHref href={`/store/${store.name}`}>
         <div className="store-view-list">
-          <StoreIcon storeName={store.name} />
+          {store.logo ? (
+            <Image
+              src={`https://cloudmall-africa.herokuapp.com${store.logo}`}
+              alt="logo"
+              height={100}
+              width={100}
+            />
+          ) : (
+            <StoreIcon storeName={store.name} />
+          )}
           <div className="content">
             <div className="layer">
               <div className="store-name">
                 <h4>{store.name}</h4>
-                <h6>{store.type}</h6>
+                <h6>{store.category.name}</h6>
               </div>
-              <div className={`status ${statusClassName}`}>{store.status}</div>
+              <div className={`status ${statusClassName}`}>{storeStatus}</div>
             </div>
-            <div className="layer">
-              <div className="address">
-                <MapIcon />
-                <span>{store.location}</span>
+            {store.address && (
+              <div className="layer">
+                <div className="address">
+                  <MapIcon />
+                  <span>{store.address}</span>
+                </div>
+                <h6>4km</h6>
               </div>
-              <h6>{store.distance}</h6>
-            </div>
+            )}
           </div>
         </div>
       </Link>

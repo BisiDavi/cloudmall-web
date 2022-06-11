@@ -1,26 +1,32 @@
-import React, { useState } from "react";
+import { Dispatch, memo, SetStateAction } from "react";
+
+import { storeCategoryType } from "@/types/store-types";
 
 interface PillProps {
-  text: string;
-  type: "restaurant" | "store";
+  category: storeCategoryType;
+  selectedCategory: string;
+  setSelectedCategory: Dispatch<SetStateAction<string>>;
 }
 
-export default function Pill({ text, type }: PillProps) {
-  const pillType = type === "restaurant" ? "pill" : "link";
-  const [selected, setSelected] = useState(false);
-  const selectedClassName = selected ? "active" : "inactive";
+function PillComponent({
+  category,
+  selectedCategory,
+  setSelectedCategory,
+}: PillProps) {
+  const selectedClassName =
+    selectedCategory === category.name ? "active" : "inactive";
 
   function onClickHandler() {
-    setSelected(!selected);
+    setSelectedCategory(category.name);
   }
   return (
     <>
       <button
         type="button"
         onClick={onClickHandler}
-        className={`${pillType} ${selectedClassName}`}
+        className={`pill ${selectedClassName}`}
       >
-        {text}
+        {category.name}
       </button>
       <style jsx>
         {`
@@ -33,6 +39,7 @@ export default function Pill({ text, type }: PillProps) {
             font-weight: 400;
             font-size: 14px;
             letter-spacing: 0.0125em;
+            min-width: fit-content;
             margin-right: 20px;
             padding: 10px;
           }
@@ -63,3 +70,5 @@ export default function Pill({ text, type }: PillProps) {
     </>
   );
 }
+const Pill = memo(PillComponent);
+export default Pill;

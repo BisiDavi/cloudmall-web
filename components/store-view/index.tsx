@@ -1,16 +1,25 @@
+import { useQuery } from "react-query";
+
 import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
-import stores from "@/json/stores.json";
 import StoreviewList from "@/components/store-view/StoreviewList";
+import { listStore } from "@/utils/storeRequest";
+import { storeType } from "@/types/store-types";
 
 export default function Storeview() {
+  const { data, status } = useQuery("listStores", listStore);
+
   return (
     <>
       <div className="store-view">
         <RestaurantPillsGroup storeType="restaurant" />
         <div className="list">
-          {stores.map((store) => (
-            <StoreviewList store={store} key={store.name} />
-          ))}
+          {status === "error"
+            ? "error occured"
+            : status === "loading"
+            ? "loading"
+            : data?.data.stores.map((store: storeType) => (
+                <StoreviewList store={store} key={store._id} />
+              ))}
         </div>
       </div>
       <style jsx>
