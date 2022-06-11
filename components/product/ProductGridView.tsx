@@ -1,12 +1,27 @@
-import products from "@/json/products.json";
 import Product from "@/components/product";
+import { productType } from "@/types/product-types";
+import { getStoreProducts } from "@/utils/storeRequest";
+import { useQuery } from "react-query";
 
-export default function ProcuctGridView() {
+interface Props {
+  storeId: string;
+}
+
+export default function ProcuctGridView({ storeId }: Props) {
+  const { data, status } = useQuery(`getStoreProducts-${storeId}`, () =>
+    getStoreProducts({ storeIds: [storeId] })
+  );
+  console.log("data", data);
+
   return (
     <div className="gridview">
-      {products.map((product) => (
-        <Product product={product} key={product.name} />
-      ))}
+      {status === "error"
+        ? "error"
+        : status === "loading"
+        ? "loading"
+        : data?.data.products.map((product: productType) => (
+            <Product product={product} key={product.name} />
+          ))}
       <style jsx>
         {`
           .gridview {

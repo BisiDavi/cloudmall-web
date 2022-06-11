@@ -1,14 +1,8 @@
 import Image from "next/image";
 
 import AddIcon from "@/components/icons/AddIcon";
-import useCart from "@/hooks/useCart";
 import useCartMutationAction from "@/hooks/useCartMutationAction";
-
-type productType = {
-  name: string;
-  price: number;
-  image: string;
-};
+import { productType } from "@/types/product-types";
 
 interface Props {
   product: productType;
@@ -28,15 +22,15 @@ export default function Product({ product }: Props) {
     <>
       <div className="product">
         <Image
-          src={product.image}
+          src={`https://cloudmall-africa.herokuapp.com${product.image}`}
           alt={product.name}
-          height={100}
+          height={150}
           width={200}
         />
         <div className="content">
           <h3>{product.name}</h3>
           <div className="layer">
-            <h4>{product.price}</h4>
+            <h4>{product.unitPrice}</h4>
             <button
               type="button"
               onClick={() => cartActions.mutate(product)}

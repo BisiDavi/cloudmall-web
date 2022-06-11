@@ -12,9 +12,16 @@ interface Props {
 export default function StoreviewList({ store }: Props) {
   const statusClassName = store.isCurrentlyOpen ? "active" : "inactive";
   const storeStatus = store.isCurrentlyOpen ? "OPEN" : "CLOSED";
+
   return (
     <>
-      <Link passHref href={`/store/${store.name}`}>
+      <Link
+        passHref
+        href={{
+          pathname: `/store/${store.name}`,
+          query: { store_id: store._id, store_name: store.name },
+        }}   
+      >
         <div className="store-view-list">
           {store.logo ? (
             <Image

@@ -1,6 +1,5 @@
  export type productType = {
   name: string;
-  price: number;
+  unitPrice: number;
   image: string;
-  store?: string;
 };

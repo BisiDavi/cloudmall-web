@@ -13,9 +13,8 @@ export default function RestaurantPillsGroup({ storeType }: Props) {
   const { data, status } = useQuery("listStoreCategories", listStoreCategories);
   const [selectedCategory, setSelectedCategory] = useState("");
 
-  console.log("data", data);
-
   const pillGroupClassname = storeType === "store" ? "gray" : "normal";
+
   return (
     <>
       <div className={`pill-group ${pillGroupClassname}`}>
