@@ -3,10 +3,11 @@ import locationReducer from "@/redux/location-slice";
 import cartReducer from "@/redux/cart-slice";
 import uiReducer from "@/redux/ui-slice";
 import categoryReducer from "@/redux/category-slice";
+import searchReducer from "@/redux/search-slice";
 
-import storage from "redux-persist/lib/storage";
+// import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
+// import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
 
 const reducers = combineReducers({
@@ -14,17 +15,18 @@ const reducers = combineReducers({
   cart: cartReducer,
   ui: uiReducer,
   category: categoryReducer,
+  search: searchReducer,
 });
 
-const persistConfig = {
-  key: "root",
-  storage,
-};
+// const persistConfig = {
+//   key: "root",
+//   storage,
+// };
 
-const persistedReducer = persistReducer(persistConfig, reducers);
+// const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
-  reducer: persistedReducer,
+  reducer: reducers,
   devTools: process.env.NODE_ENV !== "production",
   middleware: [thunk],
 });

@@ -1,13 +1,21 @@
 import SearchIcon from "@/components/icons/SearchIcon";
+import { useAppDispatch } from "@/hooks/useRedux";
+import { updateSearch } from "@/redux/search-slice";
 
 export default function SearchStore() {
+  const dispatch = useAppDispatch();
+
+  function inputHandler(e: any) {
+    dispatch(updateSearch(e.target.value));
+  }
+
   return (
     <>
       <div className="search-store">
         <span>
           <SearchIcon />
         </span>
-        <input className="search-input" />
+        <input className="search-input" onChange={inputHandler} />
       </div>
       <style jsx>
         {`
