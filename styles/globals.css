@@ -119,4 +119,7 @@ button.itemButton.autocomplete {
 .autocomplete input {
   height: 35px;
   padding-left: 10px;
+  width: 100%;
+  border: 1px solid var(--mall-blue);
+  border-radius: 5px;
 }

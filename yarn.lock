@@ -3667,7 +3667,7 @@ prompts@^2.0.1:
     kleur "^3.0.3"
     sisteransi "^1.0.5"
 
-prop-types@^15.5.0, prop-types@^15.7.2, prop-types@^15.8.1:
+prop-types@^15.5.8, prop-types@^15.7.2, prop-types@^15.8.1:
   version "15.8.1"
   resolved "https://registry.yarnpkg.com/prop-types/-/prop-types-15.8.1.tgz#67d87bf1a694f48435cf332c24af10214a3140b5"
   integrity sha512-oj87CgZICdulUohogVAR7AjlC0327U4el4L6eAvOqCeudMDVU0NThNaV+b9Df4dXgSP1gXMTnPdhfe/2qDH5cg==
@@ -3724,14 +3724,6 @@ react-fast-compare@^2.0.1:
   resolved "https://registry.yarnpkg.com/react-fast-compare/-/react-fast-compare-2.0.4.tgz#e84b4d455b0fec113e0402c329352715196f81f9"
   integrity sha512-suNP+J1VU1MWFKcyt7RtjiSWUjvidmQSlqu+eHslq+342xCbGTYmC0mEhPCOHxlW0CywylOC1u2DFAT+bv4dBw==
 
-react-google-autocomplete@^2.7.0:
-  version "2.7.0"
-  resolved "https://registry.yarnpkg.com/react-google-autocomplete/-/react-google-autocomplete-2.7.0.tgz#cc3bc166b9e0a05326aff77e89154d4a2332efec"
-  integrity sha512-yYhPQC3TDiqhT3pBjslfkn7g6Y4/ihGv0Ch7YG4/PBrpOgA0n+rwJJrcpmPxeqK03sCwvGozTcBKqkJECo3bvA==
-  dependencies:
-    lodash.debounce "^4.0.8"
-    prop-types "^15.5.0"
-
 react-is@^16.13.1, react-is@^16.7.0:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
@@ -3746,6 +3738,14 @@ react-is@^18.0.0:
   version "18.1.0"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-18.1.0.tgz#61aaed3096d30eacf2a2127118b5b41387d32a67"
   integrity sha512-Fl7FuabXsJnV5Q1qIOQwx/sagGF18kogb4gpfcG4gjLBWO0WDiiz1ko/ExayuxE7InyQkBLkxRFG5oxY6Uu3Kg==
+
+react-places-autocomplete@^7.3.0:
+  version "7.3.0"
+  resolved "https://registry.yarnpkg.com/react-places-autocomplete/-/react-places-autocomplete-7.3.0.tgz#81a2345ae4a6fc35d7a712ccd4850d497553ba1b"
+  integrity sha512-86wcHC69JATvWBnIS/yCsBHLtwzOGcnx3Ye94u74yTrz1jLRC/txkVDkf6rvC+Jq3zNe/tAg/W53x0EaH1ZPPw==
+  dependencies:
+    lodash.debounce "^4.0.8"
+    prop-types "^15.5.8"
 
 react-query@^3.39.0:
   version "3.39.0"

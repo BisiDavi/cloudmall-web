@@ -32,8 +32,6 @@ function GoogleMap() {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState();
 
-  console.log("map", map);
-
   useEffect(() => {
     if (ref.current && !map) {
       setMap(
