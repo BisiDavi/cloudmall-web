@@ -7,6 +7,13 @@ import Script from "next/script";
 
 import Button from "@/components/buttons";
 import { useState } from "react";
+import Image from "next/image";
+
+declare global {
+  interface Window {
+    google: any;
+  }
+}
 
 export default function AutocompleteView() {
   const [address, setAddress] = useState("");
@@ -24,7 +31,7 @@ export default function AutocompleteView() {
     <>
       <Script
         type="text/javascript"
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}&libraries=places`}
+        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}&libraries=places&sensor=true`}
         strategy="beforeInteractive"
       />
       <div className="autocomplete">
@@ -32,8 +39,13 @@ export default function AutocompleteView() {
           value={address}
           onChange={autoCompleteHandler}
           onSelect={handleSelect}
+          debounce={400}
+          searchOptions={{
+            componentRestrictions: { country: "ng" },
+          }}
           placeholder="9, Omole Estate behind Mayfair, Ile-Ife"
           className="autocomplete"
+          shouldFetchSuggestions={address.length > 3}
         >
           {({
             getInputProps,
@@ -44,12 +56,21 @@ export default function AutocompleteView() {
             <div>
               <input
                 {...getInputProps({
-                  placeholder: "Search Places ...",
+                  placeholder: "9, Omole Estate behind Mayfair, Ile-Ife",
                   className: "location-search-input",
+                  label: "Enter your Address",
                 })}
               />
               <div className="autocomplete-dropdown-container">
-                {loading && <div>Loading...</div>}
+                {loading && (
+                  <Image
+                    src="/loading.gif"
+                    height={40}
+                    width={150}
+                    alt="loading icon"
+                    layout="responsive"
+                  />
+                )}
                 {suggestions.map(
                   (
                     suggestion: {
@@ -63,7 +84,6 @@ export default function AutocompleteView() {
                     const className = suggestion.active
                       ? "suggestion-item--active"
                       : "suggestion-item";
-                    // inline style for demonstration purpose
                     const style = suggestion.active
                       ? { backgroundColor: "#fafafa", cursor: "pointer" }
                       : { backgroundColor: "#ffffff", cursor: "pointer" };

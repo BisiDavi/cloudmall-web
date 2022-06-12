@@ -1,10 +1,13 @@
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
+import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const renderStatus = (status: Status) => {
   switch (status) {
     case Status.LOADING:
-      return <p>loading...</p>;
+      return (
+        <Image src="/loading.gif" height={150} width={150} alt="loading icon" />
+      );
     case Status.FAILURE:
       return <p>error occured</p>;
     case Status.SUCCESS:
@@ -30,7 +33,7 @@ declare global {
 
 function GoogleMap() {
   const ref = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState();
+  const [map, setMap] = useState(null);
 
   useEffect(() => {
     if (ref.current && !map) {
