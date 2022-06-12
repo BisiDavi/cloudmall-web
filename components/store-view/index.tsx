@@ -8,10 +8,14 @@ import { useAppSelector } from "@/hooks/useRedux";
 
 export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
-  const storeviewFunc = category
-    ? () => listStore({ categoryIds: [category] })
-    : listStore;
-  const { data, status } = useQuery(`listStores-${category}`, storeviewFunc);
+  const storeviewFunc =
+    category.length > 0
+      ? () => listStore({ categoryIds: category })
+      : listStore;
+  const categoryKey = category.length > 0 ? category : "";
+  const { data, status } = useQuery(`listStores-${categoryKey}`, storeviewFunc);
+
+  console.log("categoryKey", categoryKey);
   return (
     <>
       <div className="store-view">

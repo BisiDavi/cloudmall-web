@@ -1,4 +1,4 @@
-import { Dispatch, memo, SetStateAction } from "react";
+import { memo } from "react";
 
 import { storeCategoryType } from "@/types/store-types";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
@@ -6,16 +6,15 @@ import { updateCategory } from "@/redux/category-slice";
 
 interface PillProps {
   category: storeCategoryType;
-  selectedCategory: string;
-  setSelectedCategory: Dispatch<SetStateAction<string>>;
 }
 
 function PillComponent({ category }: PillProps) {
   const appState = useAppSelector((state) => state.category);
-
-  const selectedClassName =
-    appState.category === category._id ? "active" : "inactive";
   const dispatch = useAppDispatch();
+
+  const selectedClassName = appState.category.includes(category._id)
+    ? "active"
+    : "inactive";
 
   function onClickHandler() {
     dispatch(updateCategory(category._id));

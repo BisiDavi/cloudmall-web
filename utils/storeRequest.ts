@@ -1,6 +1,7 @@
 import axios from "axios";
 
 export function listStore(storeData: any) {
+  console.log("storeData", storeData);
   if (storeData) {
     return axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/stores/search`,

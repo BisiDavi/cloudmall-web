@@ -3,7 +3,6 @@ import { useQuery } from "react-query";
 import Pill from "@/components/pills";
 import { listStoreCategories } from "@/utils/storeRequest";
 import { storeCategoryType } from "@/types/store-types";
-import { useState } from "react";
 
 interface Props {
   storeType: "restaurant" | "store";
@@ -12,10 +11,6 @@ interface Props {
 
 export default function RestaurantPillsGroup({ storeType, category }: Props) {
   const { data, status } = useQuery("listStoreCategories", listStoreCategories);
-  const [selectedCategory, setSelectedCategory] = useState("");
-
-  console.log("data", data);
-  console.log("data?.data.categories", data?.data.categories);
 
   const pillGroupClassname = storeType === "store" ? "gray" : "normal";
 
@@ -37,12 +32,7 @@ export default function RestaurantPillsGroup({ storeType, category }: Props) {
           : status === "loading"
           ? "loading"
           : getCategory().map((category: storeCategoryType) => (
-              <Pill
-                key={category._id}
-                category={category}
-                selectedCategory={selectedCategory}
-                setSelectedCategory={setSelectedCategory}
-              />
+              <Pill key={category._id} category={category} />
             ))}
       </div>
       <style jsx>

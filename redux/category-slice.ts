@@ -1,11 +1,11 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type  categoryState = {
-  category: string;
+type categoryState = {
+  category: string[];
 };
 
 const initialState: categoryState = {
-  category: "",
+  category: [],
 };
 
 export const categorySlice = createSlice({
@@ -13,7 +13,12 @@ export const categorySlice = createSlice({
   initialState,
   reducers: {
     updateCategory: (state, action: PayloadAction<string>) => {
-      state.category = action.payload;
+      if (!state.category.includes(action.payload)) {
+        state.category = [...state.category, action.payload];
+      } else {
+        const categoryIndex = state.category.indexOf(action.payload);
+        state.category.splice(categoryIndex, 1);
+      }
     },
   },
 });
