@@ -109,7 +109,14 @@ a {
 }
 
 /* autocomplete */
-.itemButton.autocomplete {
+button.itemButton.autocomplete {
   width: 100%;
   margin-left: 0px;
+  height: 40px;
+  margin-top: 20px;
+}
+
+.autocomplete input {
+  height: 35px;
+  padding-left: 10px;
 }

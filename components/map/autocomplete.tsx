@@ -1,19 +1,21 @@
-import Button from "../buttons";
-import Input from "../forms/FormElements/Input";
+import AutoComplete from "react-google-autocomplete";
 
-const inputValue = {
-  id: "autocomplete",
-  label: "Enter your Address",
-  name: "user-address",
-  placeholder: "9, Omole Estate behind Mayfair, Ile-Ife",
-  type: "text",
-};
+import Button from "@/components/buttons";
 
 export default function AutocompleteView() {
   return (
     <>
       <div className="autocomplete">
-        <Input input={inputValue} />
+        <AutoComplete
+          apiKey={process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}
+          onPlaceSelected={(place) => console.log("places", place)}
+          placeholder="9, Omole Estate behind Mayfair, Ile-Ife"
+          options={{
+            types: ["(address)"],
+            componentRestrictions: { country: "ng" },
+          }}
+          className="autocomplete"
+        />
         <Button text="Confirm Address" className="itemButton autocomplete" />
       </div>
       <style jsx>
