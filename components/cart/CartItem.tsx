@@ -10,7 +10,7 @@ import SubtractIcon from "../icons/SubtractIcon";
 import TrashIcon from "../icons/TrashIcon";
 
 interface cartProps {
-  cart: productType;
+  cart: any;
 }
 
 export default function CartItem({ cart }: cartProps) {
