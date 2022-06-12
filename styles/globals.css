@@ -123,3 +123,13 @@ button.itemButton.autocomplete {
   border: 1px solid var(--mall-blue);
   border-radius: 5px;
 }
+
+.suggestion-item--active {
+  position: absolute;
+  top: 40px;
+  left: 0px;
+}
+
+.autocomplete-dropdown-container {
+  position: relative;
+}

@@ -8,6 +8,7 @@ import Script from "next/script";
 import Button from "@/components/buttons";
 import { useState } from "react";
 import Image from "next/image";
+import { autocompleteStyles } from "./autocomplete.style";
 
 declare global {
   interface Window {
@@ -22,6 +23,7 @@ export default function AutocompleteView() {
     setAddress(userAddress);
   }
   function handleSelect(userAddress: string) {
+    console.log("userAddress", userAddress);
     geocodeByAddress(userAddress)
       .then((results: any) => getLatLng(results[0]))
       .then((latLng: any) => console.log("success", latLng))
@@ -53,15 +55,22 @@ export default function AutocompleteView() {
             getSuggestionItemProps,
             loading,
           }: any) => (
-            <div>
+            <div
+              className="auto-complete input-wrapper"
+              style={autocompleteStyles.wrapper}
+            >
               <input
+                value={address}
                 {...getInputProps({
                   placeholder: "9, Omole Estate behind Mayfair, Ile-Ife",
                   className: "location-search-input",
                   label: "Enter your Address",
                 })}
               />
-              <div className="autocomplete-dropdown-container">
+              <div
+                className="autocomplete-dropdown-container"
+                style={autocompleteStyles.dropdown}
+              >
                 {loading && (
                   <Image
                     src="/loading.gif"
@@ -72,18 +81,15 @@ export default function AutocompleteView() {
                   />
                 )}
                 {suggestions.map(
-                  (
-                    suggestion: {
-                      active: boolean;
-                      description: string;
-                      placeId: string;
-                    },
-                    index: number
-                  ) => {
+                  (suggestion: {
+                    active: boolean;
+                    description: string;
+                    placeId: string;
+                  }) => {
                     console.log("suggestion", suggestion);
                     const className = suggestion.active
-                      ? "suggestion-item--active"
-                      : "suggestion-item";
+                      ? "list suggestion-item--active"
+                      : "list suggestion-item";
                     const style = suggestion.active
                       ? { backgroundColor: "#fafafa", cursor: "pointer" }
                       : { backgroundColor: "#ffffff", cursor: "pointer" };
@@ -94,6 +100,7 @@ export default function AutocompleteView() {
                           className,
                           style,
                         })}
+                        style={autocompleteStyles.dropdownItem}
                       >
                         <span>{suggestion.description}</span>
                       </div>
@@ -114,6 +121,14 @@ export default function AutocompleteView() {
             display: flex;
             flex-direction: column;
             height: 28vh;
+          }
+          .auto-complete.imput-wrapper {
+            position: relative;
+          }
+          .suggestion-item--active {
+            position: absolute;
+            top: 40px;
+            left: 0px;
           }
         `}
       </style>
