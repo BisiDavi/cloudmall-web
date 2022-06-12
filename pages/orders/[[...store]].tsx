@@ -7,21 +7,18 @@ import NoOrderView from "@/components/views/NoOrderView";
 
 export default function Index() {
   const router: any = useRouter();
-  const orderId = router.query?.store[1];
-  const orderData = storesOrder.filter(
-    (storeOrder) => Number(storeOrder.orderNumber) === Number(orderId)
-  );
+  // const orderId = router?.query?.store[1];
+  // const orderData = storesOrder.filter(
+  //   (storeOrder) => Number(storeOrder.orderNumber) === Number(orderId)
+  // );
 
-  const orderList = orderData[0]?.orders;
+  // const orderList = orderData[0]?.orders;
 
   return (
     <>
-      {orderList.length > 0 ? (
+      {false ? (
         <DefaultLayout title="List of Items" padding="0px">
-          <OrderlistitemView
-            orderList={orderList}
-            storeName={orderData[0].name}
-          />
+          <OrderlistitemView orderList={[]} storeName={""} />
         </DefaultLayout>
       ) : (
         <NoOrderView />
