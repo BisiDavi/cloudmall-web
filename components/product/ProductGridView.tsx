@@ -11,7 +11,8 @@ export default function ProcuctGridView({ storeId }: Props) {
   const { data, status } = useQuery(`getStoreProducts-${storeId}`, () =>
     getStoreProducts({ storeIds: [storeId] })
   );
-  console.log("data", data);
+
+  // console.log("data", data);
 
   return (
     <div className="gridview">

@@ -7,13 +7,27 @@ import { useState } from "react";
 
 interface Props {
   storeType: "restaurant" | "store";
+  category: string;
 }
 
-export default function RestaurantPillsGroup({ storeType }: Props) {
+export default function RestaurantPillsGroup({ storeType, category }: Props) {
   const { data, status } = useQuery("listStoreCategories", listStoreCategories);
   const [selectedCategory, setSelectedCategory] = useState("");
 
+  console.log("data", data);
+  console.log("data?.data.categories", data?.data.categories);
+
   const pillGroupClassname = storeType === "store" ? "gray" : "normal";
+
+  function getCategory() {
+    const categoryArray = data?.data.categories;
+    const categories = category
+      ? data?.data.categories.filter(
+          (cat: { name: string }) => cat.name === category
+        )
+      : categoryArray;
+    return categories;
+  }
 
   return (
     <>
@@ -22,7 +36,7 @@ export default function RestaurantPillsGroup({ storeType }: Props) {
           ? "error"
           : status === "loading"
           ? "loading"
-          : data?.data.categories.map((category: storeCategoryType) => (
+          : getCategory().map((category: storeCategoryType) => (
               <Pill
                 key={category._id}
                 category={category}

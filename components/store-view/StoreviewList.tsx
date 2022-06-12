@@ -19,8 +19,8 @@ export default function StoreviewList({ store }: Props) {
         passHref
         href={{
           pathname: `/store/${store.name}`,
-          query: { store_id: store._id, store_name: store.name },
-        }}   
+          query: { store_id: store._id },
+        }}
       >
         <div className="store-view-list">
           {store.logo ? (

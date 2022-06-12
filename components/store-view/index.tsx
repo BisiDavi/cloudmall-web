@@ -8,6 +8,7 @@ import { storeType } from "@/types/store-types";
 export default function Storeview() {
   const { data, status } = useQuery("listStores", listStore);
 
+  
   return (
     <>
       <div className="store-view">
