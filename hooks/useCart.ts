@@ -6,7 +6,7 @@ export default function useCart() {
   const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cart);
 
-  function addToCartHandler(item: productType) {
+  function addToCartHandler(item: any) {
     return dispatch(addToCart(item));
   }
 
