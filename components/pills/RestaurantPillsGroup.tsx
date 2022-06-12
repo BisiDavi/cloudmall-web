@@ -7,7 +7,7 @@ import { useState } from "react";
 
 interface Props {
   storeType: "restaurant" | "store";
-  category: string;
+  category?: string;
 }
 
 export default function RestaurantPillsGroup({ storeType, category }: Props) {

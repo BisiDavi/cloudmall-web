@@ -4,11 +4,14 @@ import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
 import StoreviewList from "@/components/store-view/StoreviewList";
 import { listStore } from "@/utils/storeRequest";
 import { storeType } from "@/types/store-types";
+import { useAppSelector } from "@/hooks/useRedux";
 
 export default function Storeview() {
-  const { data, status } = useQuery("listStores", listStore);
-
-  
+  const { category } = useAppSelector((state) => state.category);
+  const storeviewFunc = category
+    ? () => listStore({ categoryIds: [category] })
+    : listStore;
+  const { data, status } = useQuery(`listStores-${category}`, storeviewFunc);
   return (
     <>
       <div className="store-view">

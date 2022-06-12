@@ -2,6 +2,8 @@ import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
 import locationReducer from "@/redux/location-slice";
 import cartReducer from "@/redux/cart-slice";
 import uiReducer from "@/redux/ui-slice";
+import categoryReducer from "@/redux/category-slice";
+
 import storage from "redux-persist/lib/storage";
 import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
@@ -11,6 +13,7 @@ const reducers = combineReducers({
   location: locationReducer,
   cart: cartReducer,
   ui: uiReducer,
+  category: categoryReducer,
 });
 
 const persistConfig = {

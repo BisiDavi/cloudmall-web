@@ -1,10 +1,14 @@
 import axios from "axios";
 
 export function listStore(storeData: any) {
-  return axios.post(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/stores/search`,
-    storeData
-  );
+  if (storeData) {
+    return axios.post(
+      `${process.env.NEXT_PUBLIC_BASE_URL}/stores/search`,
+      storeData
+    );
+  } else {
+    return axios.post(`${process.env.NEXT_PUBLIC_BASE_URL}/stores/search`);
+  }
 }
 
 export function storeProfile(storeId: any) {
