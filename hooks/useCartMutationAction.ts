@@ -3,21 +3,31 @@ import { toast } from "react-toastify";
 import useToast from "@/hooks/useToast";
 import { useRef } from "react";
 import useCart from "./useCart";
-import { productType } from "@/types/product-types";
+import { addToCart } from "@/utils/cartRequest";
+
+type mutationType = {
+  product: {
+    _id: string;
+  };
+  qty: number;
+};
 
 export default function useCartMutationAction() {
   const queryClient = useQueryClient();
   const { loadingToast, updateToast } = useToast();
-  const { addToCartHandler, cart, removeCartHandler } = useCart();
+  const { cart, removeCartHandler } = useCart();
 
   function useAddToCart() {
     const toastID = useRef(null);
 
     return useMutation(
-      (product: productType): any => {
-        console.log("product", product);
-        addToCartHandler(product);
-      },
+      ({ product, qty }: mutationType) =>
+        addToCart({
+          item: {
+            productId: product._id,
+            qty,
+          },
+        }),
       {
         mutationKey: "addProductToCart",
         onMutate: () => {

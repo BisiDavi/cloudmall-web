@@ -15,8 +15,6 @@ export default function StorePage() {
 
   const storeName = status === "success" ? data?.data.store.name : "";
 
-  console.log("data-store-profile", data);
-
   return (
     <StoreLayoutPage title={storeName} padding="0px 0px 0px 0px">
       <RestaurantPillsGroup

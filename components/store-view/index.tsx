@@ -10,13 +10,12 @@ export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
   const { search } = useAppSelector((state) => state.search);
 
-  console.log("search", search);
-
-  const storeviewFunc = search
-    ? () => listStore({ text: search })
-    : search || category.length > 0
-    ? () => listStore({ categoryIds: category, text: search })
-    : listStore;
+  const storeviewFunc =
+    search.length > 3
+      ? () => listStore({ text: search })
+      : search || category.length > 0
+      ? () => listStore({ categoryIds: category, text: search })
+      : listStore;
   const categoryKey = search ? search : category.length > 0 ? category : "";
   const { data, status } = useQuery(`listStores-${categoryKey}`, storeviewFunc);
 

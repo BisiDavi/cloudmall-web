@@ -3,6 +3,7 @@ import Image from "next/image";
 import AddIcon from "@/components/icons/AddIcon";
 import useCartMutationAction from "@/hooks/useCartMutationAction";
 import { productType } from "@/types/product-types";
+import ProductQtyDropdown from "./ProductQtyDropdown";
 
 interface Props {
   product: productType;
@@ -10,7 +11,7 @@ interface Props {
 
 export default function Product({ product }: Props) {
   const { useAddToCart, cart } = useCartMutationAction();
-  const cartActions = useAddToCart();
+  // const cartActions = useAddToCart();
 
   const productCount = cart?.filter(
     (cartItem) => cartItem?.name === product?.name
@@ -31,13 +32,14 @@ export default function Product({ product }: Props) {
           <h3>{product.name}</h3>
           <div className="layer">
             <h4>{product.unitPrice}</h4>
-            <button
+            <ProductQtyDropdown product={product} />
+            {/* <button
               type="button"
               onClick={() => cartActions.mutate(product)}
               className={`button ${buttonClassName}`}
             >
               {quantiy > 0 ? quantiy : <AddIcon />}
-            </button>
+            </button> */}
           </div>
         </div>
       </div>
@@ -68,7 +70,6 @@ export default function Product({ product }: Props) {
           .content h3 {
             font-size: 12px;
           }
-
           .content h4 {
             color: var(--mall-blue);
             font-size: 12px;

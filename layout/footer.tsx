@@ -11,7 +11,7 @@ export default function Footer() {
   cart?.map((cartItem) => uniqueCartItems.push(cartItem.name));
   const uniqueCartItem = new Set(uniqueCartItems);
   const uniqueCartItemArray = Array.from(uniqueCartItem);
-  console.log("uniqueCartItemArray", uniqueCartItemArray.length);
+
   const buttontext =
     uniqueCartItemArray.length === 1
       ? `${uniqueCartItemArray.length} item`
