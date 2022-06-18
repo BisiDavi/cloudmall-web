@@ -12,17 +12,19 @@ interface Props {
 
 function MapModalComponent({ modal, closeModal }: Props) {
   const [newAddress, setNewAddress] = useState({
-    addressInputArray: {},
-    count: 1,
+    addressInputArray: { 0: "" },
+    count: 0,
   });
   const { address } = useAppSelector((state) => state.location);
 
-  function newAddressHandler(inputValue: string) {
+  console.log("newAddress", newAddress);
+
+  function newAddressHandler() {
     setNewAddress((prevState) => ({
       ...prevState,
       addressInputArray: {
         ...prevState.addressInputArray,
-        [prevState.count + 1]: inputValue,
+        [prevState.count + 1]: "",
       },
       count: prevState.count + 1,
     }));
@@ -40,12 +42,19 @@ function MapModalComponent({ modal, closeModal }: Props) {
     return inputValue;
   }, []);
 
+  const addressArray = Object.values(newAddress.addressInputArray);
+
   return (
-    <Modal showModal={modal} closeModal={closeModal}>
+    <Modal showModal={modal} closeModal={closeModal} persistModal>
       <h6 className="title">Select an Address</h6>
       <div className="content">
-        <Input input={input} />
-        <button>
+        {addressArray.map((_, index) => (
+          <div key={`addressView-${index}`} className="addressView">
+            <Input input={input} />
+            <p>{address}</p>
+          </div>
+        ))}
+        <button type="button" onClick={newAddressHandler}>
           <h3>Enter New Address </h3>{" "}
           <Image src="/addIcon.png" height={14} width={14} alt="add icon" />
         </button>
@@ -74,6 +83,9 @@ function MapModalComponent({ modal, closeModal }: Props) {
           .content button h3 {
             margin-right: 10px;
             font-size: 16px;
+          }
+          .content p {
+            margin: 0px 0px 20px 0px;
           }
         `}
       </style>

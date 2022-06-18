@@ -12,8 +12,6 @@ export default function ProcuctGridView({ storeId }: Props) {
     getStoreProducts({ storeIds: [storeId] })
   );
 
-  // console.log("data", data);
-
   return (
     <div className="gridview">
       {status === "error"

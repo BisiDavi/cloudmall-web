@@ -12,7 +12,6 @@ interface Props {
 }
 
 export default function Input({ input }: Props) {
-  console.log("input", input);
   return (
     <>
       <div className="form-element">

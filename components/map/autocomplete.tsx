@@ -31,8 +31,6 @@ export default function AutocompleteView() {
     }
   }
 
-  console.log(" address, lat, lng", address, lat, lng);
-
   function autoCompleteHandler(userAddress: string) {
     dispatch(saveUserAddress(userAddress));
   }
@@ -102,7 +100,6 @@ export default function AutocompleteView() {
                     description: string;
                     placeId: string;
                   }) => {
-                    console.log("suggestion", suggestion);
                     const className = suggestion.active
                       ? "list suggestion-item--active"
                       : "list suggestion-item";

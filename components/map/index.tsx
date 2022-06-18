@@ -34,24 +34,24 @@ declare global {
 
 function GoogleMap() {
   const ref = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState(null);
-  const { lat, lng } = useAppSelector((state) => state.location);
+  const [, setMap] = useState(null);
+  const { address, lat, lng } = useAppSelector((state) => state.location);
 
-  console.log("map", map);
+  const zoomFactor = address ? 15 : 13;
 
   useEffect(() => {
-    if (ref.current && !map) {
+    if (ref.current) {
       setMap(
         new window.google.maps.Map(ref.current, {
           center: {
             lat,
             lng,
           },
-          zoom: 12,
+          zoom: zoomFactor,
         })
       );
     }
-  });
+  }, [address, lat, lng, zoomFactor]);
 
   return (
     <>

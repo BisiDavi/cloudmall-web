@@ -6,7 +6,6 @@ import DefaultLayout from "@/layout/default-layout";
 
 export default function CartPage() {
   const { cart } = useCart();
-  console.log("cart", cart);
 
   return (
     <DefaultLayout title="Cart">
