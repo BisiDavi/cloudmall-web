@@ -9,7 +9,7 @@ interface Props {
   value?: string;
   defaultValue?: string;
   className?: string;
-  onChangeHandler: (e: ChangeEvent<HTMLInputElement>, location: string) => void;
+  onChangeHandler: (e: ChangeEvent<HTMLInputElement>) => void;
 }
 
 export default function BorderlineInput({
@@ -35,7 +35,7 @@ export default function BorderlineInput({
           defaultValue={defaultValue}
           className={className}
           placeholder={placeholder}
-          onChange={() => onChangeHandler}
+          onChange={onChangeHandler}
         />
       </div>
 

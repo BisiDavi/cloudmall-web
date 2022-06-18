@@ -37,7 +37,7 @@ function GoogleMap() {
   const [, setMap] = useState(null);
   const { address, lat, lng } = useAppSelector((state) => state.location);
 
-  const zoomFactor = address ? 15 : 13;
+  const zoomFactor = address ? 15 : 11;
 
   useEffect(() => {
     if (ref.current) {

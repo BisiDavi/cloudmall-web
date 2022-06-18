@@ -19,7 +19,7 @@ export const locationSlice = createSlice({
   initialState,
   reducers: {
     saveUserAddress: (state, action: PayloadAction<AddressType>) => {
-      state.address = [...state.address, action.payload];
+      state.address = [action.payload];
     },
     updateCoordinates: (
       state,

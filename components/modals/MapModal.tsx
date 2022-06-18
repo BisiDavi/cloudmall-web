@@ -1,13 +1,11 @@
 import Modal from "@/components/modals";
 import Image from "next/image";
 import { memo } from "react";
-import type { ChangeEvent } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { modalType } from "@/types/modal-types";
-import BorderlineInput from "@/components/forms/FormElements/BorderlineInput";
 import { updateModal } from "@/redux/ui-slice";
-import { saveUserAddress } from "@/redux/location-slice";
+import AddressModalInput from "./AddressModalInput";
 
 interface Props {
   modal: modalType;
@@ -25,14 +23,7 @@ function MapModalComponent({ modal, closeModal }: Props) {
 
   console.log("address", address);
 
-  function inputHandler(e: ChangeEvent<HTMLInputElement>, location: string) {
-    const selectedAddressArray = address.filter(
-      (addr) => addr.location === location
-    );
-    let selectedAddress = selectedAddressArray[0];
-    const edittedAddress = { ...selectedAddress, title: e.target.value };
-    dispatch(saveUserAddress(edittedAddress));
-  }
+  function complete() {}
 
   return (
     <Modal showModal={modal} closeModal={closeModal} persistModal>
@@ -40,20 +31,12 @@ function MapModalComponent({ modal, closeModal }: Props) {
         <h6 className="title">Select an Address</h6>
         <div className="content">
           {address.map((addressValue, index) => {
-            const inputIndex = index + 1;
             return (
-              <div key={`addressView-${index}`} className="addressView">
-                <BorderlineInput
-                  placeholder="Address Title - (Home, Work)"
-                  type="text"
-                  id="address-title"
-                  name="addressTitle"
-                  value={address[index].title}
-                  defaultValue={`Untitled-${inputIndex}`}
-                  onChangeHandler={inputHandler}
-                />
-                <p>{addressValue.location}</p>
-              </div>
+              <AddressModalInput
+                key={`addressView-${index}`}
+                index={index}
+                addressValue={addressValue}
+              />
             );
           })}
           <div className="button-group">
@@ -104,6 +87,8 @@ function MapModalComponent({ modal, closeModal }: Props) {
           }
           .content p {
             margin: 0px 0px 20px 0px;
+            font-size: 12px;
+            text-align: center;
           }
           .button-group {
             display: flex;

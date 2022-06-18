@@ -33,15 +33,12 @@ export default function AutocompleteView() {
     }
   }
 
-  console.log("addressPlaceholder", addressPlaceholder);
-  console.log("address", address);
-
   function autoCompleteHandler(userAddress: string) {
     setAddressPlaceholder(userAddress);
   }
 
   function handleSelect(userAddress: string) {
-    dispatch(saveUserAddress({ location: userAddress, title:'' }));
+    dispatch(saveUserAddress({ location: userAddress, title: "" }));
     geocodeByAddress(userAddress)
       .then((results: any) => getLatLng(results[0]))
       .then((latLng: { lat: number; lng: number }) =>
