@@ -12,6 +12,7 @@ import { autocompleteStyles } from "./autocomplete.style";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { saveUserAddress, updateCoordinates } from "@/redux/location-slice";
 import { updateModal } from "@/redux/ui-slice";
+import { useState } from "react";
 
 declare global {
   interface Window {
@@ -20,22 +21,27 @@ declare global {
 }
 
 export default function AutocompleteView() {
-  const { address, lat, lng } = useAppSelector((state) => state.location);
+  const [addressPlaceholder, setAddressPlaceholder] = useState("");
+  const { address } = useAppSelector((state) => state.location);
   const dispatch = useAppDispatch();
 
   function showModal() {
-    if (address) {
+    if (addressPlaceholder.length > 0) {
       dispatch(updateModal("loginQuestionModal"));
     } else {
       toast.error("Please enter your address");
     }
   }
 
+  console.log("addressPlaceholder", addressPlaceholder);
+  console.log("address", address);
+
   function autoCompleteHandler(userAddress: string) {
-    dispatch(saveUserAddress(userAddress));
+    setAddressPlaceholder(userAddress);
   }
+
   function handleSelect(userAddress: string) {
-    dispatch(saveUserAddress(userAddress));
+    dispatch(saveUserAddress({ location: userAddress, title:'' }));
     geocodeByAddress(userAddress)
       .then((results: any) => getLatLng(results[0]))
       .then((latLng: { lat: number; lng: number }) =>
@@ -52,7 +58,7 @@ export default function AutocompleteView() {
       />
       <div className="autocomplete">
         <PlacesAutocomplete
-          value={address}
+          value={addressPlaceholder}
           onChange={autoCompleteHandler}
           onSelect={handleSelect}
           debounce={400}
@@ -61,7 +67,7 @@ export default function AutocompleteView() {
           }}
           placeholder="9, Omole Estate behind Mayfair, Ile-Ife"
           className="autocomplete"
-          shouldFetchSuggestions={address.length > 3}
+          shouldFetchSuggestions={addressPlaceholder.length > 3}
         >
           {({
             getInputProps,
@@ -74,7 +80,7 @@ export default function AutocompleteView() {
               style={autocompleteStyles.wrapper}
             >
               <input
-                value={address}
+                value={addressPlaceholder}
                 {...getInputProps({
                   placeholder: "9, Omole Estate behind Mayfair, Ile-Ife",
                   className: "location-search-input",

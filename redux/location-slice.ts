@@ -1,23 +1,25 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
+type AddressType = { title: string; location: string };
+
 type locationState = {
   lat: number;
   lng: number;
-  address: string;
+  address: Array<AddressType>;
 };
 
 const initialState: locationState = {
   lat: 7.5207,
   lng: 4.5303,
-  address: "",
+  address: [],
 };
 
 export const locationSlice = createSlice({
   name: "location",
   initialState,
   reducers: {
-    saveUserAddress: (state, action: PayloadAction<string>) => {
-      state.address = action.payload;
+    saveUserAddress: (state, action: PayloadAction<AddressType>) => {
+      state.address = [...state.address, action.payload];
     },
     updateCoordinates: (
       state,

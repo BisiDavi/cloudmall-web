@@ -38,7 +38,7 @@ export default function Modal({
           }
 
           .modal-card {
-            margin: 20% auto;
+            margin: 25% auto;
             display: block;
             width: 300px;
             height: auto;
