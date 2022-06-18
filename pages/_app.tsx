@@ -6,8 +6,8 @@ import { store } from "@/redux/store";
 // import { persistStore } from "redux-persist";
 import { ToastContainer } from "react-toastify";
 
-import "../styles/globals.css";
 import "react-toastify/dist/ReactToastify.css";
+import "../styles/globals.css";
 
 // let persistor = persistStore(store);
 

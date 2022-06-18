@@ -4,11 +4,14 @@ import PlacesAutocomplete, {
   getLatLng,
 } from "react-places-autocomplete";
 import Script from "next/script";
+import { toast } from "react-toastify";
 
 import Button from "@/components/buttons";
-import { useState } from "react";
 import Image from "next/image";
 import { autocompleteStyles } from "./autocomplete.style";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import { saveUserAddress, updateCoordinates } from "@/redux/location-slice";
+import { updateModal } from "@/redux/ui-slice";
 
 declare global {
   interface Window {
@@ -17,16 +20,29 @@ declare global {
 }
 
 export default function AutocompleteView() {
-  const [address, setAddress] = useState("");
+  const { address, lat, lng } = useAppSelector((state) => state.location);
+  const dispatch = useAppDispatch();
+
+  function showModal() {
+    if (address) {
+      dispatch(updateModal("loginQuestionModal"));
+    } else {
+      toast.error("Please enter your address");
+    }
+  }
+
+  console.log(" address, lat, lng", address, lat, lng);
 
   function autoCompleteHandler(userAddress: string) {
-    setAddress(userAddress);
+    dispatch(saveUserAddress(userAddress));
   }
   function handleSelect(userAddress: string) {
-    console.log("userAddress", userAddress);
+    dispatch(saveUserAddress(userAddress));
     geocodeByAddress(userAddress)
       .then((results: any) => getLatLng(results[0]))
-      .then((latLng: any) => console.log("success", latLng))
+      .then((latLng: { lat: number; lng: number }) =>
+        dispatch(updateCoordinates(latLng))
+      )
       .catch((error: any) => console.log("error", error));
   }
   return (
@@ -112,7 +128,11 @@ export default function AutocompleteView() {
           )}
         </PlacesAutocomplete>
 
-        <Button text="Confirm Address" className="itemButton autocomplete" />
+        <Button
+          text="Confirm Address"
+          className="itemButton autocomplete"
+          onClick={showModal}
+        />
       </div>
       <style jsx>
         {`

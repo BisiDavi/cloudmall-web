@@ -5,11 +5,14 @@ export default function Modal({
   children,
   closeModal,
   showModal,
+  persistModal,
 }: PropsWithChildren<ModalProps>) {
+  const modalPersist: any = persistModal ? null : closeModal;
+  const modalState = showModal !== null ? true : false;
   return (
     <div>
-      <div hidden={!showModal}>
-        <div className="modal-background" onClick={closeModal}>
+      <div hidden={!modalState}>
+        <div className="modal-background" onClick={modalPersist}>
           <div className="modal-card">{children}</div>
         </div>
       </div>

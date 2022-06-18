@@ -1,4 +1,7 @@
 export interface ModalProps {
   closeModal: () => void;
-  showModal: boolean;
+  showModal: modalType;
+  persistModal?: boolean;
 }
+
+export type modalType = "loginQuestionModal" | null;

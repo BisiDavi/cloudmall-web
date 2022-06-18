@@ -1,3 +1,4 @@
+import { useAppSelector } from "@/hooks/useRedux";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
@@ -34,20 +35,23 @@ declare global {
 function GoogleMap() {
   const ref = useRef<HTMLDivElement>(null);
   const [map, setMap] = useState(null);
+  const { lat, lng } = useAppSelector((state) => state.location);
+
+  console.log("map", map);
 
   useEffect(() => {
     if (ref.current && !map) {
       setMap(
         new window.google.maps.Map(ref.current, {
           center: {
-            lat: 7.5207,
-            lng: 4.5303,
+            lat,
+            lng,
           },
           zoom: 12,
         })
       );
     }
-  }, [ref, map]);
+  });
 
   return (
     <>

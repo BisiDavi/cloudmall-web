@@ -4,11 +4,15 @@ interface Props {
     placeholder: string;
     id: string;
     name: string;
-    label: string;
+    label?: string;
+    value?: string;
+    defaultValue?: string;
+    borderLine?: boolean;
   };
 }
 
 export default function Input({ input }: Props) {
+  console.log("input", input);
   return (
     <>
       <div className="form-element">
@@ -17,6 +21,8 @@ export default function Input({ input }: Props) {
           id={input.id}
           name={input.name}
           type={input.type}
+          value={input?.value}
+          defaultValue={input?.defaultValue}
           className="input"
           placeholder={input.placeholder}
         />
@@ -24,10 +30,13 @@ export default function Input({ input }: Props) {
 
       <style jsx>{`
         .input {
-          border: 1px solid var(--mall-blue);
+          border: ${input.borderLine ? "none" : "1px solid var(--mall-blue)"};
+          border-bottom: ${input.borderLine
+            ? "1px solid var(--mall-blue)"
+            : "none"};
+          border-radius: ${input.borderLine ? "0px" : "5px"};
           padding: 5px 10px;
           color: var(--faded-text);
-          border-radius: 5px;
           margin: 2px 0px;
           display: flex;
           align-items: center;

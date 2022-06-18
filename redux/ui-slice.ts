@@ -1,30 +1,19 @@
+import { modalType } from "@/types/modal-types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type uiState = {
-  modal: {
-    type: "loginQuestionModal" | null;
-    visible: boolean;
-  };
+  modal: modalType;
 };
 
 const initialState: uiState = {
-  modal: {
-    type: null,
-    visible: false,
-  },
+  modal: null,
 };
 
 export const uiSlice = createSlice({
-  name: "location",
+  name: "UI",
   initialState,
   reducers: {
-    updateModal: (
-      state,
-      action: PayloadAction<{
-        type: "loginQuestionModal" | null;
-        visible: boolean;
-      }>
-    ) => {
+    updateModal: (state, action: PayloadAction<modalType>) => {
       state.modal = action.payload;
     },
   },
