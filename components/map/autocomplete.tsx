@@ -10,9 +10,12 @@ import Button from "@/components/buttons";
 import Image from "next/image";
 import { autocompleteStyles } from "./autocomplete.style";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { saveUserAddress, updateCoordinates } from "@/redux/location-slice";
+import {
+  saveUserAddress,
+  updateCoordinates,
+  updateTempAddress,
+} from "@/redux/location-slice";
 import { updateModal } from "@/redux/ui-slice";
-import { useState } from "react";
 
 declare global {
   interface Window {
@@ -21,12 +24,11 @@ declare global {
 }
 
 export default function AutocompleteView() {
-  const [addressPlaceholder, setAddressPlaceholder] = useState("");
-  const { address } = useAppSelector((state) => state.location);
+  const { tempAddress, count } = useAppSelector((state) => state.location);
   const dispatch = useAppDispatch();
 
   function showModal() {
-    if (addressPlaceholder.length > 0) {
+    if (tempAddress.length > 0) {
       dispatch(updateModal("loginQuestionModal"));
     } else {
       toast.error("Please enter your address");
@@ -34,11 +36,12 @@ export default function AutocompleteView() {
   }
 
   function autoCompleteHandler(userAddress: string) {
-    setAddressPlaceholder(userAddress);
+    dispatch(updateTempAddress(userAddress));
   }
 
   function handleSelect(userAddress: string) {
-    dispatch(saveUserAddress({ location: userAddress, title: "" }));
+    dispatch(updateTempAddress(userAddress));
+    dispatch(saveUserAddress({ location: userAddress, index: count }));
     geocodeByAddress(userAddress)
       .then((results: any) => getLatLng(results[0]))
       .then((latLng: { lat: number; lng: number }) =>
@@ -55,7 +58,7 @@ export default function AutocompleteView() {
       />
       <div className="autocomplete">
         <PlacesAutocomplete
-          value={addressPlaceholder}
+          value={tempAddress}
           onChange={autoCompleteHandler}
           onSelect={handleSelect}
           debounce={400}
@@ -64,7 +67,7 @@ export default function AutocompleteView() {
           }}
           placeholder="9, Omole Estate behind Mayfair, Ile-Ife"
           className="autocomplete"
-          shouldFetchSuggestions={addressPlaceholder.length > 3}
+          shouldFetchSuggestions={tempAddress.length > 3}
         >
           {({
             getInputProps,
@@ -77,7 +80,7 @@ export default function AutocompleteView() {
               style={autocompleteStyles.wrapper}
             >
               <input
-                value={addressPlaceholder}
+                value={tempAddress}
                 {...getInputProps({
                   placeholder: "9, Omole Estate behind Mayfair, Ile-Ife",
                   className: "location-search-input",

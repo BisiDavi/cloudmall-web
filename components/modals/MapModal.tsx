@@ -6,6 +6,11 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { modalType } from "@/types/modal-types";
 import { updateModal } from "@/redux/ui-slice";
 import AddressModalInput from "./AddressModalInput";
+import {
+  resetCount,
+  updateCount,
+  updateTempAddress,
+} from "@/redux/location-slice";
 
 interface Props {
   modal: modalType;
@@ -17,11 +22,18 @@ function MapModalComponent({ modal, closeModal }: Props) {
 
   const { address } = useAppSelector((state) => state.location);
 
+  console.log("address", address);
+
   function newAddressHandler() {
+    dispatch(updateTempAddress(""));
     dispatch(updateModal(null));
+    dispatch(updateCount());
   }
 
-  function complete() {}
+  function complete() {
+    dispatch(resetCount());
+    dispatch(updateModal(null));
+  }
 
   return (
     <Modal showModal={modal} closeModal={closeModal} persistModal>
