@@ -21,8 +21,6 @@ function MapModalComponent({ modal, closeModal }: Props) {
     dispatch(updateModal(null));
   }
 
-  console.log("address", address);
-
   function complete() {}
 
   return (
@@ -84,11 +82,6 @@ function MapModalComponent({ modal, closeModal }: Props) {
             background-color: transparent;
           }
           .content button h3 {
-          }
-          .content p {
-            margin: 0px 0px 20px 0px;
-            font-size: 12px;
-            text-align: center;
           }
           .button-group {
             display: flex;
