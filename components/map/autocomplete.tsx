@@ -25,11 +25,8 @@ declare global {
 }
 
 export default function AutocompleteView() {
-  const locationDetails = useAppSelector((state) => state.location);
+  const { address } = useAppSelector((state) => state.location);
   const dispatch = useAppDispatch();
-  const { address } = locationDetails;
-
-  console.log("locationDetails", locationDetails);
 
   function showModal() {
     if (address.length > 0) {

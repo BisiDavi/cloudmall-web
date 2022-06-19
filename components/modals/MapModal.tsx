@@ -18,11 +18,9 @@ function MapModalComponent({ modal, closeModal }: Props) {
   const router = useRouter();
   const dispatch = useAppDispatch();
 
-  const locationDetails = useAppSelector((state) => state.location);
-
-  const { completeAddress, incompleteAddress } = locationDetails;
-
-  console.log("locationDetails-locationDetails", locationDetails);
+  const { completeAddress, incompleteAddress } = useAppSelector(
+    (state) => state.location
+  );
 
   const editedAddress = completeAddress.filter(
     (adr) => adr.location === incompleteAddress.location

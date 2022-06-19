@@ -3,15 +3,16 @@ import CaretIcon from "@/components/icons/CaretIcon";
 import { useAppSelector } from "@/hooks/useRedux";
 
 export default function UpdateLocation() {
-  const locationDetails = useAppSelector((state) => state.location);
+  const { completeAddress } = useAppSelector((state) => state.location);
 
-  console.log("locationDetails", locationDetails);
+  console.log("completeAddress", completeAddress);
+  const defaultAddress = completeAddress[0];
   return (
     <>
       <div className="updatelocation">
-        <span>Now</span>
+        <span>{defaultAddress.title}</span>
         <div>
-          <h3>9, Omoole Estate Mayfair</h3>
+          <h3>{defaultAddress.location}</h3>
           <CaretIcon />
         </div>
       </div>
@@ -34,6 +35,7 @@ export default function UpdateLocation() {
             font-weight: 500;
             margin-right: 10px;
             font-size: 12px;
+            line-height: 14px;
           }
           .updatelocation div {
             display: flex;
