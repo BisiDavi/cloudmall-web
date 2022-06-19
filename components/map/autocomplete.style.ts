@@ -1,5 +1,6 @@
 export const autocompleteStyles: any = {
   wrapper: {
+    width: "100%",
     position: "relative",
   },
   dropdown: {
@@ -8,6 +9,7 @@ export const autocompleteStyles: any = {
     top: 40,
     zIndex: 100,
     backgroundColor: "white",
+    width: "100%",
   },
   dropdownItem: {
     border: "1px solid black",

@@ -1,23 +1,26 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import type { ChangeEvent } from "react";
 
 import BorderlineInput from "@/components/forms/FormElements/BorderlineInput";
-import { updateAddressTitle } from "@/redux/location-slice";
+import { saveIncompleteAddress } from "@/redux/location-slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 
 interface Props {
-  addressValue: { location: string; index: number };
+  addressValue: { location?: string; title?: string };
   index: number;
 }
 
 export default function AddressModalInput({ addressValue, index }: Props) {
-  const { addressTitle } = useAppSelector((state) => state.location);
   const dispatch = useAppDispatch();
+  const { incompleteAddress } = useAppSelector((state) => state.location);
 
   function onChangeHandler(e: ChangeEvent<HTMLInputElement>) {
-    dispatch(updateAddressTitle({ title: e.target.value, index }));
+    dispatch(
+      saveIncompleteAddress({
+        title: e.target.value,
+        location: addressValue.location,
+      })
+    );
   }
-
   return (
     <>
       <div className="addressModalInput">
@@ -26,7 +29,7 @@ export default function AddressModalInput({ addressValue, index }: Props) {
           type="text"
           id="address-title"
           name="addressTitle"
-          value={addressTitle[index].title}
+          value={incompleteAddress.title}
           defaultValue={`Untitled-${index}`}
           onChangeHandler={onChangeHandler}
         />

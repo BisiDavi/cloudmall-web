@@ -1,16 +1,12 @@
-import Modal from "@/components/modals";
 import Image from "next/image";
 import { memo } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import Modal from "@/components/modals";
 import { modalType } from "@/types/modal-types";
 import { updateModal } from "@/redux/ui-slice";
 import AddressModalInput from "./AddressModalInput";
-import {
-  resetCount,
-  updateCount,
-  updateTempAddress,
-} from "@/redux/location-slice";
+import { saveCompleteAddress, updateAddress } from "@/redux/location-slice";
 
 interface Props {
   modal: modalType;
@@ -20,18 +16,25 @@ interface Props {
 function MapModalComponent({ modal, closeModal }: Props) {
   const dispatch = useAppDispatch();
 
-  const { address } = useAppSelector((state) => state.location);
+  const { completeAddress, incompleteAddress } = useAppSelector(
+    (state) => state.location
+  );
 
-  console.log("address", address);
+  console.log("address", completeAddress);
+  console.log("incompleteAddress", incompleteAddress);
+
+  const addressArray =
+    completeAddress.length === 0 ? [incompleteAddress] : completeAddress;
 
   function newAddressHandler() {
-    dispatch(updateTempAddress(""));
+    dispatch(saveCompleteAddress(incompleteAddress));
+    dispatch(updateAddress(""));
     dispatch(updateModal(null));
-    dispatch(updateCount());
   }
 
   function complete() {
-    dispatch(resetCount());
+    dispatch(saveCompleteAddress(incompleteAddress));
+    dispatch(updateAddress(""));
     dispatch(updateModal(null));
   }
 
@@ -40,7 +43,7 @@ function MapModalComponent({ modal, closeModal }: Props) {
       <div className="map-content">
         <h6 className="title">Select an Address</h6>
         <div className="content">
-          {address.map((addressValue, index) => {
+          {completeAddress.map((addressValue, index) => {
             return (
               <AddressModalInput
                 key={`addressView-${index}`}

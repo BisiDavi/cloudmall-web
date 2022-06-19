@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import PlacesAutocomplete, {
   geocodeByAddress,
@@ -7,13 +8,13 @@ import Script from "next/script";
 import { toast } from "react-toastify";
 
 import Button from "@/components/buttons";
-import Image from "next/image";
 import { autocompleteStyles } from "./autocomplete.style";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import {
-  saveUserAddress,
   updateCoordinates,
-  updateTempAddress,
+  saveIncompleteAddress,
+  updateAddress,
+  saveCompleteAddress,
 } from "@/redux/location-slice";
 import { updateModal } from "@/redux/ui-slice";
 
@@ -24,11 +25,11 @@ declare global {
 }
 
 export default function AutocompleteView() {
-  const { tempAddress, count } = useAppSelector((state) => state.location);
+  const { address } = useAppSelector((state) => state.location);
   const dispatch = useAppDispatch();
 
   function showModal() {
-    if (tempAddress.length > 0) {
+    if (address.length > 0) {
       dispatch(updateModal("loginQuestionModal"));
     } else {
       toast.error("Please enter your address");
@@ -36,12 +37,18 @@ export default function AutocompleteView() {
   }
 
   function autoCompleteHandler(userAddress: string) {
-    dispatch(updateTempAddress(userAddress));
+    dispatch(updateAddress(userAddress));
   }
 
   function handleSelect(userAddress: string) {
-    dispatch(updateTempAddress(userAddress));
-    dispatch(saveUserAddress({ location: userAddress, index: count }));
+    dispatch(updateAddress(userAddress));
+    dispatch(saveIncompleteAddress({ location: userAddress, title: "" }));
+    dispatch(
+      saveCompleteAddress({
+        title: "",
+        location: userAddress,
+      })
+    );
     geocodeByAddress(userAddress)
       .then((results: any) => getLatLng(results[0]))
       .then((latLng: { lat: number; lng: number }) =>
@@ -58,7 +65,7 @@ export default function AutocompleteView() {
       />
       <div className="autocomplete">
         <PlacesAutocomplete
-          value={tempAddress}
+          value={address}
           onChange={autoCompleteHandler}
           onSelect={handleSelect}
           debounce={400}
@@ -67,7 +74,7 @@ export default function AutocompleteView() {
           }}
           placeholder="9, Omole Estate behind Mayfair, Ile-Ife"
           className="autocomplete"
-          shouldFetchSuggestions={tempAddress.length > 3}
+          shouldFetchSuggestions={address.length > 3}
         >
           {({
             getInputProps,
@@ -80,7 +87,7 @@ export default function AutocompleteView() {
               style={autocompleteStyles.wrapper}
             >
               <input
-                value={tempAddress}
+                value={address}
                 {...getInputProps({
                   placeholder: "9, Omole Estate behind Mayfair, Ile-Ife",
                   className: "location-search-input",
@@ -92,12 +99,12 @@ export default function AutocompleteView() {
                 style={autocompleteStyles.dropdown}
               >
                 {loading && (
-                  <Image
+                  <img
                     src="/loading.gif"
                     height={40}
-                    width={150}
+                    width={100}
+                    className="loadingImage"
                     alt="loading icon"
-                    layout="responsive"
                   />
                 )}
                 {suggestions.map(
@@ -145,8 +152,12 @@ export default function AutocompleteView() {
             flex-direction: column;
             height: 28vh;
           }
-          .auto-complete.imput-wrapper {
+          .auto-complete.input-wrapper {
             position: relative;
+          }
+          .loadingImage {
+            display: flex;
+            margin: auto;
           }
           .suggestion-item--active {
             position: absolute;

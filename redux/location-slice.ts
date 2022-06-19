@@ -1,32 +1,29 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type AddressType = { index: number; location: string };
-type AddressTitle = { title: string; index: number };
+type AddressType = { title?: string; location?: string };
 
 type locationState = {
   lat: number;
   lng: number;
-  address: Array<AddressType>;
-  tempAddress: string;
-  addressTitle: Array<{ title: string; index: number }>;
-  count: number;
+  completeAddress: Array<AddressType>;
+  incompleteAddress: AddressType;
+  address: string;
 };
 
 const initialState: locationState = {
   lat: 7.5207,
   lng: 4.5303,
-  address: [],
-  tempAddress: "",
-  addressTitle: [],
-  count: 0,
+  completeAddress: [],
+  incompleteAddress: {},
+  address: "",
 };
 
 export const locationSlice = createSlice({
   name: "location",
   initialState,
   reducers: {
-    saveUserAddress: (state, action: PayloadAction<AddressType>) => {
-      state.address = [...state.address, action.payload];
+    saveCompleteAddress: (state, action: PayloadAction<AddressType>) => {
+      state.completeAddress = [...state.completeAddress, action.payload];
     },
     updateCoordinates: (
       state,
@@ -35,28 +32,20 @@ export const locationSlice = createSlice({
       state.lat = action.payload.lat;
       state.lng = action.payload.lng;
     },
-    updateTempAddress: (state, action: PayloadAction<string>) => {
-      state.tempAddress = action.payload;
+    updateAddress: (state, action: PayloadAction<string>) => {
+      state.address = action.payload;
     },
-    updateAddressTitle: (state, action: PayloadAction<AddressTitle>) => {
-      state.addressTitle = [...state.addressTitle, action.payload];
-    },
-    updateCount: (state) => {
-      state.count = state.count + 1;
-    },
-    resetCount: (state) => {
-      state.count = 0;
+    saveIncompleteAddress: (state, action: PayloadAction<AddressType>) => {
+      state.incompleteAddress = action.payload;
     },
   },
 });
 
 export const {
-  saveUserAddress,
+  saveCompleteAddress,
+  updateAddress,
   updateCoordinates,
-  updateTempAddress,
-  updateAddressTitle,
-  updateCount,
-  resetCount,
+  saveIncompleteAddress,
 } = locationSlice.actions;
 
 export default locationSlice.reducer;
