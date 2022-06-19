@@ -5,7 +5,7 @@ export default function CartFooter({ total }: any) {
   const dispatch = useAppDispatch();
 
   function onCheckoutHandler() {
-    dispatch(updateModal({ type: "loginQuestionModal", visible: true }));
+    dispatch(updateModal("loginQuestionModal"));
   }
 
   return (

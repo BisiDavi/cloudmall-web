@@ -24,6 +24,7 @@ const persistConfig = {
   blacklist: ["location"],
 };
 
+
 const persistedReducer = persistReducer(persistConfig, reducers);
 
 export const store = configureStore({
