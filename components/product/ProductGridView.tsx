@@ -15,13 +15,14 @@ export default function ProductGridView({ storeId }: Props) {
     getStoreProducts({ storeIds: [storeId] })
   );
   const productResult = data?.data.products;
+  console.log("productResult", productResult);
   return (
     <>
       {status === "error" ? (
         "error"
       ) : status === "loading" ? (
         <ProductGridViewLoader />
-      ) : productResult > 0 ? (
+      ) : productResult.length > 0 ? (
         <div className="gridview">
           {productResult.map((product: productType) => (
             <Product product={product} key={product.name} />
