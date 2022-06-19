@@ -1,10 +1,10 @@
 import { useRouter } from "next/router";
+import { useQuery } from "react-query";
 
 import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
 import ProductGridView from "@/components/product/ProductGridView";
 import StoreLayoutPage from "@/layout/store-layout";
 import { storeProfile } from "@/utils/storeRequest";
-import { useQuery } from "react-query";
 
 export default function StorePage() {
   const router: any = useRouter();

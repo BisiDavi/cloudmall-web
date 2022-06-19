@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import Pill from "@/components/pills";
 import { listStoreCategories } from "@/utils/storeRequest";
 import { storeCategoryType } from "@/types/store-types";
+import PillLoader from "@/components/loaders/PillsLoader";
 
 interface Props {
   storeType: "restaurant" | "store";
@@ -26,15 +27,17 @@ export default function RestaurantPillsGroup({ storeType, category }: Props) {
 
   return (
     <>
-      <div className={`pill-group ${pillGroupClassname}`}>
-        {status === "error"
-          ? "error"
-          : status === "loading"
-          ? "loading"
-          : getCategory().map((category: storeCategoryType) => (
-              <Pill key={category._id} category={category} />
-            ))}
-      </div>
+      {status === "error" ? (
+        "error"
+      ) : 5 ? (
+        <PillLoader />
+      ) : (
+        <div className={`pill-group ${pillGroupClassname}`}>
+          {getCategory().map((category: storeCategoryType) => (
+            <Pill key={category._id} category={category} />
+          ))}
+        </div>
+      )}
       <style jsx>
         {`
           .pill-group {

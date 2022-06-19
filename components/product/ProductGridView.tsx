@@ -15,7 +15,7 @@ export default function ProductGridView({ storeId }: Props) {
     getStoreProducts({ storeIds: [storeId] })
   );
   const productResult = data?.data.products;
-  console.log("productResult", productResult);
+
   return (
     <>
       {status === "error" ? (
