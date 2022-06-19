@@ -29,7 +29,7 @@ export default function RestaurantPillsGroup({ storeType, category }: Props) {
     <>
       {status === "error" ? (
         "error"
-      ) : 5 ? (
+      ) : status === "loading" ? (
         <PillLoader />
       ) : (
         <div className={`pill-group ${pillGroupClassname}`}>
