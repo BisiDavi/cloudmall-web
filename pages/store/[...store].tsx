@@ -1,7 +1,7 @@
 import { useRouter } from "next/router";
 
 import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
-import ProcuctGridView from "@/components/product/ProductGridView";
+import ProductGridView from "@/components/product/ProductGridView";
 import StoreLayoutPage from "@/layout/store-layout";
 import { storeProfile } from "@/utils/storeRequest";
 import { useQuery } from "react-query";
@@ -21,7 +21,7 @@ export default function StorePage() {
         storeType="store"
         category={data?.data?.store.category.name}
       />
-      <ProcuctGridView storeId={storeId} />
+      <ProductGridView storeId={storeId} />
     </StoreLayoutPage>
   );
 }

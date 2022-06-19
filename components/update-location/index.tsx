@@ -24,7 +24,6 @@ export default function UpdateLocation() {
             font-style: normal;
             line-height: 18px;
             padding: 0px;
-            height: 90%;
             margin-top: 0px;
             margin-left: 0px;
           }

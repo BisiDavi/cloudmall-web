@@ -51,7 +51,7 @@ function GoogleMap() {
         })
       );
     }
-  }, [lat, lng]);
+  }, [lat, zoomFactor, lng]);
 
   return (
     <>
