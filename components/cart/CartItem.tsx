@@ -1,6 +1,6 @@
 import useCartMutationAction from "@/hooks/useCartMutationAction";
 import useCart from "@/hooks/useCart";
-import { productType } from "@/types/product-types";
+// import { productType } from "@/types/product-types";
 import Image from "next/image";
 import React from "react";
 import AddIcon from "../icons/AddIcon";
@@ -16,10 +16,10 @@ interface cartProps {
 export default function CartItem({ cart }: cartProps) {
   const { cart: cartData } = useCart();
   const quantityText = cart.name.includes("Oranges") ? " piece " : " pack ";
-  const vv = cartData.map((cartItem) => cartItem === cart.name);
-  const { useAddToCart, useRemoveCartItem } = useCartMutationAction();
+  // const vv = cartData.map((cartItem) => cartItem === cart.name);
+  const { useAddToCart } = useCartMutationAction();
   const addToCart = useAddToCart();
-  const removeCartItem = useRemoveCartItem();
+  // const removeCartItem = useRemoveCartItem();
 
   const quantity = cartData.filter(
     (cartItem) => cartItem.name === cart.name

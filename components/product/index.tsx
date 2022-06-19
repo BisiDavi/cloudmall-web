@@ -1,7 +1,7 @@
 import Image from "next/image";
 
-import AddIcon from "@/components/icons/AddIcon";
-import useCartMutationAction from "@/hooks/useCartMutationAction";
+// import AddIcon from "@/components/icons/AddIcon";
+// import useCartMutationAction from "@/hooks/useCartMutationAction";
 import { productType } from "@/types/product-types";
 import ProductQtyDropdown from "./ProductQtyDropdown";
 
@@ -10,14 +10,14 @@ interface Props {
 }
 
 export default function Product({ product }: Props) {
-  const { useAddToCart, cart } = useCartMutationAction();
+  // const { cart } = useCartMutationAction();
   // const cartActions = useAddToCart();
 
-  const productCount = cart?.filter(
-    (cartItem) => cartItem?.name === product?.name
-  ).length;
-  const quantiy = productCount > 0 ? productCount : "";
-  const buttonClassName = productCount > 0 ? "added" : "product-button";
+  // const productCount = cart?.filter(
+  //   (cartItem) => cartItem?.name === product?.name
+  // ).length;
+  // const quantiy = productCount > 0 ? productCount : "";
+  // const buttonClassName = productCount > 0 ? "added" : "product-button";
 
   return (
     <>

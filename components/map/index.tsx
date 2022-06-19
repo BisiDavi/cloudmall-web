@@ -1,7 +1,7 @@
+/* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 import { useAppSelector } from "@/hooks/useRedux";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 
 const renderStatus = (status: Status) => {

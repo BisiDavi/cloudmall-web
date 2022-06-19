@@ -1,6 +1,5 @@
 import Image from "next/image";
 
-import Button from "@/components/buttons";
 import DefaultLayout from "@/layout/default-layout";
 import LoginForm from "@/components/forms/LoginForm";
 

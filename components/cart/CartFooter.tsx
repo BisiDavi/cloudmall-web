@@ -15,9 +15,13 @@ export default function CartFooter({ total }: any) {
           <h4>Total Cost</h4>
           <h4>N {total}</h4>
         </div>
-        <a className="itemButton cart" onClick={onCheckoutHandler}>
+        <button
+          type="button"
+          className="itemButton cart"
+          onClick={onCheckoutHandler}
+        >
           Checkout
-        </a>
+        </button>
       </div>
       <style jsx>
         {`

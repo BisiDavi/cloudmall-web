@@ -1,5 +1,4 @@
 import DefaultLayout from "@/layout/default-layout";
-import Button from "@/components/buttons";
 import Image from "next/image";
 import Link from "next/link";
 

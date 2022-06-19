@@ -1,3 +1,4 @@
+/* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable @next/next/no-before-interactive-script-outside-document */
 import PlacesAutocomplete, {

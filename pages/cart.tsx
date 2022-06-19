@@ -1,4 +1,3 @@
-import Button from "@/components/buttons";
 import CartFooter from "@/components/cart/CartFooter";
 import CartGroup from "@/components/cart/CartGroup";
 import useCart from "@/hooks/useCart";

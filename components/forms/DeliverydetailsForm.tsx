@@ -1,5 +1,4 @@
 import formContent from "@/json/delivery-details.json";
-import Input from "@/components/forms/FormElements/Input";
 import NoteIcon from "@/components/icons/NoteIcon";
 import InfoIcon from "@/components/icons/InfoIcon";
 import Button from "@/components/buttons";
