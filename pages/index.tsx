@@ -40,7 +40,7 @@ export default function MapView() {
         onError={() => updateAutocompleteStatus(false)}
       />
       <DynamicMapModal modal={modal} closeModal={closeModal} />
-      <div className="header">
+      <div className="map-header">
         <h3>Enter your Address</h3>
       </div>
       <DynamicMap />

@@ -135,7 +135,7 @@ button.itemButton.autocomplete {
 }
 
 /* index.tsx */
-.header {
+.map-header {
   height: 7vh;
   align-items: center;
   display: flex;
