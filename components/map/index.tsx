@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { useAppSelector } from "@/hooks/useRedux";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 import Image from "next/image";
@@ -6,9 +7,7 @@ import { useEffect, useRef, useState } from "react";
 const renderStatus = (status: Status) => {
   switch (status) {
     case Status.LOADING:
-      return (
-        <Image src="/loading.gif" height={150} width={150} alt="loading icon" />
-      );
+      return <img src="/loading.gif" alt="loading icon" />;
     case Status.FAILURE:
       return <p>error occured</p>;
     case Status.SUCCESS:
