@@ -6,7 +6,7 @@ import Modal from "@/components/modals";
 import { modalType } from "@/types/modal-types";
 import { updateModal } from "@/redux/ui-slice";
 import AddressModalInput from "./AddressModalInput";
-import { saveCompleteAddress, updateAddress } from "@/redux/location-slice";
+import { updateAddress, updateCompletedAddress } from "@/redux/location-slice";
 
 interface Props {
   modal: modalType;
@@ -23,17 +23,29 @@ function MapModalComponent({ modal, closeModal }: Props) {
   console.log("address", completeAddress);
   console.log("incompleteAddress", incompleteAddress);
 
-  const addressArray =
-    completeAddress.length === 0 ? [incompleteAddress] : completeAddress;
+  const editedAddress = completeAddress.filter(
+    (adr) => adr.location === incompleteAddress.location
+  );
+  const editedAddressIndex = completeAddress.indexOf(editedAddress[0]);
 
   function newAddressHandler() {
-    dispatch(saveCompleteAddress(incompleteAddress));
+    dispatch(
+      updateCompletedAddress({
+        index: editedAddressIndex,
+        address: incompleteAddress,
+      })
+    );
     dispatch(updateAddress(""));
     dispatch(updateModal(null));
   }
 
   function complete() {
-    dispatch(saveCompleteAddress(incompleteAddress));
+    dispatch(
+      updateCompletedAddress({
+        index: editedAddressIndex,
+        address: incompleteAddress,
+      })
+    );
     dispatch(updateAddress(""));
     dispatch(updateModal(null));
   }

@@ -32,6 +32,15 @@ export const locationSlice = createSlice({
       state.lat = action.payload.lat;
       state.lng = action.payload.lng;
     },
+    updateCompletedAddress: (
+      state,
+      action: PayloadAction<{
+        index: number;
+        address: AddressType;
+      }>
+    ) => {
+      state.completeAddress[action.payload.index] = action.payload.address;
+    },
     updateAddress: (state, action: PayloadAction<string>) => {
       state.address = action.payload;
     },
@@ -46,6 +55,7 @@ export const {
   updateAddress,
   updateCoordinates,
   saveIncompleteAddress,
+  updateCompletedAddress,
 } = locationSlice.actions;
 
 export default locationSlice.reducer;

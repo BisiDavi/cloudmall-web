@@ -24,22 +24,27 @@ export default function AddressModalInput({ addressValue, index }: Props) {
   return (
     <>
       <div className="addressModalInput">
-        <BorderlineInput
-          placeholder="Address Title - (Home, Work)"
-          type="text"
-          id="address-title"
-          name="addressTitle"
-          value={incompleteAddress.title}
-          defaultValue={`Untitled-${index}`}
-          onChangeHandler={onChangeHandler}
-        />
+        {addressValue.title ? (
+          <div className="addressview">
+            <p>{addressValue.title}</p>
+          </div>
+        ) : (
+          <BorderlineInput
+            placeholder="Address Title - (Home, Work)"
+            type="text"
+            id="address-title"
+            name="addressTitle"
+            value={incompleteAddress.title}
+            defaultValue={`Untitled-${index}`}
+            onChangeHandler={onChangeHandler}
+          />
+        )}
         <p>{addressValue.location}</p>
       </div>
       <style jsx>{`
         .addressModalInput p {
           margin: 0px 0px 20px 0px;
           font-size: 12px;
-          text-align: center;
         }
       `}</style>
     </>
