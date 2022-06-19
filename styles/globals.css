@@ -133,3 +133,16 @@ button.itemButton.autocomplete {
 .autocomplete-dropdown-container {
   position: relative;
 }
+
+/* index.tsx */
+.header {
+  height: 7vh;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+.loading-icon {
+  display: flex;
+  align-items: center;
+  margin: auto;
+}

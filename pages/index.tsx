@@ -1,12 +1,9 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { updateModal } from "@/redux/ui-slice";
-import getCurrentLocation from "@/utils/getCurrentLocation";
+import useMapview from "@/hooks/useMapview";
 
 const DynamicAutocomplete = dynamic(
   () =>
@@ -26,20 +23,8 @@ const DynamicMap = dynamic(
 );
 
 export default function MapView() {
-  const dispatch = useAppDispatch();
-  const [loadAutocomplete, setLoadAutocomplete] = useState(false);
-  const { modal } = useAppSelector((state) => state.ui);
-  const { useUserCurrentLocation } = useAppSelector((state) => state.location);
-
-  useEffect(() => {
-    if (!useUserCurrentLocation) {
-      getCurrentLocation(dispatch);
-    }
-  }, [useUserCurrentLocation]);
-
-  function closeModal() {
-    dispatch(updateModal(null));
-  }
+  const { closeModal, loadAutocomplete, updateAutocompleteStatus, modal } =
+    useMapview();
 
   return (
     <>
@@ -49,10 +34,10 @@ export default function MapView() {
         strategy="afterInteractive"
         onLoad={(response) => {
           if (response) {
-            setLoadAutocomplete(true);
+            updateAutocompleteStatus(true);
           }
         }}
-        onError={() => setLoadAutocomplete(false)}
+        onError={() => updateAutocompleteStatus(false)}
       />
       <DynamicMapModal modal={modal} closeModal={closeModal} />
       <div className="header">
@@ -64,21 +49,6 @@ export default function MapView() {
       ) : (
         <img src="/loading.gif" alt="loading-gif" className="loading-icon" />
       )}
-      <style jsx>
-        {`
-          .header {
-            height: 7vh;
-            align-items: center;
-            display: flex;
-            justify-content: center;
-          }
-          .loading-icon {
-            display: flex;
-            align-items: center;
-            margin: auto;
-          }
-        `}
-      </style>
     </>
   );
 }

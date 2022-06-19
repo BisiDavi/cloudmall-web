@@ -7,6 +7,7 @@ import { modalType } from "@/types/modal-types";
 import { updateModal } from "@/redux/ui-slice";
 import AddressModalInput from "./AddressModalInput";
 import { updateAddress, updateCompletedAddress } from "@/redux/location-slice";
+import { useRouter } from "next/router";
 
 interface Props {
   modal: modalType;
@@ -14,13 +15,12 @@ interface Props {
 }
 
 function MapModalComponent({ modal, closeModal }: Props) {
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const locationDetails = useAppSelector((state) => state.location);
 
   const { completeAddress, incompleteAddress } = locationDetails;
-
-  console.log("locationDetails", locationDetails);
 
   const editedAddress = completeAddress.filter(
     (adr) => adr.location === incompleteAddress.location
@@ -46,7 +46,8 @@ function MapModalComponent({ modal, closeModal }: Props) {
       })
     );
     dispatch(updateAddress(""));
-    // dispatch(updateModal(null));
+    router.push("/store-view");
+    dispatch(updateModal(null));
   }
 
   return (
