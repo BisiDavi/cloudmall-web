@@ -16,6 +16,7 @@ export default function AddressModalInput({ addressValue, index }: Props) {
   function onChangeHandler(e: ChangeEvent<HTMLInputElement>) {
     dispatch(
       saveIncompleteAddress({
+        ...incompleteAddress,
         title: e.target.value,
         location: addressValue.location,
       })

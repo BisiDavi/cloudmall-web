@@ -1,8 +1,9 @@
 /* eslint-disable unused-imports/no-unused-vars */
 /* eslint-disable @next/next/no-img-element */
-import { useAppSelector } from "@/hooks/useRedux";
+import { memo, useEffect, useRef, useState } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
-import { useEffect, useRef, useState } from "react";
+
+import { useAppSelector } from "@/hooks/useRedux";
 
 const renderStatus = (status: Status) => {
   switch (status) {
@@ -14,7 +15,7 @@ const renderStatus = (status: Status) => {
       return <p>success</p>;
   }
 };
-export default function Map() {
+function MapCompmonent() {
   return (
     <Wrapper
       apiKey={`${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}`}
@@ -66,3 +67,6 @@ function GoogleMap() {
     </>
   );
 }
+
+const Map = memo(MapCompmonent);
+export default Map;

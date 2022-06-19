@@ -1,5 +1,6 @@
 import Image from "next/image";
 import { memo } from "react";
+import { useRouter } from "next/router";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import Modal from "@/components/modals";
@@ -7,7 +8,6 @@ import { modalType } from "@/types/modal-types";
 import { updateModal } from "@/redux/ui-slice";
 import AddressModalInput from "./AddressModalInput";
 import { updateAddress, updateCompletedAddress } from "@/redux/location-slice";
-import { useRouter } from "next/router";
 
 interface Props {
   modal: modalType;
@@ -21,6 +21,8 @@ function MapModalComponent({ modal, closeModal }: Props) {
   const locationDetails = useAppSelector((state) => state.location);
 
   const { completeAddress, incompleteAddress } = locationDetails;
+
+  console.log("locationDetails-locationDetails", locationDetails);
 
   const editedAddress = completeAddress.filter(
     (adr) => adr.location === incompleteAddress.location

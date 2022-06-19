@@ -26,8 +26,11 @@ declare global {
 }
 
 function AutocompleteViewComponent() {
-  const { address } = useAppSelector((state) => state.location);
+  const locationDetails = useAppSelector((state) => state.location);
   const dispatch = useAppDispatch();
+  const { address } = locationDetails;
+
+  console.log("locationDetails", locationDetails);
 
   function showModal() {
     if (address.length > 0) {
@@ -46,6 +49,7 @@ function AutocompleteViewComponent() {
     geocodeByAddress(userAddress)
       .then((results: any) => getLatLng(results[0]))
       .then((latLng: { lat: number; lng: number }) => {
+        console.log("www-latLng", latLng);
         dispatch(updateDefaultCoordinates(latLng));
         dispatch(
           saveIncompleteAddress({
