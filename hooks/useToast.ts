@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import type { MutableRefObject } from "react";
 import { toast } from "react-toastify";
 
@@ -15,7 +16,7 @@ export default function useToast() {
   ) =>
     toast.update(toastId.current, {
       type: toastType,
-      autoClose: 500,
+      autoClose: 2000,
       render: message,
       isLoading: false,
     });

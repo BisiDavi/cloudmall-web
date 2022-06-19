@@ -1,9 +1,11 @@
 import { useMutation, useQueryClient } from "react-query";
-import { toast } from "react-toastify";
-import useToast from "@/hooks/useToast";
 import { useRef } from "react";
-import useCart from "./useCart";
-import { addToCart } from "@/utils/cartRequest";
+import { toast } from "react-toastify";
+
+import useToast from "@/hooks/useToast";
+import useCart from "@/hooks/useCart";
+import { useAppSelector } from "@/hooks/useRedux";
+import { addToCartRequest } from "@/utils/cartRequest";
 
 type mutationType = {
   product: {
@@ -15,18 +17,22 @@ type mutationType = {
 export default function useCartMutationAction() {
   const queryClient = useQueryClient();
   const { loadingToast, updateToast } = useToast();
-  const { cart, removeCartHandler } = useCart();
+  const { completeAddress } = useAppSelector((state) => state.location);
+  const { removeCartHandler } = useCart();
+
+  const { lat, lng } = completeAddress[0];
 
   function useAddToCart() {
     const toastID = useRef(null);
 
     return useMutation(
       ({ product, qty }: mutationType) =>
-        addToCart({
+        addToCartRequest({
           item: {
             productId: product._id,
             qty,
           },
+          coordinates: [lng, lat],
         }),
       {
         mutationKey: "addProductToCart",
@@ -36,16 +42,13 @@ export default function useCartMutationAction() {
         onSettled: () => {
           queryClient.invalidateQueries("cart");
         },
-        onSuccess: () => {
-          updateToast(toastID, toast.TYPE.SUCCESS, "product added to cart");
+        onSuccess: (response) => {
+          console.log("add-to-cart-response", response);
+          updateToast(toastID, toast.TYPE.SUCCESS, response.data.message);
         },
-        onError: (err) => {
-          console.log("err", err);
-          updateToast(
-            toastID,
-            toast.TYPE.ERROR,
-            "error adding product to cart"
-          );
+        onError: (err: any) => {
+          console.log("add-to-cart-err", err);
+          updateToast(toastID, toast.TYPE.ERROR, err?.response?.data?.message);
         },
       }
     );
@@ -82,5 +85,5 @@ export default function useCartMutationAction() {
     );
   }
 
-  return { useAddToCart, useRemoveCartItem, cart };
+  return { useAddToCart, useRemoveCartItem };
 }

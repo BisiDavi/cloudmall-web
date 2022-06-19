@@ -5,7 +5,6 @@ import { useAppSelector } from "@/hooks/useRedux";
 export default function UpdateLocation() {
   const { completeAddress } = useAppSelector((state) => state.location);
 
-  console.log("completeAddress", completeAddress);
   const defaultAddress = completeAddress[0];
   return (
     <>

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type cartType = {
@@ -26,16 +27,6 @@ export const cartSlice = createSlice({
       if (selectedCartitem) {
         const selectedCartitemIndex = state.cart.indexOf(selectedCartitem[0]);
         state.cart = tempCart.splice(selectedCartitemIndex, 1);
-      }
-    },
-    updateCartItemQuantity: (
-      state,
-      action: PayloadAction<{ type: "inc" | "dec"; cartItemID: string }>
-    ) => {
-      if (action.payload.type === "inc") {
-        const cartItem = state.cart.filter(
-          (cartItem) => cartItem.name === action.payload.cartItemID
-        );
       }
     },
   },
