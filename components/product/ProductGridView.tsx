@@ -4,6 +4,7 @@ import Product from "@/components/product";
 import { productType } from "@/types/product-types";
 import { getStoreProducts } from "@/utils/storeRequest";
 import ProductGridViewLoader from "@/components/loaders/ProductGridViewLoader";
+import EmptyCart from "@/components/cart/EmptyCart";
 
 interface Props {
   storeId: string;
@@ -13,20 +14,23 @@ export default function ProductGridView({ storeId }: Props) {
   const { data, status } = useQuery(`getStoreProducts-${storeId}`, () =>
     getStoreProducts({ storeIds: [storeId] })
   );
-
+  const productResult = data?.data.products;
   return (
     <>
       {status === "error" ? (
         "error"
       ) : status === "loading" ? (
         <ProductGridViewLoader />
-      ) : (
+      ) : false ? (
         <div className="gridview">
-          {data?.data.products.map((product: productType) => (
+          {productResult.map((product: productType) => (
             <Product product={product} key={product.name} />
           ))}
         </div>
+      ) : (
+        <EmptyCart />
       )}
+
       <style jsx>
         {`
           .gridview {
