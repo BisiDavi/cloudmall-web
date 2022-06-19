@@ -1,7 +1,12 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type AddressType = { title?: string; location?: string };
+type AddressType = {
+  title?: string;
+  location?: string;
+  lat?: number;
+  lng?: number;
+ };
 
 type locationState = {
   lat: number;
@@ -28,7 +33,7 @@ export const locationSlice = createSlice({
     saveCompleteAddress: (state, action: PayloadAction<AddressType>) => {
       state.completeAddress = [...state.completeAddress, action.payload];
     },
-    updateCoordinates: (
+    updateDefaultCoordinates: (
       state,
       action: PayloadAction<{ lat: number; lng: number }>
     ) => {
@@ -59,7 +64,7 @@ export const locationSlice = createSlice({
 export const {
   saveCompleteAddress,
   updateAddress,
-  updateCoordinates,
+  updateDefaultCoordinates,
   saveIncompleteAddress,
   updateCompletedAddress,
   updateUserCurrentLocation,

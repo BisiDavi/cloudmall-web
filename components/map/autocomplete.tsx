@@ -11,7 +11,7 @@ import Button from "@/components/buttons";
 import { autocompleteStyles } from "./autocomplete.style";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import {
-  updateCoordinates,
+  updateDefaultCoordinates,
   saveIncompleteAddress,
   updateAddress,
   saveCompleteAddress,
@@ -42,23 +42,31 @@ export default function AutocompleteView() {
 
   function handleSelect(userAddress: string) {
     dispatch(updateAddress(userAddress));
-    dispatch(saveIncompleteAddress({ location: userAddress, title: "" }));
-    dispatch(
-      saveCompleteAddress({
-        title: "",
-        location: userAddress,
-      })
-    );
     geocodeByAddress(userAddress)
       .then((results: any) => getLatLng(results[0]))
-      .then((latLng: { lat: number; lng: number }) =>
-        dispatch(updateCoordinates(latLng))
-      )
+      .then((latLng: { lat: number; lng: number }) => {
+        dispatch(updateDefaultCoordinates(latLng));
+        dispatch(
+          saveIncompleteAddress({
+            location: userAddress,
+            title: "",
+            lat: latLng.lat,
+            lng: latLng.lng,
+          })
+        );
+        dispatch(
+          saveCompleteAddress({
+            location: userAddress,
+            title: "",
+            lat: latLng.lat,
+            lng: latLng.lng,
+          })
+        );
+      })
       .catch((error: any) => console.log("error", error));
   }
   return (
     <>
-     
       <div className="autocomplete">
         <PlacesAutocomplete
           value={address}

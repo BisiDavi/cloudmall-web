@@ -1,7 +1,11 @@
 import React from "react";
 import CaretIcon from "@/components/icons/CaretIcon";
+import { useAppSelector } from "@/hooks/useRedux";
 
 export default function UpdateLocation() {
+  const locationDetails = useAppSelector((state) => state.location);
+
+  console.log("locationDetails", locationDetails);
   return (
     <>
       <div className="updatelocation">

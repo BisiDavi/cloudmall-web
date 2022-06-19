@@ -1,5 +1,5 @@
 import {
-  updateCoordinates,
+  updateDefaultCoordinates,
   updateUserCurrentLocation,
 } from "@/redux/location-slice";
 
@@ -7,7 +7,7 @@ export default function getCurrentLocation(dispatch: any) {
   navigator.geolocation.getCurrentPosition(
     (position) => {
       dispatch(
-        updateCoordinates({
+        updateDefaultCoordinates({
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         })
@@ -17,7 +17,7 @@ export default function getCurrentLocation(dispatch: any) {
     (error) => {
       console.log("getCurrentLocation-error", error);
       dispatch(
-        updateCoordinates({
+        updateDefaultCoordinates({
           lat: 7.5207,
           lng: 4.5303,
         })
