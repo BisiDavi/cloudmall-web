@@ -16,12 +16,11 @@ interface Props {
 function MapModalComponent({ modal, closeModal }: Props) {
   const dispatch = useAppDispatch();
 
-  const { completeAddress, incompleteAddress } = useAppSelector(
-    (state) => state.location
-  );
+  const locationDetails = useAppSelector((state) => state.location);
 
-  console.log("address", completeAddress);
-  console.log("incompleteAddress", incompleteAddress);
+  const { completeAddress, incompleteAddress } = locationDetails;
+
+  console.log("locationDetails", locationDetails);
 
   const editedAddress = completeAddress.filter(
     (adr) => adr.location === incompleteAddress.location
@@ -69,11 +68,7 @@ function MapModalComponent({ modal, closeModal }: Props) {
               <span>Enter New Address </span>
               <Image src="/addIcon.png" height={14} width={14} alt="add icon" />
             </button>
-            <button
-              type="button"
-              className="complete"
-              onClick={complete}
-            >
+            <button type="button" className="complete" onClick={complete}>
               Complete
             </button>
           </div>

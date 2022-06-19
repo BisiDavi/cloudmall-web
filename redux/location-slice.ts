@@ -8,11 +8,13 @@ type locationState = {
   completeAddress: Array<AddressType>;
   incompleteAddress: AddressType;
   address: string;
+  useUserCurrentLocation: boolean;
 };
 
 const initialState: locationState = {
   lat: 7.5207,
   lng: 4.5303,
+  useUserCurrentLocation: false,
   completeAddress: [],
   incompleteAddress: {},
   address: "",
@@ -47,6 +49,9 @@ export const locationSlice = createSlice({
     saveIncompleteAddress: (state, action: PayloadAction<AddressType>) => {
       state.incompleteAddress = action.payload;
     },
+    updateUserCurrentLocation: (state) => {
+      state.useUserCurrentLocation = true;
+    },
   },
 });
 
@@ -56,6 +61,7 @@ export const {
   updateCoordinates,
   saveIncompleteAddress,
   updateCompletedAddress,
+  updateUserCurrentLocation,
 } = locationSlice.actions;
 
 export default locationSlice.reducer;
