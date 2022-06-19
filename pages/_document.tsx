@@ -1,6 +1,4 @@
 // pages/_document.js
-
-import Script from "next/script";
 import Document, { Html, Head, Main, NextScript } from "next/document";
 
 class MyDocument extends Document {
@@ -22,10 +20,6 @@ class MyDocument extends Document {
         <body>
           <Main />
           <NextScript />
-          <Script
-            src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js"
-            strategy="beforeInteractive"
-          ></Script>
         </body>
       </Html>
     );

@@ -2,18 +2,27 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useState } from "react";
 import Script from "next/script";
+import dynamic from "next/dynamic";
 
-import Map from "@/components/map";
-import AutocompleteView from "@/components/map/autocomplete";
-import MapModal from "@/components/modals/MapModal";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateModal } from "@/redux/ui-slice";
 import getCurrentLocation from "@/utils/getCurrentLocation";
-import dynamic from "next/dynamic";
 
 const DynamicAutocomplete = dynamic(
-  () => import("@/components/map/autocomplete"),
+  () =>
+    import(
+      /* webpackChunkName: 'autocomplete' */ "@/components/map/autocomplete"
+    ),
   { ssr: false }
+);
+
+const DynamicMapModal = dynamic(
+  () =>
+    import(/* webpackChunkName: 'MapModal' */ "@/components/modals/MapModal")
+);
+
+const DynamicMap = dynamic(
+  () => import(/* webpackChunkName: 'Map' */ "@/components/map")
 );
 
 export default function MapView() {
@@ -39,15 +48,17 @@ export default function MapView() {
         src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}&libraries=places`}
         strategy="afterInteractive"
         onLoad={(response) => {
-          console.log("response", response);
-          setLoadAutocomplete(true);
+          if (response) {
+            setLoadAutocomplete(true);
+          }
         }}
+        onError={() => setLoadAutocomplete(false)}
       />
-      <MapModal modal={modal} closeModal={closeModal} />
+      <DynamicMapModal modal={modal} closeModal={closeModal} />
       <div className="header">
         <h3>Enter your Address</h3>
       </div>
-      <Map />
+      <DynamicMap />
       {loadAutocomplete ? (
         <DynamicAutocomplete />
       ) : (

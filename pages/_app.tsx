@@ -1,11 +1,27 @@
+import dynamic from "next/dynamic";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
 import { persistStore } from "redux-persist";
-import { ToastContainer } from "react-toastify";
 
 import { store } from "@/redux/store";
+
+const DynamicPersistGate: any = dynamic((): any =>
+  import(
+    /* webpackChunkName: 'PersistGate' */ "redux-persist/integration/react"
+  ).then((mod) => mod.PersistGate)
+);
+
+const DynamicProvider: any = dynamic((): any =>
+  import(/* webpackChunkName: 'PersistGate' */ "react-redux").then(
+    (mod) => mod.Provider
+  )
+);
+
+const DynamicToastContainer: any = dynamic((): any =>
+  import(/* webpackChunkName: 'ToastContainer' */ "react-toastify").then(
+    (mod) => mod.ToastContainer
+  )
+);
 
 import "react-toastify/dist/ReactToastify.css";
 import "../styles/globals.css";
@@ -17,14 +33,14 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
+      <DynamicProvider store={store}>
+        <DynamicPersistGate loading={null} persistor={persistor}>
           <QueryClientProvider client={queryClient}>
             <Component {...pageProps} />
-            <ToastContainer />
+            <DynamicToastContainer />
           </QueryClientProvider>
-        </PersistGate>
-      </Provider>
+        </DynamicPersistGate>
+      </DynamicProvider>
     </>
   );
 }

@@ -26,19 +26,14 @@ export default function DefaultLayout({
   const dispatch = useDispatch();
 
   const handleModalClose = () => {
-    dispatch(updateModal({ type: null, visible: false }));
+    dispatch(updateModal(null));
   };
   function goBack() {
     router.back();
   }
   return (
     <>
-      {modal.visible && modal.type === "loginQuestionModal" && (
-        <LoginQuestionModal
-          closeModal={handleModalClose}
-          showModal={modal.visible}
-        />
-      )}
+      <LoginQuestionModal closeModal={handleModalClose} showModal={modal} />
       <main className="store-layout">
         <div className="header">
           <div className="top-view">
