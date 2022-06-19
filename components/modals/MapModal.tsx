@@ -47,7 +47,7 @@ function MapModalComponent({ modal, closeModal }: Props) {
       })
     );
     dispatch(updateAddress(""));
-    dispatch(updateModal(null));
+    // dispatch(updateModal(null));
   }
 
   return (
@@ -72,7 +72,7 @@ function MapModalComponent({ modal, closeModal }: Props) {
             <button
               type="button"
               className="complete"
-              // onClick={newAddressHandler}
+              onClick={complete}
             >
               Complete
             </button>

@@ -26,7 +26,7 @@ export default function AddressModalInput({ addressValue, index }: Props) {
       <div className="addressModalInput">
         {addressValue.title ? (
           <div className="addressview">
-            <p>{addressValue.title}</p>
+            <h5>{addressValue.title.toUpperCase()}</h5>
           </div>
         ) : (
           <BorderlineInput
@@ -43,8 +43,12 @@ export default function AddressModalInput({ addressValue, index }: Props) {
       </div>
       <style jsx>{`
         .addressModalInput p {
-          margin: 0px 0px 20px 0px;
+          margin: 0px 0px 10px 0px;
           font-size: 12px;
+        }
+        .addressModalInput h5 {
+          margin-bottom: 5px;
+          color: var(--mall-blue);
         }
       `}</style>
     </>
