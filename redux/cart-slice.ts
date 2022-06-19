@@ -17,7 +17,7 @@ export const cartSlice = createSlice({
       state,
       action: PayloadAction<{ name: string; price: number; image: string }>
     ) => {
-      state.cart = [...state.cart, action.payload];
+      state.cart = [action.payload];
     },
     removeFromCart: (state, action: PayloadAction<any>) => {
       const selectedCartitem = state.cart.filter(

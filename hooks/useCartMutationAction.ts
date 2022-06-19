@@ -4,8 +4,9 @@ import { toast } from "react-toastify";
 
 import useToast from "@/hooks/useToast";
 import useCart from "@/hooks/useCart";
-import { useAppSelector } from "@/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { addToCartRequest } from "@/utils/cartRequest";
+import { addToCart } from "@/redux/cart-slice";
 
 type mutationType = {
   product: {
@@ -16,24 +17,34 @@ type mutationType = {
 
 export default function useCartMutationAction() {
   const queryClient = useQueryClient();
+  const { cart } = useAppSelector((state) => state.cart);
   const { loadingToast, updateToast } = useToast();
   const { completeAddress } = useAppSelector((state) => state.location);
   const { removeCartHandler } = useCart();
+  const dispatch = useAppDispatch();
 
   const { lat, lng } = completeAddress[0];
+
+  console.log("cart", cart);
 
   function useAddToCart() {
     const toastID = useRef(null);
 
     return useMutation(
-      ({ product, qty }: mutationType) =>
-        addToCartRequest({
+      ({ product, qty }: mutationType) => {
+        const cartId = cart.length > 0 ? { cartId: cart[0]?._id } : "";
+        console.log("cartId", cartId);
+        const productDetails = {
+          ...cartId,
           item: {
             productId: product._id,
             qty,
           },
           coordinates: [lng, lat],
-        }),
+        };
+        console.log("productDetails", productDetails);
+        return addToCartRequest(productDetails);
+      },
       {
         mutationKey: "addProductToCart",
         onMutate: () => {
@@ -44,6 +55,7 @@ export default function useCartMutationAction() {
         },
         onSuccess: (response) => {
           console.log("add-to-cart-response", response);
+          dispatch(addToCart(response.data.cart));
           updateToast(toastID, toast.TYPE.SUCCESS, response.data.message);
         },
         onError: (err: any) => {

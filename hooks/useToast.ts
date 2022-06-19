@@ -16,7 +16,7 @@ export default function useToast() {
   ) =>
     toast.update(toastId.current, {
       type: toastType,
-      autoClose: 2000,
+      autoClose: false,
       render: message,
       isLoading: false,
     });
