@@ -7,16 +7,23 @@ interface Props {
   title: string;
   showFooter?: boolean;
   padding?: string;
+  showArrow?: boolean;
 }
 
 export default function StoreLayoutPage({
   title,
   children,
   showFooter = true,
+  showArrow = true,
   padding,
 }: PropsWithChildren<Props>) {
   return (
-    <DefaultLayout title={title} search={<SearchStore />} padding={padding}>
+    <DefaultLayout
+      title={title}
+      search={<SearchStore />}
+      padding={padding}
+      showArrow={showArrow}
+    >
       <>
         <div className="children-view">{children}</div>
         {showFooter && <Footer />}

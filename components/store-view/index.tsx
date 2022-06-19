@@ -5,6 +5,7 @@ import StoreviewList from "@/components/store-view/StoreviewList";
 import { listStore } from "@/utils/storeRequest";
 import { storeType } from "@/types/store-types";
 import { useAppSelector } from "@/hooks/useRedux";
+import StoreListLoader from "@/components/loaders/StoreListLoader";
 
 export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
@@ -24,13 +25,15 @@ export default function Storeview() {
       <div className="store-view">
         <RestaurantPillsGroup storeType="restaurant" />
         <div className="list">
-          {status === "error"
-            ? "error occured"
-            : status === "loading"
-            ? "loading"
-            : data?.data.stores.map((store: storeType) => (
-                <StoreviewList store={store} key={store._id} />
-              ))}
+          {status === "error" ? (
+            "error occured"
+          ) : status === "loading" ? (
+            <StoreListLoader />
+          ) : (
+            data?.data.stores.map((store: storeType) => (
+              <StoreviewList store={store} key={store._id} />
+            ))
+          )}
         </div>
       </div>
       <style jsx>
