@@ -17,6 +17,7 @@ import {
   saveCompleteAddress,
 } from "@/redux/location-slice";
 import { updateModal } from "@/redux/ui-slice";
+import { memo } from "react";
 
 declare global {
   interface Window {
@@ -24,7 +25,7 @@ declare global {
   }
 }
 
-export default function AutocompleteView() {
+function AutocompleteViewComponent() {
   const { address } = useAppSelector((state) => state.location);
   const dispatch = useAppDispatch();
 
@@ -173,3 +174,6 @@ export default function AutocompleteView() {
     </>
   );
 }
+
+const AutocompleteView = memo(AutocompleteViewComponent);
+export default AutocompleteView;
