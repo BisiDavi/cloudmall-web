@@ -21,7 +21,7 @@ export default function ProductGridView({ storeId }: Props) {
         "error"
       ) : status === "loading" ? (
         <ProductGridViewLoader />
-      ) : false ? (
+      ) : productResult > 0 ? (
         <div className="gridview">
           {productResult.map((product: productType) => (
             <Product product={product} key={product.name} />
