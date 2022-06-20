@@ -8,12 +8,12 @@ import { storeProfile } from "@/utils/storeRequest";
 
 export default function StorePage() {
   const router: any = useRouter();
-  const storeId = router?.query.store_id;
+  const storeId = router?.query?.store_id;
   const { data, status } = useQuery(`store-profile-${storeId}`, () =>
     storeProfile(storeId)
   );
 
-  const storeName = status === "success" ? data?.data.store.name : "";
+  const storeName = status === "success" ? data?.data?.store?.name : "";
 
   return (
     <StoreLayoutPage title={storeName} padding="0px 0px 0px 0px">
@@ -21,7 +21,7 @@ export default function StorePage() {
         storeType="store"
         category={data?.data?.store?.category?.name}
       />
-      <ProductGridView storeId={storeId} />
+      {storeId && <ProductGridView storeId={storeId} />}
     </StoreLayoutPage>
   );
 }
