@@ -1,4 +1,5 @@
 import useCartMutationAction from "@/hooks/useCartMutationAction";
+import formatPrice from "@/utils/formatPrice";
 // import { productType } from "@/types/product-types";
 import Image from "next/image";
 import React from "react";
@@ -39,7 +40,7 @@ export default function CartItem({ item }: cartProps) {
                 <span>{item.store.name}</span>
               </h6>
             </div>
-            <h4 className="price">N {item.product.unitPrice}</h4>
+            <h4 className="price">N {formatPrice(item.product.unitPrice)}</h4>
           </div>
           <div className="layer cart-controls">
             <TrashIcon />
