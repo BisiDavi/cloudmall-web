@@ -7,7 +7,7 @@ import { useAppSelector } from "@/hooks/useRedux";
 
 export default function Footer() {
   const { cart } = useAppSelector((state) => state.cart);
-  const cartQuantity = cart[0].items.length;
+  const cartQuantity = cart[0]?.items?.length;
 
   const buttontext =
     cartQuantity === 1

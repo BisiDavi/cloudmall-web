@@ -30,7 +30,7 @@ export default function Storeview() {
           ) : status === "loading" ? (
             <StoreListLoader />
           ) : (
-            data?.data.stores.map((store: storeType) => (
+            data?.data?.stores.map((store: storeType) => (
               <StoreviewList store={store} key={store._id} />
             ))
           )}

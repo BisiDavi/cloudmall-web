@@ -25,7 +25,6 @@ function MapModalComponent({ modal, closeModal }: Props) {
   const editedAddress = completeAddress.filter(
     (adr) => adr.location === incompleteAddress.location
   );
-  console.log("editedAddress");
   const editedAddressIndex = completeAddress.indexOf(editedAddress[0]);
 
   function newAddressHandler() {

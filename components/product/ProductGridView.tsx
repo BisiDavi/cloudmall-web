@@ -14,7 +14,7 @@ export default function ProductGridView({ storeId }: Props) {
   const { data, status } = useQuery(`getStoreProducts-${storeId}`, () =>
     getStoreProducts({ storeIds: [storeId] })
   );
-  const productResult = data?.data.products;
+  const productResult = data?.data?.products;
 
   return (
     <>

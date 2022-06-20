@@ -19,7 +19,7 @@ export default function StorePage() {
     <StoreLayoutPage title={storeName} padding="0px 0px 0px 0px">
       <RestaurantPillsGroup
         storeType="store"
-        category={data?.data?.store.category.name}
+        category={data?.data?.store?.category?.name}
       />
       <ProductGridView storeId={storeId} />
     </StoreLayoutPage>
