@@ -1,5 +1,4 @@
 import useCartMutationAction from "@/hooks/useCartMutationAction";
-import useCart from "@/hooks/useCart";
 // import { productType } from "@/types/product-types";
 import Image from "next/image";
 import React from "react";
@@ -10,13 +9,10 @@ import SubtractIcon from "../icons/SubtractIcon";
 import TrashIcon from "../icons/TrashIcon";
 
 interface cartProps {
-  cart: any;
+  item: any;
 }
 
-export default function CartItem({ cart }: cartProps) {
-  const { cart: cartData } = useCart();
-  const quantityText = cart.name.includes("Oranges") ? " piece " : " pack ";
-  // const vv = cartData.map((cartItem) => cartItem === cart.name);
+export default function CartItem({ item }: cartProps) {
   const { useAddToCart } = useCartMutationAction();
   const addToCart = useAddToCart();
   // const removeCartItem = useRemoveCartItem();
@@ -25,21 +21,25 @@ export default function CartItem({ cart }: cartProps) {
   //   (cartItem) => cartItem.name === cart.name
   // ).length;
 
-  console.log("cartData", cartData);
   return (
     <>
       <div className="cartItem">
-        <Image src={cart.image} height={100} width={100} alt={cart.name} />
+        <Image
+          src={`https://cloudmall-africa.herokuapp.com${item.product.image}`}
+          height={100}
+          width={100}
+          alt={item.product.name}
+        />
         <div className="content">
           <div className="layer">
             <div className="group">
-              <h4>{cart.name}</h4>
+              <h4>{item.product.name}</h4>
               <h6 className="store">
                 <MapIcon />
-                <span>{cart.store}</span>
+                <span>{item.store.name}</span>
               </h6>
             </div>
-            <h4 className="price">N {cart.price}</h4>
+            <h4 className="price">N {item.product.unitPrice}</h4>
           </div>
           <div className="layer cart-controls">
             <TrashIcon />
@@ -51,10 +51,10 @@ export default function CartItem({ cart }: cartProps) {
                 <SubtractIcon />
               </button>
               <span>
-                {/* {quantity} */}
-                {quantityText}
+                {item.qty}
+                {/* {quantityText} */}
               </span>
-              <button onClick={() => addToCart.mutate(cart)}>
+              <button onClick={() => addToCart.mutate(item)}>
                 <AddIcon fill="#013a93" />
               </button>
             </div>

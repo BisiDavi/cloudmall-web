@@ -1,18 +1,27 @@
-// import CartItem from "@/components/cart/CartItem";
+import CartItem from "@/components/cart/CartItem";
 import useCart from "@/hooks/useCart";
 
 export default function CartGroup() {
   const { useGetCart } = useCart();
-  const [data, status] = useGetCart();
-
-  console.log("data", data);
-  console.log("status", status);
+  const [cart, status] = useGetCart();
 
   return (
     <>
-      {/* {cart.map((cartItem: any) => (
-        <CartItem cart={cartItem} key={cartItem.name} />
-      ))} */}
+      {status === "error"
+        ? "error occured"
+        : status === "loading"
+        ? "loading..."
+        : cart?.items.map((cartItem: any) => (
+            <CartItem item={cartItem} key={cartItem._id} />
+          ))}
+      <div className="bottom" />
+      <style jsx>
+        {`
+          .bottom {
+            margin-bottom: 40px;
+          }
+        `}
+      </style>
     </>
   );
 }
