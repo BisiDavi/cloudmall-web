@@ -21,10 +21,11 @@ export default function CartItem({ cart }: cartProps) {
   const addToCart = useAddToCart();
   // const removeCartItem = useRemoveCartItem();
 
-  const quantity = cartData.filter(
-    (cartItem) => cartItem.name === cart.name
-  ).length;
+  // const quantity = cartData.filter(
+  //   (cartItem) => cartItem.name === cart.name
+  // ).length;
 
+  console.log("cartData", cartData);
   return (
     <>
       <div className="cartItem">
@@ -50,7 +51,8 @@ export default function CartItem({ cart }: cartProps) {
                 <SubtractIcon />
               </button>
               <span>
-                {quantity} {quantityText}
+                {/* {quantity} */}
+                {quantityText}
               </span>
               <button onClick={() => addToCart.mutate(cart)}>
                 <AddIcon fill="#013a93" />
