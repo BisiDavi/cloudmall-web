@@ -17,11 +17,13 @@ export default function StorePage() {
 
   return (
     <StoreLayoutPage title={storeName} padding="0px 0px 0px 0px">
-      <RestaurantPillsGroup
-        storeType="store"
-        category={data?.data?.store?.category?.name}
-      />
-      {storeId && <ProductGridView storeId={storeId} />}
+      {storeId !== undefined && (
+        <RestaurantPillsGroup
+          storeType="store"
+          category={data?.data?.store?.category?.name}
+        />
+      )}
+      {storeId !== undefined && <ProductGridView storeId={storeId} />}
     </StoreLayoutPage>
   );
 }
