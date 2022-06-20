@@ -23,10 +23,15 @@ export default function ProductQtyDropdown({
   const cartActions = useAddToCart();
   const updateCartActions = useUpdateCart();
 
-  const productInCart = cart[0].items.filter((cartItem) => {
-    return cartItem.storeId === storeId && cartItem.productId === product._id;
-  });
-  const productQuantity = productInCart[0]?.qty ? productInCart[0]?.qty : 0;
+  const productInCart = cart[0]
+    ? cart[0]?.items.filter((cartItem) => {
+        return (
+          cartItem.storeId === storeId && cartItem.productId === product._id
+        );
+      })
+    : 0;
+  const productQuantity =
+    productInCart && productInCart[0]?.qty ? productInCart[0]?.qty : 0;
 
   const buttonClassName =
     productQuantity && productQuantity > 0 ? "added" : "product-button";
@@ -40,8 +45,9 @@ export default function ProductQtyDropdown({
   }
 
   function productQtyHandler(qty: number) {
+    const itemId = productInCart ? productInCart[0].itemId : "";
     return updateCartActions.mutate(
-      { itemId: productInCart[0].itemId, qty },
+      { itemId, qty },
       {
         onSuccess() {
           setDropdown(false);
