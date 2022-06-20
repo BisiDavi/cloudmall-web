@@ -25,7 +25,7 @@ export default function ProductGridView({ storeId }: Props) {
       ) : productResult.length > 0 ? (
         <div className="gridview">
           {productResult.map((product: productType) => (
-            <Product product={product} key={product.name} />
+            <Product product={product} key={product.name} storeId={storeId} />
           ))}
         </div>
       ) : (

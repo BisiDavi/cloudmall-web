@@ -1,4 +1,5 @@
 import { useState } from "react";
+import type { SetStateAction, Dispatch } from "react";
 
 import { productType } from "@/types/product-types";
 import AddIcon from "@/components/icons/AddIcon";
@@ -8,17 +9,31 @@ const qtyArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 interface Props {
   product: productType;
+  storeId: string;
+  dropdown: boolean;
+  setDropdown: Dispatch<SetStateAction<boolean>>;
 }
 
-export default function ProductQtyDropdown({ product }: Props) {
-  const [dropdown, setDropdown] = useState(false);
+export default function ProductQtyDropdown({
+  product,
+  storeId,
+  dropdown,
+  setDropdown,
+}: Props) {
   const [qty, setQty] = useState(0);
-  const { useAddToCart } = useCartMutationAction();
+  const { useAddToCart, cart } = useCartMutationAction();
   const cartActions = useAddToCart();
-  const buttonClassName = qty && qty > 0 ? "added" : "product-button";
+
+  const productInCart = cart[0].items.filter((cartItem) => {
+    return cartItem.storeId === storeId && cartItem.productId === product._id;
+  });
+  const productQuantity = productInCart[0]?.qty ? productInCart[0]?.qty : qty;
+
+  const buttonClassName =
+    productQuantity && productQuantity > 0 ? "added" : "product-button";
 
   function updateQty() {
-    if (qty === 0) {
+    if (productQuantity === 0) {
       return cartActions.mutate(
         { product, qty: 1 },
         {
@@ -50,7 +65,7 @@ export default function ProductQtyDropdown({ product }: Props) {
         onClick={updateQty}
         className={`button ${buttonClassName}`}
       >
-        {qty > 0 ? qty : <AddIcon />}
+        {productQuantity > 0 ? productQuantity : <AddIcon />}
       </button>
       {dropdown && (
         <ul className="dropdown">

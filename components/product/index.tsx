@@ -2,15 +2,25 @@ import Image from "next/image";
 
 import { productType } from "@/types/product-types";
 import ProductQtyDropdown from "@/components/product/ProductQtyDropdown";
+import { useState } from "react";
 
 interface Props {
   product: productType;
+  storeId: string;
 }
 
-export default function Product({ product }: Props) {
+export default function Product({ product, storeId }: Props) {
+  const [dropdown, setDropdown] = useState(false);
+
+  function dropdownHandler() {
+    if (dropdown) {
+      setDropdown(false);
+    }
+  }
+
   return (
     <>
-      <div className="product">
+      <div className="product" onClick={dropdownHandler}>
         <Image
           src={`https://cloudmall-africa.herokuapp.com${product.image}`}
           alt={product.name}
@@ -21,7 +31,12 @@ export default function Product({ product }: Props) {
           <h3>{product.name}</h3>
           <div className="layer">
             <h4>{product.unitPrice}</h4>
-            <ProductQtyDropdown product={product} />
+            <ProductQtyDropdown
+              product={product}
+              storeId={storeId}
+              dropdown={dropdown}
+              setDropdown={setDropdown}
+            />
           </div>
         </div>
       </div>

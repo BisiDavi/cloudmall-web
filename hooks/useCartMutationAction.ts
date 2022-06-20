@@ -7,6 +7,7 @@ import useCart from "@/hooks/useCart";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { addToCartRequest } from "@/utils/cartRequest";
 import { addToCart } from "@/redux/cart-slice";
+import formatCart from "@/utils/formatCart";
 
 type mutationType = {
   product: {
@@ -25,15 +26,12 @@ export default function useCartMutationAction() {
 
   const { lat, lng } = completeAddress[0];
 
-  console.log("cart", cart);
-
   function useAddToCart() {
     const toastID = useRef(null);
 
     return useMutation(
       ({ product, qty }: mutationType) => {
-        const cartId = cart.length > 0 ? { cartId: cart[0]?._id } : "";
-        console.log("cartId", cartId);
+        const cartId = cart.length > 0 ? { cartId: cart[0]?.cartId } : "";
         const productDetails = {
           ...cartId,
           item: {
@@ -42,7 +40,6 @@ export default function useCartMutationAction() {
           },
           coordinates: [lng, lat],
         };
-        console.log("productDetails", productDetails);
         return addToCartRequest(productDetails);
       },
       {
@@ -55,7 +52,9 @@ export default function useCartMutationAction() {
         },
         onSuccess: (response) => {
           console.log("add-to-cart-response", response);
-          dispatch(addToCart(response.data.cart));
+          const formattedCart = formatCart(response.data.cart);
+          console.log("formattedCart", formattedCart);
+          dispatch(addToCart(formattedCart));
           updateToast(toastID, toast.TYPE.SUCCESS, response.data.message);
         },
         onError: (err: any) => {
@@ -97,5 +96,5 @@ export default function useCartMutationAction() {
     );
   }
 
-  return { useAddToCart, useRemoveCartItem };
+  return { useAddToCart, useRemoveCartItem, cart };
 }

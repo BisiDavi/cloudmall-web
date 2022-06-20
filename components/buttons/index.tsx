@@ -27,13 +27,20 @@ export default function Button({
       </button>
       <style jsx>
         {`
-          button.button {
+          .button {
             background-color: var(--mall-blue);
             display: flex;
             align-items: center;
           }
           .button span {
             margin-right: 5px;
+          }
+
+          .button.filled {
+            background-color: var(--deep-green);
+          }
+          .button.empty {
+            background-color: var(--mall-blue);
           }
         `}
       </style>

@@ -7,18 +7,17 @@ import { useAppSelector } from "@/hooks/useRedux";
 
 export default function Footer() {
   const { cart } = useAppSelector((state) => state.cart);
-  let uniqueCartItems: any = [];
-  cart?.map((cartItem) => uniqueCartItems.push(cartItem.name));
-  const uniqueCartItem = new Set(uniqueCartItems);
-  const uniqueCartItemArray = Array.from(uniqueCartItem);
+  const cartQuantity = cart[0].items.length;
 
   const buttontext =
-    uniqueCartItemArray.length === 1
-      ? `${uniqueCartItemArray.length} item`
-      : uniqueCartItemArray.length > 1
-      ? `${uniqueCartItemArray.length} items`
+    cartQuantity === 1
+      ? `${cartQuantity} item`
+      : cartQuantity > 1
+      ? `${cartQuantity} items`
       : "Cart is empty";
-  const disableButton = uniqueCartItemArray.length === 0 ? true : false;
+  const disableButton = cartQuantity === 0 ? true : false;
+
+  const buttonColor = cartQuantity > 0 ? "filled" : "empty";
 
   return (
     <>
@@ -27,7 +26,7 @@ export default function Footer() {
         <Link passHref href="/order">
           <a>
             <Button
-              className="itemButton"
+              className={`itemButton ${buttonColor}`}
               icon={<CartIcon />}
               text={buttontext}
               disabled={disableButton}
@@ -46,10 +45,10 @@ export default function Footer() {
             padding: 12px 20px;
             z-index: 40;
             justify-content: space-between;
-            background-color: var(--light-blue);
             height: 65px;
             align-items: center;
             border-top: 1px solid rgba(62, 64, 68, 0.25);
+            background-color: white;
           }
         `}
       </style>

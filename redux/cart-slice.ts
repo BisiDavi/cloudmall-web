@@ -1,8 +1,9 @@
 /* eslint-disable no-param-reassign */
+import { formattedCartType } from "@/types/cart-type";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type cartType = {
-  cart: any[];
+  cart: formattedCartType[];
 };
 
 const initialState: cartType = {
@@ -13,10 +14,7 @@ export const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
-    addToCart: (
-      state,
-      action: PayloadAction<{ name: string; price: number; image: string }>
-    ) => {
+    addToCart: (state, action: PayloadAction<formattedCartType>) => {
       state.cart = [action.payload];
     },
     removeFromCart: (state, action: PayloadAction<any>) => {
