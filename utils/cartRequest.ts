@@ -1,9 +1,20 @@
+import {
+  addToCartResponseType,
+  updateCartMutationType,
+} from "@/types/cart-type";
 import axios from "axios";
 
-export function addToCartRequest(productDetails: any) {
-  console.log("productDetails", productDetails);
+function baseRequest(productDetails: any, route: string) {
   return axios.post(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/users/cart/items/add`,
+    `${process.env.NEXT_PUBLIC_BASE_URL}/${route}`,
     productDetails
   );
+}
+
+export function addToCartRequest(productDetails: addToCartResponseType) {
+  return baseRequest(productDetails, "users/cart/items/add");
+}
+
+export function updateCartRequest(productDetails: updateCartMutationType) {
+  return baseRequest(productDetails, "users/cart/items/update");
 }

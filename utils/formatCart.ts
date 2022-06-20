@@ -7,7 +7,12 @@ export default function formatCart(cart: cartType) {
   cart.items.map((item) => {
     cartObj.items = [
       ...cartObj.items,
-      { productId: item.product._id, qty: item.qty, storeId: item.store._id },
+      {
+        productId: item.product._id,
+        qty: item.qty,
+        storeId: item.store._id,
+        itemId: item._id,
+      },
     ];
   });
   return cartObj;

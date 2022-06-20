@@ -1,4 +1,3 @@
-import { useState } from "react";
 import type { SetStateAction, Dispatch } from "react";
 
 import { productType } from "@/types/product-types";
@@ -20,39 +19,33 @@ export default function ProductQtyDropdown({
   dropdown,
   setDropdown,
 }: Props) {
-  const [qty, setQty] = useState(0);
-  const { useAddToCart, cart } = useCartMutationAction();
+  const { useAddToCart, cart, useUpdateCart } = useCartMutationAction();
   const cartActions = useAddToCart();
+  const updateCartActions = useUpdateCart();
+
+  const cartId = cart[0].cartId;
 
   const productInCart = cart[0].items.filter((cartItem) => {
     return cartItem.storeId === storeId && cartItem.productId === product._id;
   });
-  const productQuantity = productInCart[0]?.qty ? productInCart[0]?.qty : qty;
+  const productQuantity = productInCart[0]?.qty ? productInCart[0]?.qty : 0;
 
   const buttonClassName =
     productQuantity && productQuantity > 0 ? "added" : "product-button";
 
   function updateQty() {
     if (productQuantity === 0) {
-      return cartActions.mutate(
-        { product, qty: 1 },
-        {
-          onSuccess() {
-            setQty((prevState) => prevState + 1);
-          },
-        }
-      );
+      return cartActions.mutate({ product, qty: 1 });
     } else {
       return setDropdown(true);
     }
   }
 
   function productQtyHandler(qty: number) {
-    cartActions.mutate(
-      { product, qty },
+    return updateCartActions.mutate(
+      { itemId: productInCart[0].itemId, cartId, qty },
       {
         onSuccess() {
-          setQty(qty);
           setDropdown(false);
         },
       }
@@ -99,6 +92,9 @@ export default function ProductQtyDropdown({
             z-index: 100;
             border: 1px solid var(--neutral-gray-2);
             background-color: white;
+            position: absolute;
+            right: 0;
+            margin-top: -20px;
           }
           .dropdown li {
             list-style: none;

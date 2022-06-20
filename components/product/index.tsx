@@ -63,6 +63,7 @@ export default function Product({ product, storeId }: Props) {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            position: relative;
           }
           .content h3 {
             font-size: 12px;
