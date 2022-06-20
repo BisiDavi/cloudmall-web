@@ -13,8 +13,9 @@ interface cartProps {
 }
 
 export default function CartItem({ item }: cartProps) {
-  const { useUpdateCart } = useCartMutationAction();
+  const { useUpdateCart, useRemoveCartItem } = useCartMutationAction();
   const updateCartQty = useUpdateCart();
+  const removeItem = useRemoveCartItem();
 
   function updateQtyHandler(type: "inc" | "dec") {
     const newQty = type === "dec" ? item.qty - 1 : item.qty + 1;
@@ -24,6 +25,10 @@ export default function CartItem({ item }: cartProps) {
         qty: newQty,
       });
     }
+  }
+
+  function removeItemHandler() {
+    return removeItem.mutate(item._id);
   }
 
   return (
@@ -47,7 +52,9 @@ export default function CartItem({ item }: cartProps) {
             <h4 className="price">N {formatPrice(item.product.unitPrice)}</h4>
           </div>
           <div className="layer cart-controls">
-            <TrashIcon />
+            <button type="button" onClick={removeItemHandler}>
+              <TrashIcon />
+            </button>
             <NoteIcon />
             <div className="controls">
               <button onClick={() => updateQtyHandler("dec")}>
@@ -95,6 +102,7 @@ export default function CartItem({ item }: cartProps) {
             display: flex;
             justify-content: space-between;
             margin-top: 10px;
+            align-items: center;
           }
           .controls {
             width: 55%;

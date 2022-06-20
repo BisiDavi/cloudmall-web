@@ -1,5 +1,6 @@
 import {
   addToCartResponseType,
+  deleteCartItemMutationType,
   updateCartMutationType,
 } from "@/types/cart-type";
 import axios from "axios";
@@ -29,4 +30,10 @@ export function updateCartRequest(productDetails: updateCartMutationType) {
 
 export function getCartRequest(cartId: string) {
   return baseRequest("get", `users/cart?cartId=${cartId}`);
+}
+
+export function removeCartItemRequest(
+  productDetails: deleteCartItemMutationType
+) {
+  return baseRequest("post", "users/cart/items/remove", productDetails);
 }

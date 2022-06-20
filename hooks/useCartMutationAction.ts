@@ -4,7 +4,11 @@ import { toast } from "react-toastify";
 
 import useToast from "@/hooks/useToast";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { addToCartRequest, updateCartRequest } from "@/utils/cartRequest";
+import {
+  addToCartRequest,
+  removeCartItemRequest,
+  updateCartRequest,
+} from "@/utils/cartRequest";
 import { addToCart } from "@/redux/cart-slice";
 import formatCart from "@/utils/formatCart";
 import {
@@ -87,11 +91,9 @@ export default function useCartMutationAction() {
   function useRemoveCartItem() {
     const toastID = useRef(null);
     const result = responseData(toastID);
-
+    const cartId = cart[0].cartId;
     return useMutation(
-      (productName: string): any => {
-        console.log("productName", productName);
-      },
+      (itemId: string) => removeCartItemRequest({ cartId, itemId }),
       {
         mutationKey: "removeProducfromCart",
         ...result,

@@ -37,3 +37,8 @@ export type updateCartMutationType = {
   itemId: string;
   qty: number;
 };
+
+export type deleteCartItemMutationType = {
+  itemId: string;
+  cartId: string;
+};
