@@ -23,8 +23,6 @@ export default function ProductQtyDropdown({
   const cartActions = useAddToCart();
   const updateCartActions = useUpdateCart();
 
-  const cartId = cart[0].cartId;
-
   const productInCart = cart[0].items.filter((cartItem) => {
     return cartItem.storeId === storeId && cartItem.productId === product._id;
   });
@@ -43,7 +41,7 @@ export default function ProductQtyDropdown({
 
   function productQtyHandler(qty: number) {
     return updateCartActions.mutate(
-      { itemId: productInCart[0].itemId, cartId, qty },
+      { itemId: productInCart[0].itemId, qty },
       {
         onSuccess() {
           setDropdown(false);

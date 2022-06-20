@@ -28,7 +28,7 @@ export default function CartGroup() {
       <style jsx>
         {`
           .bottom {
-            margin-bottom: 40px;
+            margin-bottom: 140px;
           }
         `}
       </style>
