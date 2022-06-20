@@ -1,18 +1,16 @@
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { addToCart, removeFromCart } from "@/redux/cart-slice";
-import { productType } from "@/types/product-types";
+import { useAppSelector } from "@/hooks/useRedux";
+import { getCartRequest } from "@/utils/cartRequest";
+import { useQuery } from "react-query";
 
 export default function useCart() {
-  const dispatch = useAppDispatch();
   const { cart } = useAppSelector((state) => state.cart);
 
-  function addToCartHandler(item: any) {
-    return dispatch(addToCart(item));
+  function useGetCart() {
+    const { data, status } = useQuery("getCartQuery", () =>
+      getCartRequest(cart[0].cartId)
+    );
+    return [data?.data?.cart, status];
   }
 
-  function removeCartHandler(cartItemID: string) {
-    return dispatch(removeFromCart(cartItemID));
-  }
-
-  return { cart, addToCartHandler, removeCartHandler };
+  return { cart, useGetCart };
 }

@@ -23,7 +23,7 @@ export default function Footer() {
     <>
       <div className="footer">
         <UpdateLocation />
-        <Link passHref href="/order">
+        <Link passHref href="/cart">
           <a>
             <Button
               className={`itemButton ${buttonColor}`}
