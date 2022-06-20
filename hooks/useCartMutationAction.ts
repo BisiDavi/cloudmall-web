@@ -3,7 +3,6 @@ import { useRef } from "react";
 import { toast } from "react-toastify";
 
 import useToast from "@/hooks/useToast";
-import useCart from "@/hooks/useCart";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { addToCartRequest, updateCartRequest } from "@/utils/cartRequest";
 import { addToCart } from "@/redux/cart-slice";
@@ -18,7 +17,6 @@ export default function useCartMutationAction() {
   const { cart } = useAppSelector((state) => state.cart);
   const { loadingToast, updateToast } = useToast();
   const { completeAddress } = useAppSelector((state) => state.location);
-  const { removeCartHandler } = useCart();
   const dispatch = useAppDispatch();
 
   const { lat, lng } = completeAddress[0];
@@ -28,7 +26,7 @@ export default function useCartMutationAction() {
       loadingToast(toastID);
     },
     onSettled: () => {
-      queryClient.invalidateQueries("cart");
+      queryClient.invalidateQueries("getCartQuery");
     },
     onSuccess: (response: any) => {
       console.log("mutation-response", response);
@@ -93,7 +91,6 @@ export default function useCartMutationAction() {
     return useMutation(
       (productName: string): any => {
         console.log("productName", productName);
-        removeCartHandler(productName);
       },
       {
         mutationKey: "removeProducfromCart",

@@ -13,13 +13,15 @@ export default function useToast() {
     toastId: MutableRefObject<any>,
     toastType: any,
     message: string
-  ) =>
-    toast.update(toastId.current, {
+  ) => {
+    const autoCloseStatus = toastType === "error" ? false : 5000;
+    return toast.update(toastId.current, {
       type: toastType,
-      autoClose: false,
+      autoClose: autoCloseStatus,
       render: message,
       isLoading: false,
     });
+  };
 
   return {
     loadingToast,

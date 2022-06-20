@@ -1,8 +1,7 @@
+import Image from "next/image";
+
 import useCartMutationAction from "@/hooks/useCartMutationAction";
 import formatPrice from "@/utils/formatPrice";
-// import { productType } from "@/types/product-types";
-import Image from "next/image";
-import React from "react";
 import AddIcon from "../icons/AddIcon";
 import MapIcon from "../icons/MapIcon";
 import NoteIcon from "../icons/NoteIcon";
@@ -14,13 +13,18 @@ interface cartProps {
 }
 
 export default function CartItem({ item }: cartProps) {
-  const { useAddToCart } = useCartMutationAction();
-  const addToCart = useAddToCart();
-  // const removeCartItem = useRemoveCartItem();
+  const { useUpdateCart } = useCartMutationAction();
+  const updateCartQty = useUpdateCart();
 
-  // const quantity = cartData.filter(
-  //   (cartItem) => cartItem.name === cart.name
-  // ).length;
+  function updateQtyHandler(type: "inc" | "dec") {
+    const newQty = type === "dec" ? item.qty - 1 : item.qty + 1;
+    if (item.qty > 0) {
+      return updateCartQty.mutate({
+        itemId: item._id,
+        qty: newQty,
+      });
+    }
+  }
 
   return (
     <>
@@ -46,16 +50,14 @@ export default function CartItem({ item }: cartProps) {
             <TrashIcon />
             <NoteIcon />
             <div className="controls">
-              <button
-              // onClick={() => removeCartItem.mutate(cart.name)}
-              >
+              <button onClick={() => updateQtyHandler("dec")}>
                 <SubtractIcon />
               </button>
               <span>
                 {item.qty}
                 {/* {quantityText} */}
               </span>
-              <button onClick={() => addToCart.mutate(item)}>
+              <button type="button" onClick={() => updateQtyHandler("inc")}>
                 <AddIcon fill="#013a93" />
               </button>
             </div>
@@ -78,6 +80,11 @@ export default function CartItem({ item }: cartProps) {
           .cart-controls button {
             border: none;
             background-color: transparent;
+            height: 30px;
+            width: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
           }
           .layer {
             display: flex;

@@ -29,11 +29,8 @@ export default function Input({ input }: Props) {
 
       <style jsx>{`
         .input {
-          border: ${input.borderLine ? "none" : "1px solid var(--mall-blue)"};
-          border-bottom: ${input.borderLine
-            ? "1px solid var(--mall-blue)"
-            : "none"};
-          border-radius: ${input.borderLine ? "0px" : "5px"};
+          border: 1px solid var(--mall-blue);
+          border-radius: 5px;
           padding: 5px 10px;
           color: var(--faded-text);
           margin: 2px 0px;
