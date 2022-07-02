@@ -31,12 +31,8 @@ export default function ProductQtyDropdown({
       })
     : [];
 
-  console.log("productInCart", productInCart);
-
   const productQuantity =
     productInCart && productInCart[0]?.qty ? productInCart[0]?.qty : 0;
-
-  console.log("productInCart", productInCart);
 
   const buttonClassName =
     productQuantity && productQuantity > 0 ? "added" : "product-button";

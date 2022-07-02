@@ -7,6 +7,8 @@ export default function CartGroup() {
   const { useGetCart } = useCart();
   const [cart, status] = useGetCart();
 
+  console.log("cart", cart?.fees);
+
   return (
     <>
       {status === "error" ? (
@@ -23,7 +25,7 @@ export default function CartGroup() {
           <CartItem item={cartItem} key={cartItem._id} />
         ))
       )}
-      <CartFooter total={cart?.fees?.total} />
+      <CartFooter total={cart?.fees?.items} />
       <div className="bottom" />
       <style jsx>
         {`
