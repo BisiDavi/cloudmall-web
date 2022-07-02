@@ -4,7 +4,7 @@ import { productType } from "@/types/product-types";
 import AddIcon from "@/components/icons/AddIcon";
 import useCartMutationAction from "@/hooks/useCartMutationAction";
 
-const qtyArray = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+const qtyArray = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
 interface Props {
   product: productType;
@@ -29,37 +29,43 @@ export default function ProductQtyDropdown({
           cartItem.storeId === storeId && cartItem.productId === product._id
         );
       })
-    : 0;
+    : [];
+
+  console.log("productInCart", productInCart);
+
   const productQuantity =
     productInCart && productInCart[0]?.qty ? productInCart[0]?.qty : 0;
+
+  console.log("productInCart", productInCart);
 
   const buttonClassName =
     productQuantity && productQuantity > 0 ? "added" : "product-button";
 
-  function updateQty() {
-    if (productQuantity === 0) {
-      return cartActions.mutate({ product, qty: 1 });
-    } else {
-      return setDropdown(true);
-    }
+  function dropdownHandler() {
+    setDropdown(true);
   }
 
   function productQtyHandler(qty: number) {
-    const itemId = productInCart ? productInCart[0].itemId : "";
-    return updateCartActions.mutate(
-      { itemId, qty },
-      {
-        onSuccess() {
-          setDropdown(false);
-        },
-      }
-    );
+    if (productInCart.length === 0) {
+      cartActions.mutate({ product, qty });
+    } else {
+      const itemId = productInCart ? productInCart[0].itemId : "";
+      return updateCartActions.mutate(
+        { itemId, qty },
+        {
+          onSuccess() {
+            setDropdown(false);
+          },
+        }
+      );
+    }
   }
+
   return (
     <>
       <button
         type="button"
-        onClick={updateQty}
+        onClick={dropdownHandler}
         className={`button ${buttonClassName}`}
       >
         {productQuantity > 0 ? productQuantity : <AddIcon />}

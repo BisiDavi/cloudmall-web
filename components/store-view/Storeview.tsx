@@ -14,6 +14,8 @@ export default function Storepageview({ storeId }: Props) {
     storeProfile(storeId)
   );
 
+  console.log("store-profile", data);
+
   const storeName = status === "success" ? data?.data?.store?.name : "";
 
   return (
