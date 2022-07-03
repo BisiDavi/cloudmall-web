@@ -15,31 +15,20 @@ import FormatPrice from "@/utils/formatPrice";
 export default function DeliverydetailsForm() {
   const router = useRouter();
   const { useGetCart } = useCart();
-  const [cart, status] = useGetCart();
+  const [cart] = useGetCart();
   const { methods } = useDeliverydetails();
 
   function buttonHandler() {
     return router.push("/payment-confirmation");
   }
 
-  const totalItems = useMemo(
-    () => [
-      { text: "Items", price: <FormatPrice price={cart?.fees?.items} /> },
-      {
-        text: "Delivery Fee",
-        price: <FormatPrice price={cart?.fees?.delivery} />,
-      },
-      {
-        text: "Service Fee",
-        price: <FormatPrice price={cart?.fees?.service} />,
-      },
-      {
-        text: "Total Amount",
-        price: <FormatPrice price={cart?.fees?.total} />,
-      },
-    ],
-    [status]
-  );
+  const orderPrices = [
+    { text: "Items", price: cart?.fees?.items },
+    { text: "Delivery Fee", price: cart?.fees?.delivery },
+    { text: "Service Fee", price: cart?.fees?.service },
+    { text: "Total Amount", price: cart?.fees?.total },
+  ];
+
   return (
     <FormProvider {...methods}>
       <form className="delivery-details">
@@ -56,10 +45,12 @@ export default function DeliverydetailsForm() {
           <NoteIcon />
         </div>
         <ul className="delivery-items">
-          {totalItems.map((item) => (
+          {orderPrices.map((item) => (
             <li key={item.text}>
               <p>{item.text}</p>
-              <p>{item.price}</p>
+              <span>
+                <FormatPrice price={item.price} />
+              </span>
             </li>
           ))}
         </ul>
