@@ -2,15 +2,27 @@ import Image from "next/image";
 
 import DefaultLayout from "@/layout/default-layout";
 import LoginForm from "@/components/forms/LoginForm";
+import useGoogleLoginMutation from "@/hooks/useGoogleLoginMutation";
 
-export default function login() {
+export default function LoginPage() {
+  const { useGoogleLogin } = useGoogleLoginMutation();
+
+  const googleLogin = useGoogleLogin();
+
+  function googleLoginHandler() {
+    return googleLogin.mutate();
+  }
   return (
     <DefaultLayout title="Link your Account">
       <>
         <div className="content loginPage">
           <p className="loginText">Login to link your Cloudmall Account</p>
 
-          <button className="google-login">
+          <button
+            className="google-login"
+            type="button"
+            onClick={googleLoginHandler}
+          >
             <Image
               src="/googleIcon.png"
               height={20}

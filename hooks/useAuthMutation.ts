@@ -1,14 +1,12 @@
-import { useMutation, useQueryClient } from "react-query";
+import { useMutation } from "react-query";
 import { useRef } from "react";
-
-import useToast from "@/hooks/useToast";
-
-import { userLogin } from "@/utils/authRequest";
-import { loginType } from "@/types/auth-type";
 import { useRouter } from "next/router";
 
+import useToast from "@/hooks/useToast";
+import { userLogin } from "@/utils/authRequest";
+import { loginType } from "@/types/auth-type";
+
 export default function useAuthMutation() {
-  const queryClient = useQueryClient();
   const router = useRouter();
   const { loadingToast, updateToast } = useToast();
   const toastID = useRef(null);
@@ -26,9 +24,7 @@ export default function useAuthMutation() {
         onMutate: () => {
           loadingToast(toastID);
         },
-        onSettled: () => queryClient.invalidateQueries("authRequest"),
-        onSuccess: (data) => {
-          console.log("auth-login", data);
+        onSuccess: () => {
           updateToast(toastID, "success", "login success");
           router.push("/delivery-details");
         },
