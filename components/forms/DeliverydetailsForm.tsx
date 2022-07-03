@@ -17,7 +17,7 @@ export default function DeliverydetailsForm() {
   const router = useRouter();
   const { useGetCart } = useCart();
   const [cart] = useGetCart();
-  const { methods } = useDeliverydetails();
+  const { methods, submitHandler } = useDeliverydetails();
   const { modal, updateModalHandler } = useModal();
 
   function buttonHandler() {
@@ -41,7 +41,7 @@ export default function DeliverydetailsForm() {
         />
       )}
       <FormProvider {...methods}>
-        <form className="delivery-details">
+        <form className="delivery-details" onSubmit={methods.handleSubmit(submitHandler)}>
           <div className="form-input">
             {formContent.map((inputContent) => (
               <SelectFormElement input={inputContent} key={inputContent.id} />
@@ -67,6 +67,7 @@ export default function DeliverydetailsForm() {
           <Button
             className="itemButton"
             text="Complete Payment"
+            type="submit"
             onClick={buttonHandler}
           />
         </form>

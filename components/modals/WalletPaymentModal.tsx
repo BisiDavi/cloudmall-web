@@ -13,16 +13,27 @@ export default function WalletPaymentModal({
   return (
     <>
       <Modal closeModal={closeModal} showModal={showModal} persistModal>
-        <div>
-          <p>
-            Wallet balance: <FormatPrice price={10000} />
-          </p>
-          <p>
-            Total Amount: <FormatPrice price={5000} />
-          </p>
-          <p>
-            Balance: <FormatPrice price={5000} />
-          </p>
+        <div className="content">
+          <div className="text-content">
+            <div>
+              Wallet balance:
+              <span>
+                <FormatPrice price={10000} />
+              </span>
+            </div>
+            <div>
+              Total Amount:
+              <span>
+                <FormatPrice price={5000} />
+              </span>
+            </div>
+            <div>
+              Balance:
+              <span>
+                <FormatPrice price={5000} />
+              </span>
+            </div>
+          </div>
           <div className="buttonGroup">
             <button
               className="itemButton withWallet"
@@ -41,6 +52,24 @@ export default function WalletPaymentModal({
       </Modal>
       <style global jsx>
         {`
+          .text-content {
+            background-color: var(--sky-blue2);
+            padding: 5px 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            flex-direction: column;
+          }
+          .text-content div {
+            padding: 0px;
+            margin: 2px 0px;
+            font-size: 14px;
+            font-family: "Roboto";
+            line-height: 16px;
+            width: 75%;
+            display: flex;
+            justify-content: space-between;
+          }
           .withWallet {
             background-color: transparent;
             border: 1px solid var(--mall-blue);
