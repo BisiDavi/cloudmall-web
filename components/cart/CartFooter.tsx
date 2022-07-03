@@ -1,6 +1,7 @@
+import FormatPrice from "@/utils/formatPrice";
 import { useAppDispatch } from "@/hooks/useRedux";
 import { updateModal } from "@/redux/ui-slice";
-import formatPrice from "@/utils/formatPrice";
+
 
 export default function CartFooter({ total }: any) {
   const dispatch = useAppDispatch();
@@ -14,7 +15,7 @@ export default function CartFooter({ total }: any) {
       <div className="footer">
         <div className="cost">
           <h4>Total Cost</h4>
-          <h4>N {formatPrice(total)}</h4>
+          <h4><FormatPrice price={total} /></h4>
         </div>
         <button
           type="button"

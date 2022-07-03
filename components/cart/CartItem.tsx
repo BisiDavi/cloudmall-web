@@ -1,12 +1,12 @@
 import Image from "next/image";
 
 import useCartMutationAction from "@/hooks/useCartMutationAction";
-import formatPrice from "@/utils/formatPrice";
-import AddIcon from "../icons/AddIcon";
-import MapIcon from "../icons/MapIcon";
-import NoteIcon from "../icons/NoteIcon";
-import SubtractIcon from "../icons/SubtractIcon";
-import TrashIcon from "../icons/TrashIcon";
+import FormatPrice from "@/utils/formatPrice";
+import AddIcon from "@/components/icons/AddIcon";
+import MapIcon from "@/components/icons/MapIcon";
+import NoteIcon from "@/components/icons/NoteIcon";
+import SubtractIcon from "@/components/icons/SubtractIcon";
+import TrashIcon from "@/components/icons/TrashIcon";
 
 interface cartProps {
   item: any;
@@ -49,7 +49,9 @@ export default function CartItem({ item }: cartProps) {
                 <span>{item.store.name}</span>
               </h6>
             </div>
-            <h4 className="price">N {formatPrice(item.product.unitPrice)}</h4>
+            <h4 className="price">
+              <FormatPrice price={item.product.unitPrice} />
+            </h4>
           </div>
           <div className="layer cart-controls">
             <button type="button" onClick={removeItemHandler}>

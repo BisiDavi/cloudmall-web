@@ -7,10 +7,10 @@ import formContent from "@/json/delivery-details.json";
 import NoteIcon from "@/components/icons/NoteIcon";
 import InfoIcon from "@/components/icons/InfoIcon";
 import Button from "@/components/buttons";
-import SelectFormElement from "./SelectFormElement";
+import SelectFormElement from "@/components/forms/SelectFormElement";
 import useCart from "@/hooks/useCart";
-import formatPrice from "@/utils/formatPrice";
 import useDeliverydetails from "@/hooks/useDeliverydetails";
+import FormatPrice from "@/utils/formatPrice";
 
 export default function DeliverydetailsForm() {
   const router = useRouter();
@@ -18,20 +18,25 @@ export default function DeliverydetailsForm() {
   const [cart, status] = useGetCart();
   const { methods } = useDeliverydetails();
 
-  console.log("cart", cart?.fees);
-
   function buttonHandler() {
     return router.push("/payment-confirmation");
   }
+
   const totalItems = useMemo(
     () => [
-      { text: "Items", price: `N ${formatPrice(cart?.fees?.items)}` },
+      { text: "Items", price: <FormatPrice price={cart?.fees?.items} /> },
       {
         text: "Delivery Fee",
-        price: `N ${formatPrice(cart?.fees?.delivery)}`,
+        price: <FormatPrice price={cart?.fees?.delivery} />,
       },
-      { text: "Service Fee", price: `N ${formatPrice(cart?.fees?.service)}` },
-      { text: "Total Amount", price: `N ${formatPrice(cart?.fees?.total)}` },
+      {
+        text: "Service Fee",
+        price: <FormatPrice price={cart?.fees?.service} />,
+      },
+      {
+        text: "Total Amount",
+        price: <FormatPrice price={cart?.fees?.total} />,
+      },
     ],
     [status]
   );
