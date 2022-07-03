@@ -1,0 +1,18 @@
+[
+  {
+    "placeholder": "Your Email or Phone number",
+    "label": "Email / Phone number",
+    "elementType": "input",
+    "name": "emailOrPhone",
+    "id": "login-email",
+    "type": "email"
+  },
+  {
+    "placeholder": "*************",
+    "label": "Password",
+    "elementType": "input",
+    "id": "login-password",
+    "type": "password",
+    "name": "password"
+  }
+]

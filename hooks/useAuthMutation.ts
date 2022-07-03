@@ -4,15 +4,18 @@ import { useRef } from "react";
 import useToast from "@/hooks/useToast";
 
 import { userLogin } from "@/utils/authRequest";
+import { loginType } from "@/types/auth-type";
+import { useRouter } from "next/router";
 
 export default function useAuthMutation() {
   const queryClient = useQueryClient();
+  const router = useRouter();
   const { loadingToast, updateToast } = useToast();
   const toastID = useRef(null);
 
   function useUserLogin() {
     return useMutation(
-      ({ userType, password, emailOrPhone }: any) => {
+      ({ userType, password, emailOrPhone }: loginType) => {
         const formatEmailOrPhone = emailOrPhone.includes("@")
           ? { email: emailOrPhone }
           : { phonenumber: emailOrPhone };
@@ -27,6 +30,7 @@ export default function useAuthMutation() {
         onSuccess: (data) => {
           console.log("auth-login", data);
           updateToast(toastID, "success", "login success");
+          router.push("/delivery-details");
         },
         onError: (data) => {
           console.log("auth-login-error", data);

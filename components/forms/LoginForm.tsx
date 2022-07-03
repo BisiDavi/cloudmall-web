@@ -1,39 +1,24 @@
-import Input from "./FormElements/Input";
-import Button from "@/components/buttons";
-import { useRouter } from "next/router";
+import { FormProvider } from "react-hook-form";
 
-const formContent = [
-  {
-    placeholder: "Your Email or Phone number",
-    label: "Email / Phone number",
-    elementType: "input",
-    name: "email",
-    id: "login-email",
-    type: "email",
-  },
-  {
-    placeholder: "*************",
-    label: "Password",
-    elementType: "input",
-    id: "login-password",
-    type: "password",
-    name: "password",
-  },
-];
+import Button from "@/components/buttons";
+import Input from "@/components/forms/FormElements/Input";
+import loginContent from "@/json/login-form.json";
+import useLogin from "@/hooks/useLogin";
 
 export default function LoginForm() {
-  const router = useRouter();
-  function buttonHandler() {
-    return router.push("/delivery-details");
-  }
+  const { methods, submitHandler } = useLogin();
+
   return (
-    <>
-      <form className="loginForm">
-        {formContent.map((inputContent) => (
+    <FormProvider {...methods}>
+      <form
+        className="loginForm"
+        onSubmit={methods.handleSubmit(submitHandler)}
+      >
+        {loginContent.map((inputContent) => (
           <Input input={inputContent} key={inputContent.name} />
         ))}
 
-        <Button text="Login" className="itemButton" onClick={buttonHandler} />
+        <Button text="Login" type="submit" className="itemButton" />
       </form>
       <style jsx>{`
         .loginForm {
@@ -43,9 +28,9 @@ export default function LoginForm() {
           justify-content: center;
           margin: auto;
           margin-top: 30px;
-          margin-bottom: 20px;
+          margin-bottom: 10px;
         }
       `}</style>
-    </>
+    </FormProvider>
   );
 }
