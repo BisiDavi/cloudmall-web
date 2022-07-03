@@ -2,14 +2,17 @@ import Modal from "@/components/modals";
 import FormatPrice from "@/utils/FormatPrice";
 import Button from "@/components/buttons";
 import { ModalProps } from "@/types/modal-types";
+import useModal from "@/hooks/useModal";
 
 export default function WalletPaymentModal({
   closeModal,
   showModal,
 }: ModalProps) {
+  const { updateModalHandler } = useModal();
+
   return (
     <>
-      <Modal closeModal={closeModal} showModal={showModal}>
+      <Modal closeModal={closeModal} showModal={showModal} persistModal>
         <div>
           <p>
             Wallet balance: <FormatPrice price={10000} />
@@ -21,8 +24,17 @@ export default function WalletPaymentModal({
             Balance: <FormatPrice price={5000} />
           </p>
           <div className="buttonGroup">
-            <button className="itemButton withWallet">Pay with Wallet</button>
-            <Button text="Pay now" className="itemButton payNow" />
+            <button
+              className="itemButton withWallet"
+              onClick={() => updateModalHandler(null)}
+            >
+              Pay with Wallet
+            </button>
+            <Button
+              text="Pay now"
+              className="itemButton payNow"
+              onClick={() => updateModalHandler(null)}
+            />
             <p>Pay with cards,bank transer, etc.</p>
           </div>
         </div>
