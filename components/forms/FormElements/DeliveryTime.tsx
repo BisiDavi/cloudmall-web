@@ -7,7 +7,7 @@ type detailsType = {
     minutes: number;
     type: number;
   };
-}; 
+};
 
 export default function DeliveryTime() {
   const tmRef = useRef<HTMLDivElement | any>(null);
@@ -42,9 +42,11 @@ export default function DeliveryTime() {
   return (
     <div className="form-element timepicker-ui" ref={tmRef}>
       <label>Delivery Time</label>
-      <button className="input deliveryTime" defaultValue={inputValue}>
-        Select Delivery Time
-      </button>
+      <input
+        className="input deliveryTime timepicker-ui-input"
+        type="test"
+        defaultValue={inputValue}
+      />
 
       <style jsx>
         {`

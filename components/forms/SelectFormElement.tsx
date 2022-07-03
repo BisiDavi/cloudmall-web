@@ -1,7 +1,26 @@
-import Input from "@/components/forms/FormElements/Input";
-import PasswordInput from "@/components/forms/FormElements/PasswordInput";
-import Select from "@/components/forms/FormElements/Select";
-import DeliveryTime from "./FormElements/DeliveryTime";
+import dynamic from "next/dynamic";
+
+const DeliveryTime = dynamic(
+  () => import("@/components/forms/FormElements/DeliveryTime"),
+  {
+    ssr: false,
+  }
+);
+
+const PasswordInput = dynamic(
+  () => import("@/components/forms/FormElements/PasswordInput"),
+  {
+    ssr: false,
+  }
+);
+
+const Input = dynamic(() => import("@/components/forms/FormElements/Input"), {
+  ssr: false,
+});
+
+const Select = dynamic(() => import("@/components/forms/FormElements/Select"), {
+  ssr: false,
+});
 
 export default function SelectFormElement({ input }: any) {
   switch (input.elementType) {
