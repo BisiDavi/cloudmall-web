@@ -21,7 +21,10 @@ const DynamicMapModal = dynamic(
 );
 
 const DynamicMap = dynamic(
-  () => import(/* webpackChunkName: 'Map' */ "@/components/map")
+  () => import(/* webpackChunkName: 'Map' */ "@/components/map"),
+  {
+    ssr: false,
+  }
 );
 
 export default function MapView() {
@@ -29,9 +32,7 @@ export default function MapView() {
     useMapview();
   const {} = useAppSelector((state) => state.location);
 
-  useEffect(() => {
-    
-  }, []);
+  useEffect(() => {}, []);
 
   return (
     <>

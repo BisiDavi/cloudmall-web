@@ -22,10 +22,17 @@ function MapModalComponent({ modal, closeModal }: Props) {
     (state) => state.location
   );
 
-  const editedAddress = completeAddress.filter(
-    (adr) => adr.location === incompleteAddress.location
-  );
-  const editedAddressIndex = completeAddress.indexOf(editedAddress[0]);
+  const editedAddress = completeAddress
+    ? completeAddress?.filter(
+        (adr) => adr.location === incompleteAddress.location
+      )
+    : [];
+
+  const editedAddressIndex = completeAddress
+    ? completeAddress.indexOf(editedAddress[0])
+    : 0;
+
+  console.log("editedAddressIndex", editedAddressIndex);
 
   function newAddressHandler() {
     dispatch(
@@ -55,11 +62,10 @@ function MapModalComponent({ modal, closeModal }: Props) {
       <div className="map-content">
         <h6 className="title">Select an Address</h6>
         <div className="content">
-          {completeAddress.map((addressValue, index) => {
+          {completeAddress?.map((addressValue, index) => {
             return (
               <AddressModalInput
                 key={`addressView-${index}`}
-                index={index}
                 addressValue={addressValue}
               />
             );

@@ -29,7 +29,7 @@ export default function AutocompleteView() {
   const dispatch = useAppDispatch();
 
   function showModal() {
-    if (address.length > 0) {
+    if (address?.length > 0) {
       dispatch(updateModal("loginQuestionModal"));
     } else {
       toast.error("Please enter your address");
@@ -78,7 +78,7 @@ export default function AutocompleteView() {
           }}
           placeholder="9, Omole Estate behind Mayfair, Ile-Ife"
           className="autocomplete"
-          shouldFetchSuggestions={address.length > 3}
+          shouldFetchSuggestions={address?.length > 3}
         >
           {({
             getInputProps,
