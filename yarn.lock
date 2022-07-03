@@ -4256,6 +4256,11 @@ throat@^6.0.1:
   resolved "https://registry.yarnpkg.com/throat/-/throat-6.0.1.tgz#d514fedad95740c12c2d7fc70ea863eb51ade375"
   integrity sha512-8hmiGIJMDlwjg7dlJ4yKGLK8EsYqKgPWbG3b4wjJddKNwc7N7Dpn08Df4szr/sZdMVeOstrdYSsqzX6BYbcB+w==
 
+timepicker-ui@^2.5.0:
+  version "2.5.0"
+  resolved "https://registry.yarnpkg.com/timepicker-ui/-/timepicker-ui-2.5.0.tgz#2bbc008f26cb2be30c3a9d873bbc62e47dd7ec3e"
+  integrity sha512-k3EngxhvoDkuBruOtaDCPslamUe/KQw7IbirkUPVovTcAzLlw92aCx+AJAu05X6ucvBYkwhavlcWlgXf+jS99A==
+
 tmpl@1.0.5:
   version "1.0.5"
   resolved "https://registry.yarnpkg.com/tmpl/-/tmpl-1.0.5.tgz#8683e0b902bb9c20c4f726e3c0b69f36518c07cc"

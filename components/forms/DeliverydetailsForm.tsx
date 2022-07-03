@@ -1,6 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useMemo } from "react";
 import { useRouter } from "next/router";
+import { FormProvider } from "react-hook-form";
 
 import formContent from "@/json/delivery-details.json";
 import NoteIcon from "@/components/icons/NoteIcon";
@@ -9,11 +10,13 @@ import Button from "@/components/buttons";
 import SelectFormElement from "./SelectFormElement";
 import useCart from "@/hooks/useCart";
 import formatPrice from "@/utils/formatPrice";
+import useDeliverydetails from "@/hooks/useDeliverydetails";
 
 export default function DeliverydetailsForm() {
   const router = useRouter();
   const { useGetCart } = useCart();
   const [cart, status] = useGetCart();
+  const { methods } = useDeliverydetails();
 
   console.log("cart", cart?.fees);
 
@@ -33,7 +36,7 @@ export default function DeliverydetailsForm() {
     [status]
   );
   return (
-    <>
+    <FormProvider {...methods}>
       <form className="delivery-details">
         <div className="form-input">
           {formContent.map((inputContent) => (
@@ -112,6 +115,6 @@ export default function DeliverydetailsForm() {
           }
         `}
       </style>
-    </>
+    </FormProvider>
   );
 }

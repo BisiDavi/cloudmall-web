@@ -26,6 +26,7 @@
     "redux-persist": "^6.0.0",
     "redux-thunk": "^2.4.1",
     "sharp": "^0.30.6",
+    "timepicker-ui": "^2.5.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
