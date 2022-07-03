@@ -10,7 +10,7 @@
   {
     "placeholder": "*************",
     "label": "Password",
-    "elementType": "input",
+    "elementType": "password",
     "id": "login-password",
     "type": "password",
     "name": "password"

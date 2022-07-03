@@ -1,9 +1,9 @@
 import { FormProvider } from "react-hook-form";
 
 import Button from "@/components/buttons";
-import Input from "@/components/forms/FormElements/Input";
 import loginContent from "@/json/login-form.json";
 import useLogin from "@/hooks/useLogin";
+import SelectFormElement from "@/components/forms/SelectFormElement";
 
 export default function LoginForm() {
   const { methods, submitHandler } = useLogin();
@@ -15,7 +15,7 @@ export default function LoginForm() {
         onSubmit={methods.handleSubmit(submitHandler)}
       >
         {loginContent.map((inputContent) => (
-          <Input input={inputContent} key={inputContent.name} />
+          <SelectFormElement input={inputContent} key={inputContent.name} />
         ))}
 
         <Button text="Login" type="submit" className="itemButton" />
