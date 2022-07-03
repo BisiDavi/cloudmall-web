@@ -13,7 +13,6 @@ export default function useLogin() {
   const userLogin = useUserLogin();
 
   function submitHandler(data: submitHandlerType) {
-    console.log("data", data);
     const { password, emailOrPhone } = data;
     return userLogin.mutate({ userType: "USER", password, emailOrPhone });
   }

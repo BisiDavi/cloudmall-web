@@ -17,7 +17,6 @@ export default function Input({ input }: Props) {
     formState: { errors },
   } = useFormContext();
   {
-    console.log("errors", errors);
     const formError: any = errors;
     return (
       <>

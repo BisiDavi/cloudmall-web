@@ -32,9 +32,9 @@ export default function useAuthMutation() {
           updateToast(toastID, "success", "login success");
           router.push("/delivery-details");
         },
-        onError: (data) => {
-          console.log("auth-login-error", data);
-          updateToast(toastID, "error", "login error");
+        onError: (data: any) => {
+          const errorMessage = data.response.data.message;
+          updateToast(toastID, "error", errorMessage);
         },
       }
     );
