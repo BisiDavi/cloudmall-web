@@ -33,13 +33,11 @@ export default function useCartMutationAction() {
       queryClient.invalidateQueries("getCartQuery");
     },
     onSuccess: (response: any) => {
-      console.log("mutation-response", response);
       const formattedCart = formatCart(response.data.cart);
       dispatch(addToCart(formattedCart));
       updateToast(toastID, toast.TYPE.SUCCESS, response.data.message);
     },
     onError: (err: any) => {
-      console.log("mutation-err", err);
       updateToast(toastID, toast.TYPE.ERROR, err?.response?.data?.message);
     },
   });

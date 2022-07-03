@@ -6,10 +6,9 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 
 interface Props {
   addressValue: { location?: string; title?: string };
-  index: number;
 }
 
-export default function AddressModalInput({ addressValue, index }: Props) {
+export default function AddressModalInput({ addressValue }: Props) {
   const dispatch = useAppDispatch();
   const { incompleteAddress } = useAppSelector((state) => state.location);
 
@@ -36,7 +35,6 @@ export default function AddressModalInput({ addressValue, index }: Props) {
             id="address-title"
             name="addressTitle"
             value={incompleteAddress.title}
-            defaultValue={`Untitled-${index}`}
             onChangeHandler={onChangeHandler}
           />
         )}

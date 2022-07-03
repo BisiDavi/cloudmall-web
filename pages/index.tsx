@@ -2,8 +2,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import Script from "next/script";
 import dynamic from "next/dynamic";
+import { useEffect } from "react";
 
 import useMapview from "@/hooks/useMapview";
+import { useAppSelector } from "@/hooks/useRedux";
 
 const DynamicAutocomplete = dynamic(
   () =>
@@ -25,6 +27,11 @@ const DynamicMap = dynamic(
 export default function MapView() {
   const { closeModal, loadAutocomplete, updateAutocompleteStatus, modal } =
     useMapview();
+  const {} = useAppSelector((state) => state.location);
+
+  useEffect(() => {
+    
+  }, []);
 
   return (
     <>

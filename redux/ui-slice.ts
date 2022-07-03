@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 import { modalType } from "@/types/modal-types";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
