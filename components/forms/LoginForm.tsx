@@ -6,7 +6,7 @@ import useLogin from "@/hooks/useLogin";
 import SelectFormElement from "@/components/forms/SelectFormElement";
 
 export default function LoginForm() {
-  const { methods, submitHandler } = useLogin();
+  const { methods, submitHandler, isLoading } = useLogin();
 
   return (
     <FormProvider {...methods}>
@@ -18,7 +18,12 @@ export default function LoginForm() {
           <SelectFormElement input={inputContent} key={inputContent.name} />
         ))}
 
-        <Button text="Login" type="submit" className="itemButton" />
+        <Button
+          text="Login"
+          type="submit"
+          className="itemButton"
+          loading={isLoading}
+        />
       </form>
       <style jsx>{`
         .loginForm {

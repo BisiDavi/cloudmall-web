@@ -12,10 +12,12 @@ export default function useLogin() {
   const { useUserLogin } = useAuthMutation();
   const userLogin = useUserLogin();
 
+  const isLoading = userLogin.isLoading;
+
   function submitHandler(data: submitHandlerType) {
     const { password, emailOrPhone } = data;
     return userLogin.mutate({ userType: "USER", password, emailOrPhone });
   }
 
-  return { methods, submitHandler };
+  return { methods, submitHandler, isLoading };
 }
