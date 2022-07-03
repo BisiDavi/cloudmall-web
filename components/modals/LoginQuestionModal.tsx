@@ -11,12 +11,12 @@ export default function LoginQuestionModal({
 
   function newUserHandler() {
     closeModal();
-    return router.push("/auth/login");
+    return router.push("/delivery-details");
   }
 
   function oldUserHandler() {
     closeModal();
-    return router.push("/delivery-details");
+    return router.push("/auth/login");
   }
 
   return (
