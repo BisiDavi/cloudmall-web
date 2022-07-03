@@ -40,6 +40,10 @@ export default function login() {
             border-radius: 5px;
             align-items: center;
           }
+          button.google-login:focus {
+            background-color: var(--mall-blue);
+            color: white;
+          }
           span.login {
             margin-left: 10px;
           }
