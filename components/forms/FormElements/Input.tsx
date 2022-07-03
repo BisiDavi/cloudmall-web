@@ -34,7 +34,7 @@ export default function Input({ input }: Props) {
           )}
         </div>
 
-        <style jsx>{`
+        <style global jsx>{`
           .input {
             border: 1px solid var(--mall-blue);
             border-radius: 5px;

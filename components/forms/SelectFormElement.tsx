@@ -1,6 +1,7 @@
 import Input from "@/components/forms/FormElements/Input";
 import PasswordInput from "@/components/forms/FormElements/PasswordInput";
 import Select from "@/components/forms/FormElements/Select";
+import DeliveryTime from "./FormElements/DeliveryTime";
 
 export default function SelectFormElement({ input }: any) {
   switch (input.elementType) {
@@ -11,7 +12,7 @@ export default function SelectFormElement({ input }: any) {
     case "select":
       return <Select input={input} />;
     case "deliveryTime":
-      return <div></div>;
+      return <DeliveryTime />;
     default:
       return null;
   }
