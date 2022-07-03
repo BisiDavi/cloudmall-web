@@ -13,13 +13,11 @@ export default function useGoogleLoginMutation() {
       ({ code, cartId }: any) => googleSignin({ code, cartId }),
       {
         mutationKey: "useGoogleSignin",
-        onMutate: (variables) => {
-          loadingToast(variables.toastID);
-        },
         onSuccess: (_, variables) => {
           updateToast(variables.toastID, "success", "updated");
         },
         onError: (data: any, variables) => {
+          console.log("variables", variables);
           updateToast(variables.toastID, "error", data.response.data.message);
         },
       }
