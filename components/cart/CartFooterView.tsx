@@ -3,7 +3,7 @@ import useCart from "@/hooks/useCart";
 import CartFooter from "@/components/cart/CartFooter";
 import Image from "next/image";
 
-export default function CartGroup() {
+export default function CartFooterView() {
   const { useGetCart } = useCart();
   const [cart, status] = useGetCart();
 

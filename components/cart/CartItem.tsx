@@ -1,7 +1,7 @@
 import Image from "next/image";
 
 import useCartMutationAction from "@/hooks/useCartMutationAction";
-import FormatPrice from "@/utils/formatPrice";
+import FormatPrice from "@/utils/FormatPrice";
 import AddIcon from "@/components/icons/AddIcon";
 import MapIcon from "@/components/icons/MapIcon";
 import NoteIcon from "@/components/icons/NoteIcon";
