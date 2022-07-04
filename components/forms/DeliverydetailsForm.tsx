@@ -20,7 +20,7 @@ export default function DeliverydetailsForm() {
   const [formData, setFormData] = useState<any>(null);
 
   const { completeAddress } = useAppSelector((state) => state.location);
-  const { methods, submitHandler } = useDeliveryForm();
+  const { methods } = useDeliveryForm();
   const { modal, updateModalHandler } = useModal();
 
   const orderPrices = [
@@ -45,7 +45,6 @@ export default function DeliverydetailsForm() {
         <form
           className="delivery-details"
           onSubmit={methods.handleSubmit((data) => {
-            submitHandler(data);
             setFormData(data);
             updateModalHandler("paymentModal");
           })}

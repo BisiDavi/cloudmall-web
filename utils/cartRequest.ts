@@ -6,7 +6,7 @@ import {
 } from "@/types/cart-type";
 import axios from "axios";
 
-function baseRequest(
+export function baseRequest(
   requestType: "post" | "get",
   route: string,
   productDetails?: any
