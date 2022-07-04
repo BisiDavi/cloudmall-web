@@ -7,7 +7,6 @@ export default function DeliveryCategory({ input }: any) {
   const { getValues } = useFormContext();
 
   const selectedValue = getValues("category");
-  console.log("selectedValue", selectedValue);
   const displayInput = selectedValue === "others" ? true : false;
   return (
     <>

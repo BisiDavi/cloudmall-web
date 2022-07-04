@@ -3,12 +3,14 @@ import FormatPrice from "@/utils/FormatPrice";
 import Button from "@/components/buttons";
 import { ModalProps } from "@/types/modal-types";
 import useModal from "@/hooks/useModal";
+import useDeliveryForm from "@/hooks/useDeliveryForm";
 
 export default function WalletPaymentModal({
   closeModal,
   showModal,
 }: ModalProps) {
   const { updateModalHandler } = useModal();
+  const { data } = useDeliveryForm;
 
   return (
     <>
