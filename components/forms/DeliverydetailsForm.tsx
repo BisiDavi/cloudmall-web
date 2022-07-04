@@ -27,7 +27,7 @@ export default function DeliverydetailsForm() {
     { text: "Total Amount", price: cart?.fees?.total },
   ];
 
-  methods.setValue("deliveryAddress", completeAddress[0].location);
+  methods.setValue("address", completeAddress[0].location);
 
   return (
     <>

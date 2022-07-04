@@ -9,7 +9,7 @@
   },
   {
     "label": "Delivery Category",
-    "elementType": "select",
+    "elementType": "deliveryCategory",
     "name": "category",
     "id": "delivery-category",
     "type": "select",
@@ -19,7 +19,15 @@
       { "text": "School", "value": "school" },
       { "text": "Work", "value": "Work" },
       { "text": "Others - Enter Name", "value": "others" }
-    ]
+    ],
+    "inputValue": {
+      "placeholder": "Others - Enter Name",
+      "label": "Delivery Address",
+      "elementType": "input",
+      "name": "otherCategory",
+      "id": "otherCategory",
+      "type": "text"
+    }
   },
   {
     "placeholder": "9 Omole Estate Mayfair",
@@ -41,7 +49,7 @@
     "placeholder": "Phone Number",
     "label": "Phone Number",
     "elementType": "input",
-    "name": "phonenumber",
+    "name": "phone",
     "id": "phone-number",
     "type": "number"
   }

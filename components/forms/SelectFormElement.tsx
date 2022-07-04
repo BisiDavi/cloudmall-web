@@ -1,5 +1,12 @@
 import dynamic from "next/dynamic";
 
+const DeliveryCategory = dynamic(
+  () => import("@/components/forms/DeliveryCategory"),
+  {
+    ssr: false,
+  }
+);
+
 const DeliveryTime = dynamic(
   () => import("@/components/forms/FormElements/DeliveryTime"),
   {
@@ -32,6 +39,8 @@ export default function SelectFormElement({ input }: any) {
       return <Select input={input} />;
     case "deliveryTime":
       return <DeliveryTime />;
+    case "deliveryCategory":
+      return <DeliveryCategory input={input} />;
     default:
       return null;
   }

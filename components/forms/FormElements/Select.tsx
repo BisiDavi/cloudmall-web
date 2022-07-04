@@ -16,9 +16,6 @@ export default function Select({ input }: SelectProps) {
 
   const formError: any = errors;
 
-  console.log("formError[input.name", formError[input.name]);
-  console.log("formError", formError);
-
   return (
     <>
       <div className="form-element">
@@ -31,8 +28,8 @@ export default function Select({ input }: SelectProps) {
           })}
           name={input.name}
         >
-          {input.options.map((option) => (
-            <option key={option.value} value={option.value}>
+          {input.options.map((option, index) => (
+            <option key={`${option.value}-${index}`} value={option.value}>
               {option.text}
             </option>
           ))}
