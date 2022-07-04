@@ -20,8 +20,6 @@ export default function DeliverydetailsForm() {
   const { methods, submitHandler } = useDeliveryForm();
   const { modal, updateModalHandler } = useModal();
 
-  console.log("completeAddress", completeAddress);
-
   const orderPrices = [
     { text: "Items", price: cart?.fees?.items },
     { text: "Delivery Fee", price: cart?.fees?.delivery },

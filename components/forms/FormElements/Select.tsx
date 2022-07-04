@@ -16,6 +16,9 @@ export default function Select({ input }: SelectProps) {
 
   const formError: any = errors;
 
+  console.log("formError[input.name", formError[input.name]);
+  console.log("formError", formError);
+
   return (
     <>
       <div className="form-element">
@@ -23,7 +26,9 @@ export default function Select({ input }: SelectProps) {
         <select
           id={input.id}
           className="select"
-          {...register(input.name)}
+          {...register(input.name, {
+            required: true,
+          })}
           name={input.name}
         >
           {input.options.map((option) => (
@@ -56,6 +61,12 @@ export default function Select({ input }: SelectProps) {
           font-size: 14px;
           line-height: 16px;
         }
+          .form-element .error {
+            color: red;
+            font-size: 11px;
+            padding: 0px;
+            margin: 5px 0px;
+          }
       `}</style>
     </>
   );
