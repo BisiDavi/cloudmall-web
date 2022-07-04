@@ -5,5 +5,5 @@ export const deliverySchema = yup.object({
   deliveryCategory: yup.string().required("Category is required"),
   deliveryDescription: yup.string().required("Description is required"),
   // deliveryTime: yup.string().required("Time is required"),
-  phonenumber: yup.string().required("Phonenumber is required"),
+  phonenumber: yup.string().required("Phone number is required"),
 });

@@ -2,15 +2,12 @@ import { useMutation, useQueryClient } from "react-query";
 import { useRef } from "react";
 
 import useToast from "@/hooks/useToast";
-import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { checkoutUserRequest } from "@/utils/cartRequest";
 import { checkoutDetailsType } from "@/types/cart-type";
 
 export default function useCheckout() {
   const queryClient = useQueryClient();
-  const { cart } = useAppSelector((state) => state.cart);
   const toastID = useRef(null);
-  const dispatch = useAppDispatch();
 
   const { loadingToast, updateToast } = useToast();
 

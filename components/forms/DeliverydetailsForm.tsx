@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useRouter } from "next/router";
 import { FormProvider } from "react-hook-form";
 
 import formContent from "@/json/delivery-details.json";
@@ -12,18 +11,16 @@ import FormatPrice from "@/utils/FormatPrice";
 import WalletPaymentModal from "@/components/modals/WalletPaymentModal";
 import useModal from "@/hooks/useModal";
 import useDeliveryForm from "@/hooks/useDeliveryForm";
+import { useAppSelector } from "@/hooks/useRedux";
 
 export default function DeliverydetailsForm() {
-  const router = useRouter();
   const { useGetCart } = useCart();
   const [cart] = useGetCart();
+  const { completeAddress } = useAppSelector((state) => state.location);
   const { methods, submitHandler } = useDeliveryForm();
   const { modal, updateModalHandler } = useModal();
 
-  function buttonHandler() {
-    updateModalHandler("paymentModal");
-    // return router.push("/payment-confirmation");
-  }
+  console.log("completeAddress", completeAddress);
 
   const orderPrices = [
     { text: "Items", price: cart?.fees?.items },
@@ -31,6 +28,8 @@ export default function DeliverydetailsForm() {
     { text: "Service Fee", price: cart?.fees?.service },
     { text: "Total Amount", price: cart?.fees?.total },
   ];
+
+  methods.setValue("deliveryAddress", completeAddress[0].location);
 
   return (
     <>
@@ -43,7 +42,10 @@ export default function DeliverydetailsForm() {
       <FormProvider {...methods}>
         <form
           className="delivery-details"
-          onSubmit={methods.handleSubmit(submitHandler)}
+          onSubmit={methods.handleSubmit((data) => {
+            submitHandler(data);
+            updateModalHandler("paymentModal");
+          })}
         >
           <div className="form-input">
             {formContent.map((inputContent) => (
@@ -71,7 +73,6 @@ export default function DeliverydetailsForm() {
             className="itemButton"
             text="Complete Payment"
             type="submit"
-            onClick={buttonHandler}
           />
         </form>
         <style jsx>
