@@ -1,5 +1,6 @@
 import {
   addToCartResponseType,
+  checkoutDetailsType,
   deleteCartItemMutationType,
   updateCartMutationType,
 } from "@/types/cart-type";
@@ -36,4 +37,8 @@ export function removeCartItemRequest(
   productDetails: deleteCartItemMutationType
 ) {
   return baseRequest("post", "users/cart/items/remove", productDetails);
+}
+
+export function checkoutUserRequest(checkoutDetails: checkoutDetailsType) {
+  return baseRequest("post", "users/checkout", checkoutDetails);
 }

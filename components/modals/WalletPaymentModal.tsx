@@ -21,9 +21,10 @@ export default function WalletPaymentModal({
                 <FormatPrice price={10000} />
               </span>
             </div>
-            <div>
+            <div className="totalAmount">
               Total Amount:
-              <span>
+              <span className="amountPrice">
+                <span className="minus">-</span>
                 <FormatPrice price={5000} />
               </span>
             </div>
@@ -62,13 +63,20 @@ export default function WalletPaymentModal({
           }
           .text-content div {
             padding: 0px;
-            margin: 2px 0px;
+            margin: 5px 0px;
             font-size: 14px;
             font-family: "Roboto";
             line-height: 16px;
             width: 75%;
             display: flex;
             justify-content: space-between;
+          }
+          .totalAmount {
+            color: var(--faded-text);
+          }
+          .minus {
+            margin-right: 4px;
+            font-size: 20px;
           }
           .withWallet {
             background-color: transparent;

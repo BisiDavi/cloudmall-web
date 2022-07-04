@@ -1,6 +1,5 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useRef } from "react";
-import { toast } from "react-toastify";
 
 import useToast from "@/hooks/useToast";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
@@ -35,10 +34,10 @@ export default function useCartMutationAction() {
     onSuccess: (response: any) => {
       const formattedCart = formatCart(response.data.cart);
       dispatch(addToCart(formattedCart));
-      updateToast(toastID, toast.TYPE.SUCCESS, response.data.message);
+      updateToast(toastID, "success", response.data.message);
     },
     onError: (err: any) => {
-      updateToast(toastID, toast.TYPE.ERROR, err?.response?.data?.message);
+      updateToast(toastID, "error", err?.response?.data?.message);
     },
   });
 

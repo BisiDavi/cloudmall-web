@@ -8,16 +8,16 @@ import InfoIcon from "@/components/icons/InfoIcon";
 import Button from "@/components/buttons";
 import SelectFormElement from "@/components/forms/SelectFormElement";
 import useCart from "@/hooks/useCart";
-import useDeliverydetails from "@/hooks/useDeliverydetails";
 import FormatPrice from "@/utils/FormatPrice";
 import WalletPaymentModal from "@/components/modals/WalletPaymentModal";
 import useModal from "@/hooks/useModal";
+import useDeliveryForm from "@/hooks/useDeliveryForm";
 
 export default function DeliverydetailsForm() {
   const router = useRouter();
   const { useGetCart } = useCart();
   const [cart] = useGetCart();
-  const { methods, submitHandler } = useDeliverydetails();
+  const { methods, submitHandler } = useDeliveryForm();
   const { modal, updateModalHandler } = useModal();
 
   function buttonHandler() {
@@ -41,7 +41,10 @@ export default function DeliverydetailsForm() {
         />
       )}
       <FormProvider {...methods}>
-        <form className="delivery-details" onSubmit={methods.handleSubmit(submitHandler)}>
+        <form
+          className="delivery-details"
+          onSubmit={methods.handleSubmit(submitHandler)}
+        >
           <div className="form-input">
             {formContent.map((inputContent) => (
               <SelectFormElement input={inputContent} key={inputContent.id} />
