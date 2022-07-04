@@ -2,20 +2,26 @@ import Modal from "@/components/modals";
 import FormatPrice from "@/utils/FormatPrice";
 import Button from "@/components/buttons";
 import { ModalProps } from "@/types/modal-types";
-import useDeliveryForm from "@/hooks/useDeliveryForm";
 import useCheckout from "@/hooks/useCheckout";
+
+interface WalletPaymentModalProps extends ModalProps {
+  formData: any;
+}
 
 export default function WalletPaymentModal({
   closeModal,
   showModal,
-}: ModalProps) {
+  formData,
+}: WalletPaymentModalProps) {
   const { useCheckoutUser } = useCheckout();
   const checkoutUser = useCheckoutUser();
-  const { data }: any = useDeliveryForm;
+
+  console.log("formData", formData);
 
   function checkoutHandler(paymentMethod: "FLUTTERWAVE" | "WALLET") {
+    console.log("formData", formData);
     checkoutUser.mutate({
-      address: data.address,
+      address: formData.address,
       instantDelivery: true,
       paymentMethod,
     });

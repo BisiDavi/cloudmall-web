@@ -12,10 +12,13 @@ import WalletPaymentModal from "@/components/modals/WalletPaymentModal";
 import useModal from "@/hooks/useModal";
 import useDeliveryForm from "@/hooks/useDeliveryForm";
 import { useAppSelector } from "@/hooks/useRedux";
+import { useState } from "react";
 
 export default function DeliverydetailsForm() {
   const { useGetCart } = useCart();
   const [cart] = useGetCart();
+  const [formData, setFormData] = useState<any>(null);
+
   const { completeAddress } = useAppSelector((state) => state.location);
   const { methods, submitHandler } = useDeliveryForm();
   const { modal, updateModalHandler } = useModal();
@@ -35,6 +38,7 @@ export default function DeliverydetailsForm() {
         <WalletPaymentModal
           showModal={modal}
           closeModal={() => updateModalHandler(null)}
+          formData={formData}
         />
       )}
       <FormProvider {...methods}>
@@ -42,6 +46,7 @@ export default function DeliverydetailsForm() {
           className="delivery-details"
           onSubmit={methods.handleSubmit((data) => {
             submitHandler(data);
+            setFormData(data);
             updateModalHandler("paymentModal");
           })}
         >

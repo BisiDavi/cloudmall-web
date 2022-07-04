@@ -11,6 +11,8 @@ export default function useDeliveryForm() {
     resolver: yupResolver(deliverySchema),
   });
 
+  console.log("formData", formData);
+
   function submitHandler(data: any) {
     setFormData(data);
   }
