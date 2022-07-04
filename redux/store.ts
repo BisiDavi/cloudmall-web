@@ -1,14 +1,16 @@
 import { configureStore, ThunkAction, Action } from "@reduxjs/toolkit";
+import storage from "redux-persist/lib/storage";
+import { combineReducers } from "redux";
+import { persistReducer } from "redux-persist";
+import thunk from "redux-thunk";
+
 import locationReducer from "@/redux/location-slice";
 import cartReducer from "@/redux/cart-slice";
 import uiReducer from "@/redux/ui-slice";
 import categoryReducer from "@/redux/category-slice";
 import searchReducer from "@/redux/search-slice";
-
-import storage from "redux-persist/lib/storage";
-import { combineReducers } from "redux";
-import { persistReducer } from "redux-persist";
-import thunk from "redux-thunk";
+import deliveryDetailsReducer from "@/redux/delivery-details-slice";
+import loginReducer from "@/redux/login-slice";
 
 const reducers = combineReducers({
   location: locationReducer,
@@ -16,6 +18,8 @@ const reducers = combineReducers({
   ui: uiReducer,
   category: categoryReducer,
   search: searchReducer,
+  deliveryDetails: deliveryDetailsReducer,
+  loginDetails: loginReducer,
 });
 
 const persistConfig = {

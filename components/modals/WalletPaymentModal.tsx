@@ -3,31 +3,22 @@ import FormatPrice from "@/utils/FormatPrice";
 import Button from "@/components/buttons";
 import { ModalProps } from "@/types/modal-types";
 import useCheckout from "@/hooks/useCheckout";
-import { useEffect } from "react";
-import { getFlutterwaveKeys } from "@/utils/utilsRequest";
-
-interface WalletPaymentModalProps extends ModalProps {
-  formData: any;
-}
+import { useAppSelector } from "@/hooks/useRedux";
 
 export default function WalletPaymentModal({
   closeModal,
   showModal,
-  formData,
-}: WalletPaymentModalProps) {
-  const { useCheckoutUser } = useCheckout();
+}: ModalProps) {
+  const { useCheckoutUser, useCheckoutCustomer } = useCheckout();
+  const deliveryDetails = useAppSelector((state) => state.deliveryDetails);
   const checkoutUser = useCheckoutUser();
+  const checkoutCustomer = useCheckoutCustomer();
 
-  useEffect(() => {
-    getFlutterwaveKeys()
-      .then((response) => console.log("response", response))
-      .catch((err) => console.log("error", err));
-  }, []);
+  console.log("deliveryDetails", deliveryDetails);
 
   function checkoutHandler(paymentMethod: "FLUTTERWAVE" | "WALLET") {
-    console.log("formData", formData);
-    checkoutUser.mutate({
-      address: formData.address,
+    checkoutCustomer.mutate({
+      address: deliveryDetails.address,
       instantDelivery: true,
       paymentMethod,
     });

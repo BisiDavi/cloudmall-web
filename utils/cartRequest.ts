@@ -53,7 +53,7 @@ export function clearExpiredCart(cartId: string, clearCart: () => void) {
 }
 
 export function checkoutFlowRequest(checkoutDetails: checkoutDetailsType) {
-  getFlutterwaveKeys()
+  return getFlutterwaveKeys()
     .then((response) => {
       console.log("getFlutterwaveKeys-response", response);
       checkoutUserRequest(checkoutDetails)
