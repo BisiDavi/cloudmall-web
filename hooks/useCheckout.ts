@@ -4,10 +4,12 @@ import { useRef } from "react";
 import useToast from "@/hooks/useToast";
 import { checkoutUserRequest } from "@/utils/cartRequest";
 import { checkoutDetailsType } from "@/types/cart-type";
+import useModal from "@/hooks/useModal";
 
 export default function useCheckout() {
   const queryClient = useQueryClient();
   const toastID = useRef(null);
+  const { updateModalHandler } = useModal();
 
   const { loadingToast, updateToast } = useToast();
 
@@ -40,10 +42,12 @@ export default function useCheckout() {
         onSuccess: (response: any) => {
           console.log("response", response);
           updateToast(toastID, "success", response.data.message);
+          updateModalHandler(null);
         },
         onError: (err: any) => {
           console.log("err", err);
           updateToast(toastID, "error", err?.response?.data?.message);
+          updateModalHandler(null);
         },
       }
     );

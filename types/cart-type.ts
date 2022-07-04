@@ -45,7 +45,7 @@ export type deleteCartItemMutationType = {
 
 export type checkoutDetailsType = {
   address: string;
-  paymentMethod: "FLUTTERWAVE";
+  paymentMethod: "FLUTTERWAVE" | "WALLET";
   note?: string;
   instantDelivery: boolean;
   eta?: string;

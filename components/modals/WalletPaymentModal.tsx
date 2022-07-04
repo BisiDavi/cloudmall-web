@@ -2,15 +2,24 @@ import Modal from "@/components/modals";
 import FormatPrice from "@/utils/FormatPrice";
 import Button from "@/components/buttons";
 import { ModalProps } from "@/types/modal-types";
-import useModal from "@/hooks/useModal";
 import useDeliveryForm from "@/hooks/useDeliveryForm";
+import useCheckout from "@/hooks/useCheckout";
 
 export default function WalletPaymentModal({
   closeModal,
   showModal,
 }: ModalProps) {
-  const { updateModalHandler } = useModal();
-  const { data } = useDeliveryForm;
+  const { useCheckoutUser } = useCheckout();
+  const checkoutUser = useCheckoutUser();
+  const { data }: any = useDeliveryForm;
+
+  function checkoutHandler(paymentMethod: "FLUTTERWAVE" | "WALLET") {
+    checkoutUser.mutate({
+      address: data.address,
+      instantDelivery: true,
+      paymentMethod,
+    });
+  }
 
   return (
     <>
@@ -40,14 +49,14 @@ export default function WalletPaymentModal({
           <div className="buttonGroup">
             <button
               className="itemButton withWallet"
-              onClick={() => updateModalHandler(null)}
+              onClick={() => checkoutHandler("WALLET")}
             >
               Pay with Wallet
             </button>
             <Button
               text="Pay now"
               className="itemButton payNow"
-              onClick={() => updateModalHandler(null)}
+              onClick={() => checkoutHandler("FLUTTERWAVE")}
             />
             <p>Pay with cards,bank transer, etc.</p>
           </div>
