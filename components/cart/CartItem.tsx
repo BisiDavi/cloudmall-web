@@ -39,6 +39,8 @@ export default function CartItem({ item }: cartProps) {
           height={100}
           width={100}
           alt={item.product.name}
+          blurDataURL={`https://cloudmall-africa.herokuapp.com${item.product.image}`}
+          placeholder="blur"
         />
         <div className="content">
           <div className="layer">

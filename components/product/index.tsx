@@ -26,6 +26,8 @@ export default function Product({ product, storeId }: Props) {
           alt={product.name}
           height={150}
           width={200}
+          blurDataURL={`https://cloudmall-africa.herokuapp.com${product.image}`}
+          placeholder="blur"
         />
         <div className="content">
           <h3>{product.name}</h3>

@@ -4,6 +4,7 @@ import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
 import ProductGridView from "@/components/product/ProductGridView";
 import StoreLayoutPage from "@/layout/store-layout";
 import { storeProfile } from "@/utils/storeRequest";
+import useClearExpiredCart from "@/hooks/useClearExpiredCart";
 
 interface Props {
   storeId: string;
@@ -13,8 +14,7 @@ export default function Storepageview({ storeId }: Props) {
   const { data, status } = useQuery(`store-profile-${storeId}`, () =>
     storeProfile(storeId)
   );
-
-  console.log("store-profile", data);
+  useClearExpiredCart();
 
   const storeName = status === "success" ? data?.data?.store?.name : "";
 

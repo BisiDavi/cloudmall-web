@@ -5,6 +5,7 @@ import {
   updateCartMutationType,
 } from "@/types/cart-type";
 import axios from "axios";
+import { getFlutterwaveKeys } from "./utilsRequest";
 
 export function baseRequest(
   requestType: "post" | "get",
@@ -41,4 +42,25 @@ export function removeCartItemRequest(
 
 export function checkoutUserRequest(checkoutDetails: checkoutDetailsType) {
   return baseRequest("post", "users/checkout", checkoutDetails);
+}
+
+export function clearExpiredCart(cartId: string, clearCart: () => void) {
+  getCartRequest(cartId).then((response) => {
+    if (response.data?.message?.includes("No cart with")) {
+      clearCart();
+    }
+  });
+}
+
+export function checkoutFlowRequest(checkoutDetails: checkoutDetailsType) {
+  getFlutterwaveKeys()
+    .then((response) => {
+      console.log("getFlutterwaveKeys-response", response);
+      checkoutUserRequest(checkoutDetails)
+        .then((response) => {
+          console.log("checkoutDetails-response", response);
+        })
+        .catch((err) => console.log("checkoutDetails-error", err));
+    })
+    .catch((err) => console.log("getFlutterwaveKeys-error", err));
 }

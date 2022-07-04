@@ -13,8 +13,6 @@ interface Props {
 export default function RestaurantPillsGroup({ storeType, category }: Props) {
   const { data, status } = useQuery("listStoreCategories", listStoreCategories);
 
-  console.log("data-data", data);
-
   const pillGroupClassname = storeType === "store" ? "gray" : "normal";
 
   function getCategory() {

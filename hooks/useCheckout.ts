@@ -5,6 +5,7 @@ import useToast from "@/hooks/useToast";
 import { checkoutUserRequest } from "@/utils/cartRequest";
 import { checkoutDetailsType } from "@/types/cart-type";
 import useModal from "@/hooks/useModal";
+import { getFlutterwaveKeys } from "@/utils/utilsRequest";
 
 export default function useCheckout() {
   const queryClient = useQueryClient();
@@ -12,6 +13,12 @@ export default function useCheckout() {
   const { updateModalHandler } = useModal();
 
   const { loadingToast, updateToast } = useToast();
+
+  function useCheckoutCustomer(){
+    return useMutation(() => getFlutterwaveKeys,{
+
+    });
+  }
 
   function useCheckoutUser() {
     return useMutation(
