@@ -4,11 +4,12 @@ import { memo, useEffect, useRef, useState } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 import { useAppSelector } from "@/hooks/useRedux";
+import Ripples from "../loaders/Ripples";
 
 const renderStatus = (status: Status) => {
   switch (status) {
     case Status.LOADING:
-      return <img src="/loading.gif" alt="loading icon" />;
+      return <Ripples centerRipple />;
     case Status.FAILURE:
       return <p>error occured</p>;
     case Status.SUCCESS:

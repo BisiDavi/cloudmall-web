@@ -1,5 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useRouter } from "next/router";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 import { useEffect } from "react";
@@ -30,9 +31,14 @@ const DynamicMap = dynamic(
 export default function MapView() {
   const { closeModal, loadAutocomplete, updateAutocompleteStatus, modal } =
     useMapview();
-  const {} = useAppSelector((state) => state.location);
+  const { completeAddress } = useAppSelector((state) => state.location);
+  const router = useRouter();
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    if (completeAddress.length !== 0) {
+      router.push("/store-view");
+    }
+  }, []);
 
   return (
     <>
