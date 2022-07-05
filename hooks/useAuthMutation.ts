@@ -25,7 +25,7 @@ export default function useAuthMutation() {
           userType,
           password,
           rememberMe: true,
-          // cartId: cart[0].cartId,
+          cartId: cart[0].cartId,
           ...formatEmailOrPhone,
         });
       },

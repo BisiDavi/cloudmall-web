@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { FormProvider } from "react-hook-form";
+import Image from "next/image";
 
 import formContent from "@/json/delivery-details.json";
 import NoteIcon from "@/components/icons/NoteIcon";
@@ -26,7 +27,7 @@ type loginDetailsType = {
 
 export default function DeliverydetailsForm() {
   const { useGetCart } = useCart();
-  const [cart] = useGetCart();
+  const [cart, status] = useGetCart();
 
   const dispatch = useAppDispatch();
   const { completeAddress } = useAppSelector((state) => state.location);
@@ -57,94 +58,113 @@ export default function DeliverydetailsForm() {
           closeModal={() => updateModalHandler(null)}
         />
       )}
-      <FormProvider {...methods}>
-        <form
-          className="delivery-details"
-          onSubmit={methods.handleSubmit((data: any) => {
-            dispatch(updateDeliveryDetail(data));
-            updateModalHandler("paymentModal");
-          })}
-        >
-          <div className="form-input">
-            {formContent.map((inputContent) => (
-              <SelectFormElement input={inputContent} key={inputContent.id} />
-            ))}
-          </div>
-          <div className="order-note">
-            <span>
-              <p>Order Note</p>
-              <InfoIcon />
-            </span>
-            <NoteIcon />
-          </div>
-          <ul className="delivery-items">
-            {orderPrices.map((item) => (
-              <li key={item.text}>
-                <p>{item.text}</p>
-                <span>
-                  <FormatPrice price={item.price} />
-                </span>
-              </li>
-            ))}
-          </ul>
-          <Button
-            className="itemButton"
-            text="Complete Payment"
-            type="submit"
+      {status === "error" ? (
+        <>
+        <h3>An error just occured</h3>
+          <Image
+            src="/errorIcon.webp"
+            alt="error icon"
+            height={300}
+            width={300}
           />
-        </form>
-        <style jsx>
-          {`
-            .delivery-details {
-              font-family: "Roboto", sans-serif;
-              font-style: normal;
-            }
-            .order-note {
-              display: flex;
-              justify-content: space-between;
-              align-items: center;
-              padding: 0px 20px;
-            }
-            .order-note span {
-              display: flex;
-              align-items: center;
-            }
-            .order-note span p {
-              margin-right: 10px;
-            }
-            .form-input {
-              padding: 0px 20px;
-            }
-            .delivery-items {
-              padding: 0px;
-              margin: 0px;
-              background-color: var(--cream);
-              padding: 10px 20px;
-              border-top: 1px solid rgba(0, 0, 0, 0.25);
-              border-bottom: 1px solid rgba(0, 0, 0, 0.25);
-            }
-            .delivery-items li {
-              display: flex;
-              align-items: center;
-              justify-content: space-between;
-              margin: 5px 0px;
-              font-size: 14px;
-            }
-            .delivery-items li p {
-              margin: 2px 0px;
-            }
-            .delivery-items li:first-child p {
-              font-weight: 500;
-            }
-            .delivery-items li p {
-              font-weight: 400;
-            }
-            .delivery-items li:last-child p {
-              font-weight: 700;
-            }
-          `}
-        </style>
-      </FormProvider>
+        </>
+      ) : status === "loading" ? (
+        <Image
+          src="/shopping-cart.gif"
+          alt="cart loading"
+          height={300}
+          width={300}
+        />
+      ) : (
+        <FormProvider {...methods}>
+          <form
+            className="delivery-details"
+            onSubmit={methods.handleSubmit((data: any) => {
+              dispatch(updateDeliveryDetail(data));
+              updateModalHandler("paymentModal");
+            })}
+          >
+            <div className="form-input">
+              {formContent.map((inputContent) => (
+                <SelectFormElement input={inputContent} key={inputContent.id} />
+              ))}
+            </div>
+            <div className="order-note">
+              <span>
+                <p>Order Note</p>
+                <InfoIcon />
+              </span>
+              <NoteIcon />
+            </div>
+            <ul className="delivery-items">
+              {orderPrices.map((item) => (
+                <li key={item.text}>
+                  <p>{item.text}</p>
+                  <span>
+                    <FormatPrice price={item.price} />
+                  </span>
+                </li>
+              ))}
+            </ul>
+            <Button
+              className="itemButton"
+              text="Complete Payment"
+              type="submit"
+            />
+          </form>
+          <style jsx>
+            {`
+              .delivery-details {
+                font-family: "Roboto", sans-serif;
+                font-style: normal;
+              }
+              .order-note {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 0px 20px;
+              }
+              .order-note span {
+                display: flex;
+                align-items: center;
+              }
+              .order-note span p {
+                margin-right: 10px;
+              }
+              .form-input {
+                padding: 0px 20px;
+              }
+              .delivery-items {
+                padding: 0px;
+                margin: 0px;
+                background-color: var(--cream);
+                padding: 10px 20px;
+                border-top: 1px solid rgba(0, 0, 0, 0.25);
+                border-bottom: 1px solid rgba(0, 0, 0, 0.25);
+              }
+              .delivery-items li {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                margin: 5px 0px;
+                font-size: 14px;
+              }
+              .delivery-items li p {
+                margin: 2px 0px;
+              }
+              .delivery-items li:first-child p {
+                font-weight: 500;
+              }
+              .delivery-items li p {
+                font-weight: 400;
+              }
+              .delivery-items li:last-child p {
+                font-weight: 700;
+              }
+            `}
+          </style>
+        </FormProvider>
+      )}
     </>
   );
 }

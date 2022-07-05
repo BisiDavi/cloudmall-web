@@ -36,6 +36,12 @@ export function getCartRequest(cartId: string) {
   return baseRequest("get", `users/cart?cartId=${cartId}`);
 }
 
+export function getAuthenticatedCartRequest(token: string) {
+  return baseRequest("get", `users/cart`, null, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+}
+
 export function removeCartItemRequest(
   productDetails: deleteCartItemMutationType
 ) {
