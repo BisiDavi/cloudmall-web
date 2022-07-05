@@ -32,7 +32,7 @@ export default function useGoogleLoginMutation() {
     const toastID = useRef(null);
     const { cart } = useAppSelector((state) => state.cart);
 
-    const cartId = cart[0].cartId;
+    const cartId = cart[0]?.cartId;
 
     return useMutation(googleRedirect, {
       mutationKey: "useGoogleLogin",

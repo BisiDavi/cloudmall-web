@@ -8,7 +8,7 @@ import useModal from "@/hooks/useModal";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { getFlutterwaveKeys } from "@/utils/utilsRequest";
 import { updateFWKeys, updateOrder } from "@/redux/payment-slice";
-import useMakePayment from "./useMakePayment";
+import useMakePayment from "@/hooks/useMakePayment";
 
 export default function useCheckout() {
   const queryClient = useQueryClient();

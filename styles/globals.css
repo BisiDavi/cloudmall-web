@@ -85,6 +85,20 @@ a {
   height: 40px;
 }
 
+.text-center {
+  text-align: center;
+}
+
+.text-red {
+  color: var(--text-red);
+}
+
+.center-div {
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
 /* login page */
 .loginForm .itemButton {
   width: 100%;

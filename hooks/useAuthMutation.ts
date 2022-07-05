@@ -6,7 +6,7 @@ import useToast from "@/hooks/useToast";
 import { userLogin } from "@/utils/authRequest";
 import { loginType } from "@/types/auth-type";
 import { useAppDispatch, useAppSelector } from "./useRedux";
-import { updateAuthToken } from "@/redux/login-slice";
+import { updateLogin } from "@/redux/login-slice";
 
 export default function useAuthMutation() {
   const router = useRouter();
@@ -34,8 +34,20 @@ export default function useAuthMutation() {
         onMutate: () => {
           loadingToast(toastID);
         },
-        onSuccess: (data) => {
-          dispatch(updateAuthToken(data.data.token));
+        onSuccess: (data: any) => {
+          dispatch(
+            updateLogin({
+              user: {
+                email: data?.data?.user.email
+                  ? data?.data?.user.email
+                  : "cloudmallnigeria@gmail.com",
+                phone: data?.data?.user.phone,
+                name: `${data?.data?.user?.surname} ${data?.data?.user?.firstname}`,
+                id: data?.data.user._id,
+              },
+              token: data.data.token,
+            })
+          );
           updateToast(toastID, "success", "login success");
           router.push("/delivery-details");
         },

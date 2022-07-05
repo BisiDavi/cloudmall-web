@@ -29,6 +29,8 @@ export default function DeliverydetailsForm() {
   const { useGetCart } = useCart();
   const [cart, status] = useGetCart();
 
+  console.log("cart", cart);
+
   const dispatch = useAppDispatch();
   const { completeAddress } = useAppSelector((state) => state.location);
   const { loginDetails }: loginDetailsType = useAppSelector(
@@ -59,22 +61,25 @@ export default function DeliverydetailsForm() {
         />
       )}
       {status === "error" ? (
-        <>
-        <h3>An error just occured</h3>
+        <div className="center-div">
+          <h3 className="text-center text-red">An error just occured</h3>
+
           <Image
             src="/errorIcon.webp"
             alt="error icon"
             height={300}
             width={300}
           />
-        </>
+        </div>
       ) : status === "loading" ? (
-        <Image
-          src="/shopping-cart.gif"
-          alt="cart loading"
-          height={300}
-          width={300}
-        />
+        <div className="center-div">
+          <Image
+            src="/shopping-cart.gif"
+            alt="cart loading"
+            height={300}
+            width={100}
+          />
+        </div>
       ) : (
         <FormProvider {...methods}>
           <form
