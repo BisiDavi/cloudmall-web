@@ -21,10 +21,8 @@ export default function useLogin() {
     const { password, emailOrPhone } = data;
 
     if (emailOrPhone.includes("@")) {
-      console.log(true);
       dispatch(updateLogin({ email: emailOrPhone }));
     } else {
-      console.log(false);
       dispatch(updateLogin({ phone: emailOrPhone }));
     }
 

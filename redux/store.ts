@@ -11,6 +11,7 @@ import categoryReducer from "@/redux/category-slice";
 import searchReducer from "@/redux/search-slice";
 import deliveryDetailsReducer from "@/redux/delivery-details-slice";
 import loginReducer from "@/redux/login-slice";
+import paymentReducer from "@/redux/payment-slice";
 
 const reducers = combineReducers({
   location: locationReducer,
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   search: searchReducer,
   deliveryDetails: deliveryDetailsReducer,
   loginDetails: loginReducer,
+  payment: paymentReducer,
 });
 
 const persistConfig = {

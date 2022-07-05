@@ -66,11 +66,7 @@ export function checkoutFlowRequest(
   return getFlutterwaveKeys()
     .then((response) => {
       console.log("getFlutterwaveKeys-response", response);
-      return checkoutUserRequest(checkoutDetails, token)
-        .then((response) => {
-          console.log("checkoutDetails-response", response);
-        })
-        .catch((err) => console.log("checkoutDetails-error", err));
+      return checkoutUserRequest(checkoutDetails, token);
     })
     .catch((err) => console.log("getFlutterwaveKeys-error", err));
 }
