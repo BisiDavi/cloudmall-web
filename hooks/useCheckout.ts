@@ -37,7 +37,9 @@ export default function useCheckout() {
             updateModalHandler(null);
           })
           .then(() => {
-            return router.push("/payment");
+            if (checkoutDetails.paymentMethod === "FLUTTERWAVE") {
+              return router.push("/payment");
+            }
           })
           .catch((err) => {
             console.log("err-checkoutUserRequest", err);

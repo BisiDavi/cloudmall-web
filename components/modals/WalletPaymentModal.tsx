@@ -6,13 +6,22 @@ import { ModalProps } from "@/types/modal-types";
 import useCheckout from "@/hooks/useCheckout";
 import { useAppSelector } from "@/hooks/useRedux";
 
+interface WalletPaymentModalProps extends ModalProps {
+  totalAmount: string;
+}
+
 export default function WalletPaymentModal({
   closeModal,
   showModal,
-}: ModalProps) {
+  totalAmount,
+}: WalletPaymentModalProps) {
   const { checkoutUser } = useCheckout();
   const { deliveryDetails } = useAppSelector((state) => state.deliveryDetails);
   const { cart } = useAppSelector((state) => state.cart);
+  const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
+
+  const balance =
+    Number(loginDetails?.user.walletBalance) - Number(totalAmount);
 
   function checkoutHandler(paymentMethod: "FLUTTERWAVE" | "WALLET") {
     checkoutUser({
@@ -31,20 +40,20 @@ export default function WalletPaymentModal({
             <div>
               Wallet balance:
               <span>
-                <FormatPrice price={10000} />
+                <FormatPrice price={loginDetails?.user?.walletBalance} />
               </span>
             </div>
             <div className="totalAmount">
               Total Amount:
               <span className="amountPrice">
                 <span className="minus">-</span>
-                <FormatPrice price={5000} />
+                <FormatPrice price={Number(totalAmount)} />
               </span>
             </div>
             <div>
               Balance:
               <span>
-                <FormatPrice price={5000} />
+                <FormatPrice price={balance} />
               </span>
             </div>
           </div>

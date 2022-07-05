@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 
 import Ripples from "@/components/loaders/Ripples";
 import DefaultLayout from "@/layout/default-layout";
@@ -12,35 +12,41 @@ import { updateLogin } from "@/redux/login-slice";
 
 export default function PaymentPage() {
   const { makePayment } = useMakePayment();
-  const [loading, setLoading] = useState(true);
+  //   const [loading, setLoading] = useState(true);
   const { payment } = useAppSelector((state) => state.payment);
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
   const dispatch = useAppDispatch();
   const { order, status } = payment;
-  console.log("payment", payment);
 
-  useEffect(() => {
-    if (status === null && order !== null) {
-      return makePayment(setLoading);
-    }
-  }, [status, order]);
+  //   useEffect(() => {
+  if (status === null && order !== null) {
+    makePayment();
+  }
+  //   }, [status, order]);
+
+  function verifyPayment() {
+    return verifyPaymentRequest(
+      payment.order.initialFees.transactions[0].flutterwave.txRef,
+      loginDetails.token
+    )
+      .then((response) => {
+        console.log("verifyPaymentRequest-response", response);
+        if (response.data.transaction.status === "SUCCESSFUL") {
+          dispatch(updatePaymentStatus("FLUTTERWAVE_SUCCESSFUL_AND_VERIFIED"));
+          dispatch(updateLogin(null));
+        }
+      })
+      .catch((err) => {
+        console.log("verifyPaymentRequest-err", err);
+        if (err) {
+          verifyPayment();
+        }
+      });
+  }
 
   useEffect(() => {
     if (payment.status === "FLUTTERWAVE_SUCCESSFUL") {
-      verifyPaymentRequest(
-        payment.order.initialFees.transactions[0].flutterwave.txRef,
-        loginDetails.token
-      )
-        .then((response) => {
-          console.log("verifyPaymentRequest-response", response);
-          if (response.data.transaction.status === "SUCCESSFUL") {
-            dispatch(
-              updatePaymentStatus("FLUTTERWAVE_SUCCESSFUL_AND_VERIFIED")
-            );
-            dispatch(updateLogin(null));
-          }
-        })
-        .catch((err) => console.log("verifyPaymentRequest-err", err));
+      verifyPayment();
     }
   }, [payment.status]);
 
@@ -49,9 +55,9 @@ export default function PaymentPage() {
       <div className="content">
         {payment.status !== "FLUTTERWAVE_SUCCESSFUL_AND_VERIFIED" ? (
           <div className="redirectingView">
-            {loading && <Ripples centerRipple />}
+            <Ripples centerRipple />
             <h4 className="text-center text-red">
-              Redirecting you to payment gateway
+              Redirecting you to payment gateway...
             </h4>
           </div>
         ) : (
@@ -62,6 +68,11 @@ export default function PaymentPage() {
       </div>
 
       <style jsx>{`
+        .redirectingView {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+        }
         .content {
           display: flex;
           align-items: center;

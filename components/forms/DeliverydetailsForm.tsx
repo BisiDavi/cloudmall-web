@@ -56,6 +56,7 @@ export default function DeliverydetailsForm() {
         <WalletPaymentModal
           showModal={modal}
           closeModal={() => updateModalHandler(null)}
+          totalAmount={cart?.fees?.total}
         />
       )}
       {status === "error" ? (

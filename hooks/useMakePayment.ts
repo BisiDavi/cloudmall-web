@@ -16,7 +16,7 @@ export default function useMakePayment() {
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
     customer: {
-      email: loginDetails.user.email,
+      email: loginDetails?.user?.email,
       phonenumber: payment?.order?.user.phonenumber,
       name: `${payment?.order?.user.surname} ${payment?.order?.user.firstname}`,
     },
@@ -30,10 +30,10 @@ export default function useMakePayment() {
 
   const handlerFlutterPayment = useFlutterwave(config);
 
-  function makePayment(setLoading: any) {
-    return handlerFlutterPayment({
+  const makePayment = () =>
+    handlerFlutterPayment({
       callback: (response) => {
-        setLoading(false);
+        // setLoading(false);
         console.log("response-fw-callback", response);
         if (response.status === "successful") {
           dispatch(updatePaymentStatus("FLUTTERWAVE_SUCCESSFUL"));
@@ -43,6 +43,6 @@ export default function useMakePayment() {
       },
       onClose: () => {},
     });
-  }
+
   return { makePayment };
 }
