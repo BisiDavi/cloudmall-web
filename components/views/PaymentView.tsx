@@ -18,8 +18,8 @@ export default function PaymentView() {
         <div className="text-content payment">
           <h3>Payment Complete</h3>
           <p>
-            You have successfully ordered.Go to WhatsApp to get update on
-            your order
+            You have successfully ordered.Go to WhatsApp to get update on your
+            order
           </p>
         </div>
         <Button className="itemButton" text="Go to WhatsApp" />
