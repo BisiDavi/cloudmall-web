@@ -10,15 +10,17 @@ import { getFlutterwaveKeys } from "./utilsRequest";
 export function baseRequest(
   requestType: "post" | "get",
   route: string,
-  productDetails?: any
+  productDetails?: any,
+  config?: any
 ) {
   if (requestType === "post") {
     return axios.post(
       `${process.env.NEXT_PUBLIC_BASE_URL}/${route}`,
-      productDetails
+      productDetails,
+      config
     );
   } else {
-    return axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/${route}`);
+    return axios.get(`${process.env.NEXT_PUBLIC_BASE_URL}/${route}`, config);
   }
 }
 
@@ -40,8 +42,13 @@ export function removeCartItemRequest(
   return baseRequest("post", "users/cart/items/remove", productDetails);
 }
 
-export function checkoutUserRequest(checkoutDetails: checkoutDetailsType) {
-  return baseRequest("post", "users/checkout", checkoutDetails);
+export function checkoutUserRequest(
+  checkoutDetails: checkoutDetailsType,
+  token: string
+) {
+  return baseRequest("post", "users/checkout", checkoutDetails, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 }
 
 export function clearExpiredCart(cartId: string, clearCart: () => void) {
@@ -52,11 +59,14 @@ export function clearExpiredCart(cartId: string, clearCart: () => void) {
   });
 }
 
-export function checkoutFlowRequest(checkoutDetails: checkoutDetailsType) {
+export function checkoutFlowRequest(
+  checkoutDetails: checkoutDetailsType,
+  token: string
+) {
   return getFlutterwaveKeys()
     .then((response) => {
       console.log("getFlutterwaveKeys-response", response);
-      checkoutUserRequest(checkoutDetails)
+      return checkoutUserRequest(checkoutDetails, token)
         .then((response) => {
           console.log("checkoutDetails-response", response);
         })

@@ -12,6 +12,8 @@ export type userLoginType = {
   email?: string;
   phonenumber?: string;
   password: string;
+  cartId?: string;
+  rememberMe: boolean;
 };
 
 export type googleSigninType = {

@@ -13,6 +13,7 @@
     "@hookform/resolvers": "^2.9.3",
     "@reduxjs/toolkit": "^1.8.1",
     "axios": "^0.27.2",
+    "flutterwave-react-v3": "^1.2.1",
     "jest": "^28.1.0",
     "next": "12.1.6",
     "react": "18.1.0",

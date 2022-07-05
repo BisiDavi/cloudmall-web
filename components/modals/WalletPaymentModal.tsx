@@ -9,12 +9,9 @@ export default function WalletPaymentModal({
   closeModal,
   showModal,
 }: ModalProps) {
-  const { useCheckoutUser, useCheckoutCustomer } = useCheckout();
-  const deliveryDetails = useAppSelector((state) => state.deliveryDetails);
-  const checkoutUser = useCheckoutUser();
+  const { useCheckoutCustomer } = useCheckout();
+  const { deliveryDetails } = useAppSelector((state) => state.deliveryDetails);
   const checkoutCustomer = useCheckoutCustomer();
-
-  console.log("deliveryDetails", deliveryDetails);
 
   function checkoutHandler(paymentMethod: "FLUTTERWAVE" | "WALLET") {
     checkoutCustomer.mutate({

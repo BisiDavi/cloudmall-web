@@ -14,17 +14,27 @@ import useDeliveryForm from "@/hooks/useDeliveryForm";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateDeliveryDetail } from "@/redux/delivery-details-slice";
 
+type loginDetailsType = {
+  loginDetails:
+    | {
+        phone?: string;
+        email?: string;
+      }
+    | null
+    | any;
+};
+
 export default function DeliverydetailsForm() {
   const { useGetCart } = useCart();
   const [cart] = useGetCart();
 
   const dispatch = useAppDispatch();
   const { completeAddress } = useAppSelector((state) => state.location);
-  const loginDetails = useAppSelector((state) => state.loginDetails);
+  const { loginDetails }: loginDetailsType = useAppSelector(
+    (state) => state.loginDetails
+  );
   const { methods } = useDeliveryForm();
   const { modal, updateModalHandler } = useModal();
-
-  console.log("loginDetails", loginDetails);
 
   const orderPrices = [
     { text: "Items", price: cart?.fees?.items },
@@ -34,6 +44,10 @@ export default function DeliverydetailsForm() {
   ];
 
   methods.setValue("address", completeAddress[0].location);
+
+  if (loginDetails?.phone) {
+    methods.setValue("phone", loginDetails.phone);
+  }
 
   return (
     <>
@@ -46,7 +60,7 @@ export default function DeliverydetailsForm() {
       <FormProvider {...methods}>
         <form
           className="delivery-details"
-          onSubmit={methods.handleSubmit((data) => {
+          onSubmit={methods.handleSubmit((data: any) => {
             dispatch(updateDeliveryDetail(data));
             updateModalHandler("paymentModal");
           })}

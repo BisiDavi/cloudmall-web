@@ -5,7 +5,7 @@
     "elementType": "input",
     "name": "emailOrPhone",
     "id": "login-email",
-    "type": "email"
+    "type": "text"
   },
   {
     "placeholder": "*************",

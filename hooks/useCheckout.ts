@@ -5,11 +5,13 @@ import useToast from "@/hooks/useToast";
 import { checkoutFlowRequest, checkoutUserRequest } from "@/utils/cartRequest";
 import { checkoutDetailsType } from "@/types/cart-type";
 import useModal from "@/hooks/useModal";
+import { useAppSelector } from "@/hooks/useRedux";
 
 export default function useCheckout() {
   const queryClient = useQueryClient();
   const toastID = useRef(null);
   const { updateModalHandler } = useModal();
+  const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
 
   const { loadingToast, updateToast } = useToast();
 
@@ -23,14 +25,17 @@ export default function useCheckout() {
         eta,
         voucher,
       }: checkoutDetailsType) =>
-        checkoutFlowRequest({
-          address,
-          paymentMethod,
-          note,
-          instantDelivery,
-          eta,
-          voucher,
-        }),
+        checkoutFlowRequest(
+          {
+            address,
+            paymentMethod,
+            note,
+            instantDelivery,
+            eta,
+            voucher,
+          },
+          loginDetails.token
+        ),
       {
         mutationKey: "useCheckoutCustomer",
         onMutate: () => {
@@ -39,14 +44,15 @@ export default function useCheckout() {
         onSettled: () => {
           queryClient.invalidateQueries("getCartQuery");
         },
-        onSuccess: (response: any) => {
-          console.log("response", response);
-          updateToast(toastID, "success", response.data.message);
+        onSuccess: (data: any) => {
+          console.log("response-data", data);
+          updateToast(toastID, "success", data?.response?.message);
+
           updateModalHandler(null);
         },
-        onError: (err: any) => {
-          console.log("err", err);
-          updateToast(toastID, "error", err?.response?.data?.message);
+        onError: (data: any) => {
+          console.log("data-err", data);
+          updateToast(toastID, "error", data?.response?.data?.message);
           updateModalHandler(null);
         },
       }
@@ -63,14 +69,17 @@ export default function useCheckout() {
         eta,
         voucher,
       }: checkoutDetailsType) =>
-        checkoutUserRequest({
-          address,
-          paymentMethod,
-          note,
-          instantDelivery,
-          eta,
-          voucher,
-        }),
+        checkoutUserRequest(
+          {
+            address,
+            paymentMethod,
+            note,
+            instantDelivery,
+            eta,
+            voucher,
+          },
+          loginDetails.token
+        ),
       {
         mutationKey: "useCheckoutUser",
         onMutate: () => {

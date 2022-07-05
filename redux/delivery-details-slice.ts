@@ -1,17 +1,15 @@
 /* eslint-disable no-param-reassign */
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-type deliveryDetailsType =
-  | {
-      address: string;
-      category: string;
-      description: string;
-      time: string;
-      phone: string;
-    }
-  | any;
+export type deliveryDetailsType = {
+  address: string;
+  category: string;
+  description: string;
+  time: string;
+  phone: string;
+};
 
-const initialState: deliveryDetailsType = null;
+const initialState: any = { deliveryDetails: null };
 
 export const deliveryDetailSlice = createSlice({
   name: "deliveryDetails",
@@ -21,7 +19,7 @@ export const deliveryDetailSlice = createSlice({
       state,
       action: PayloadAction<deliveryDetailsType>
     ) => {
-      state = action.payload;
+      state.deliveryDetails = action.payload;
     },
   },
 });
