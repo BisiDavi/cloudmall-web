@@ -1,19 +1,22 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useRef } from "react";
-import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 import useToast from "@/hooks/useToast";
 import { checkoutFlowRequest, checkoutUserRequest } from "@/utils/cartRequest";
 import { checkoutDetailsType } from "@/types/cart-type";
 import useModal from "@/hooks/useModal";
-import { useAppSelector } from "@/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { getFlutterwaveKeys } from "@/utils/utilsRequest";
+import { updateFWKeys, updateOrder } from "@/redux/payment-slice";
+import useMakePayment from "./useMakePayment";
 
 export default function useCheckout() {
   const queryClient = useQueryClient();
   const toastID = useRef(null);
   const { updateModalHandler } = useModal();
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
+  const dispatch = useAppDispatch();
+  const { makePayment } = useMakePayment();
 
   const { loadingToast, updateToast } = useToast();
 
@@ -22,45 +25,22 @@ export default function useCheckout() {
     getFlutterwaveKeys()
       .then((fwKeysResponse) => {
         console.log("getFlutterwaveKeys-response", fwKeysResponse);
+        dispatch(updateFWKeys(fwKeysResponse.data.public));
         return checkoutUserRequest(checkoutDetails, loginDetails.token)
           .then((checkoutUserResponse) => {
             console.log("response-checkoutUserRequest", checkoutUserResponse);
+            dispatch(updateOrder(fwKeysResponse.data.order));
             updateToast(
               toastID,
               "success",
               checkoutUserResponse?.data?.message
             );
             updateModalHandler(null);
-            return checkoutUserResponse.data;
           })
-          .then((checkoutResponse) => {
-            const handlerFlutterPayment = useFlutterwave({
-              public_key: fwKeysResponse.data.public,
-              tx_ref:
-                checkoutResponse.order.initialFees.transactions[0].flutterwave
-                  .txRef,
-              amount: checkoutResponse.order.initialFees.total,
-              currency: "NGN",
-              payment_options: "card,mobilemoney,ussed",
-              customer: {
-                email: "",
-                phonenumber: checkoutResponse.order.user.phonenumber,
-                name: `${checkoutResponse.order.user.surname} ${checkoutResponse.order.user.firstname}`,
-              },
-              customizations: {
-                title: "",
-                description: "",
-                logo: "",
-              },
-            });
-            handlerFlutterPayment({
-              callback: (response) => {
-                console.log("response-fw-callback", response);
-                closePaymentModal();
-              },
-              onClose: () => {},
-            });
+          .then(() => {
+            makePayment();
           })
+
           .catch((err) => {
             console.log("err-checkoutUserRequest", err);
             updateToast(toastID, "error", err?.response?.data?.message);

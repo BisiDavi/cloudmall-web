@@ -1,22 +1,22 @@
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
-import { useAppSelector } from "./useRedux";
+import { useAppSelector } from "@/hooks/useRedux";
 
 export default function useMakePayment() {
   const { payment } = useAppSelector((state) => state.payment);
   const config: any = {
     public_key: payment.fwKey,
-    tx_ref: payment.order.txRef,
-    amount: payment.order.total,
+    tx_ref: payment.order.initialFees.transactions[0].flutterwave.txRef,
+    amount: payment.order.initialFees.total,
     currency: "NGN",
     payment_options: "card,mobilemoney,ussed",
     customer: {
       email: "",
-      phonenumber: payment.order.phonenumber,
-      name: payment.order.name,
+      phonenumber: payment.order.user.phonenumber,
+      name: `${payment.order.user.surname} ${payment.order.user.firstname}`,
     },
     customizations: {
-      title: payment.order.title,
-      description: payment.order.description,
+      title: "Order Payment",
+      description: "",
       logo: "",
     },
   };
