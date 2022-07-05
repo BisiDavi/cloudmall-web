@@ -1,10 +1,14 @@
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
-import { useAppSelector } from "@/hooks/useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
+import { verifyPaymentRequest } from "@/utils/cartRequest";
+import { updatePaymentStatus } from "@/redux/payment-slice";
 
 export default function useMakePayment() {
   const { payment } = useAppSelector((state) => state.payment);
-  console.log("payment", payment);
+  const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
+  const dispatch = useAppDispatch();
+
   const config: any = {
     public_key: payment?.fwKey,
     tx_ref: payment?.order?.initialFees.transactions[0].flutterwave.txRef,
@@ -12,7 +16,7 @@ export default function useMakePayment() {
     currency: "NGN",
     payment_options: "card,mobilemoney,ussd",
     customer: {
-      email: "",
+      email: loginDetails.user.email,
       phonenumber: payment?.order?.user.phonenumber,
       name: `${payment?.order?.user.surname} ${payment?.order?.user.firstname}`,
     },
@@ -23,13 +27,19 @@ export default function useMakePayment() {
     },
   };
   console.log("makePayment-config", config);
+
   const handlerFlutterPayment = useFlutterwave(config);
 
-  function makePayment() {
+  function makePayment(setLoading: any) {
     return handlerFlutterPayment({
       callback: (response) => {
+        setLoading(false);
         console.log("response-fw-callback", response);
-        closePaymentModal();
+        if (response.status === "successful") {
+          dispatch(updatePaymentStatus("FLUTTERWAVE_SUCCESSFUL"));
+          verifyPaymentRequest(response.tx_ref, loginDetails.token);
+        }
+        return closePaymentModal();
       },
       onClose: () => {},
     });

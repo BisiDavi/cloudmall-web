@@ -41,7 +41,7 @@ export default function useAuthMutation() {
                 email: data?.data?.user.email
                   ? data?.data?.user.email
                   : "cloudmallnigeria@gmail.com",
-                phone: data?.data?.user.phone,
+                phone: data?.data?.user.phonenumber,
                 name: `${data?.data?.user?.surname} ${data?.data?.user?.firstname}`,
                 id: data?.data.user._id,
               },

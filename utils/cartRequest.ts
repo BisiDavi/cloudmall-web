@@ -80,3 +80,14 @@ export function checkoutFlowRequest(
 export function deleteCartRequest(cartId: string) {
   return baseRequest("post", "users/cart/delete", { cartId });
 }
+
+export function verifyPaymentRequest(txRefId: string, token: string) {
+  return baseRequest(
+    "post",
+    "transactions/verify",
+    { txRef: txRefId },
+    {
+      headers: { Authorization: `Bearer ${token}` },
+    }
+  );
+}

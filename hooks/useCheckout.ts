@@ -1,5 +1,6 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useRef } from "react";
+import { useRouter } from "next/router";
 
 import useToast from "@/hooks/useToast";
 import { checkoutFlowRequest, checkoutUserRequest } from "@/utils/cartRequest";
@@ -8,17 +9,14 @@ import useModal from "@/hooks/useModal";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { getFlutterwaveKeys } from "@/utils/utilsRequest";
 import { updateFWKeys, updateOrder } from "@/redux/payment-slice";
-import useMakePayment from "@/hooks/useMakePayment";
 
 export default function useCheckout() {
   const queryClient = useQueryClient();
   const toastID = useRef(null);
   const { updateModalHandler } = useModal();
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
-  const { payment } = useAppSelector((state) => state.payment);
   const dispatch = useAppDispatch();
-  const { makePayment } = useMakePayment();
-
+  const router = useRouter();
   const { loadingToast, updateToast } = useToast();
 
   function checkoutUser(checkoutDetails: checkoutDetailsType) {
@@ -39,11 +37,8 @@ export default function useCheckout() {
             updateModalHandler(null);
           })
           .then(() => {
-            if (payment.order !== null) {
-              makePayment();
-            }
+            return router.push("/payment");
           })
-
           .catch((err) => {
             console.log("err-checkoutUserRequest", err);
             updateToast(toastID, "error", err?.response?.data?.message);

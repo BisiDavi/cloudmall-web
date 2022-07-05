@@ -29,8 +29,6 @@ export default function DeliverydetailsForm() {
   const { useGetCart } = useCart();
   const [cart, status] = useGetCart();
 
-  console.log("cart", cart);
-
   const dispatch = useAppDispatch();
   const { completeAddress } = useAppSelector((state) => state.location);
   const { loginDetails }: loginDetailsType = useAppSelector(
@@ -48,8 +46,8 @@ export default function DeliverydetailsForm() {
 
   methods.setValue("address", completeAddress[0].location);
 
-  if (loginDetails?.phone) {
-    methods.setValue("phone", loginDetails.phone);
+  if (loginDetails?.user?.phone) {
+    methods.setValue("phone", loginDetails?.user?.phone);
   }
 
   return (
