@@ -38,7 +38,7 @@ export default function PaymentPage() {
         })
         .catch((err) => console.log("verifyPaymentRequest-err", err));
     }
-  }, []);
+  }, [payment.status]);
 
   return (
     <DefaultLayout title="Make Payment" padding="0px">
