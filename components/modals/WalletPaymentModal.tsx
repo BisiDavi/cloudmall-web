@@ -23,7 +23,6 @@ export default function WalletPaymentModal({
     });
   }
 
-
   return (
     <>
       <Modal closeModal={closeModal} showModal={showModal} persistModal>

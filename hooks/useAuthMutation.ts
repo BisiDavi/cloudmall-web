@@ -44,6 +44,7 @@ export default function useAuthMutation() {
                 phone: data?.data?.user.phonenumber,
                 name: `${data?.data?.user?.surname} ${data?.data?.user?.firstname}`,
                 id: data?.data.user._id,
+                walletBalance: data?.data?.user?.walletBalance,
               },
               token: data.data.token,
             })

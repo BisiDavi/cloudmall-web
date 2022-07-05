@@ -3,9 +3,11 @@ import Image from "next/image";
 import DefaultLayout from "@/layout/default-layout";
 import LoginForm from "@/components/forms/LoginForm";
 import useGoogleLoginMutation from "@/hooks/useGoogleLoginMutation";
+import useLoginRedirect from "@/hooks/useLoginRedirect";
 
 export default function LoginPage() {
   const { useGoogleLogin } = useGoogleLoginMutation();
+  useLoginRedirect();
 
   const googleLogin = useGoogleLogin();
 

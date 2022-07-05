@@ -9,7 +9,11 @@ import Ripples from "../loaders/Ripples";
 const renderStatus = (status: Status) => {
   switch (status) {
     case Status.LOADING:
-      return <Ripples centerRipple />;
+      return (
+        <div className="centerRipple">
+          <Ripples centerRipple />;
+        </div>
+      );
     case Status.FAILURE:
       return <p>error occured</p>;
     case Status.SUCCESS:

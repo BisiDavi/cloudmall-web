@@ -1,8 +1,8 @@
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { verifyPaymentRequest } from "@/utils/cartRequest";
 import { updatePaymentStatus } from "@/redux/payment-slice";
+import { clearCart } from "@/redux/cart-slice";
 
 export default function useMakePayment() {
   const { payment } = useAppSelector((state) => state.payment);
@@ -37,7 +37,7 @@ export default function useMakePayment() {
         console.log("response-fw-callback", response);
         if (response.status === "successful") {
           dispatch(updatePaymentStatus("FLUTTERWAVE_SUCCESSFUL"));
-          verifyPaymentRequest(response.tx_ref, loginDetails.token);
+          dispatch(clearCart());
         }
         return closePaymentModal();
       },

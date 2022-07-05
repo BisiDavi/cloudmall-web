@@ -1,7 +1,9 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useRouter } from "next/router";
-import { PropsWithChildren } from "react";
+import { PropsWithChildren, useEffect } from "react";
 
 import ArrowleftIcon from "@/components/icons/ArrowleftIcon";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface Props {
   title: string;
@@ -18,10 +20,19 @@ export default function DefaultLayout({
   showArrow = true,
 }: PropsWithChildren<Props>) {
   const router = useRouter();
+  const { completeAddress } = useAppSelector((state) => state.location);
+
+  console.log("completeAddress", completeAddress);
 
   function goBack() {
     router.back();
   }
+
+  useEffect(() => {
+    if (completeAddress.length === 0) {
+      router.push("/");
+    }
+  }, []);
 
   return (
     <>

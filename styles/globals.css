@@ -72,6 +72,13 @@ a {
   margin-left: unset;
 }
 
+.centerRipple {
+  display: flex;
+  align-items: center;
+  margin: auto;
+  justify-content: center;
+}
+
 .payment-complete .itemButton {
   margin: 10px auto;
   height: 40px;

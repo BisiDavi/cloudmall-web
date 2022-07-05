@@ -8,6 +8,7 @@ import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import { verifyPaymentRequest } from "@/utils/cartRequest";
 import { updatePaymentStatus } from "@/redux/payment-slice";
 import PaymentView from "@/components/views/PaymentView";
+import { updateLogin } from "@/redux/login-slice";
 
 export default function PaymentPage() {
   const { makePayment } = useMakePayment();
@@ -15,12 +16,14 @@ export default function PaymentPage() {
   const { payment } = useAppSelector((state) => state.payment);
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
   const dispatch = useAppDispatch();
+  const { order, status } = payment;
+  console.log("payment", payment);
 
   useEffect(() => {
-    if (payment.status === null) {
+    if (status === null && order !== null) {
       return makePayment(setLoading);
     }
-  }, [payment.status]);
+  }, [status, order]);
 
   useEffect(() => {
     if (payment.status === "FLUTTERWAVE_SUCCESSFUL") {
@@ -34,6 +37,7 @@ export default function PaymentPage() {
             dispatch(
               updatePaymentStatus("FLUTTERWAVE_SUCCESSFUL_AND_VERIFIED")
             );
+            dispatch(updateLogin(null));
           }
         })
         .catch((err) => console.log("verifyPaymentRequest-err", err));

@@ -7,9 +7,10 @@ type loginSliceType = {
     phone: string;
     name: string;
     id: string;
+    walletBalance: string;
   };
   token: string;
-};
+} | null;
 
 const initialState = { loginDetails: null };
 
