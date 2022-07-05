@@ -7,7 +7,7 @@ export default function useCart() {
 
   function useGetCart() {
     const { data, status } = useQuery("getCartQuery", () =>
-      getCartRequest(cart[0].cartId)
+      getCartRequest(cart[0]?.cartId)
     );
     return [data?.data?.cart, status];
   }

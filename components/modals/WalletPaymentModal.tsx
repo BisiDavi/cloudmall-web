@@ -1,9 +1,12 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import Modal from "@/components/modals";
 import FormatPrice from "@/utils/FormatPrice";
 import Button from "@/components/buttons";
 import { ModalProps } from "@/types/modal-types";
 import useCheckout from "@/hooks/useCheckout";
 import { useAppSelector } from "@/hooks/useRedux";
+// import { useEffect } from "react";
+// import useMakePayment from "@/hooks/useMakePayment";
 
 export default function WalletPaymentModal({
   closeModal,
@@ -12,6 +15,8 @@ export default function WalletPaymentModal({
   const { checkoutUser } = useCheckout();
   const { deliveryDetails } = useAppSelector((state) => state.deliveryDetails);
   const { cart } = useAppSelector((state) => state.cart);
+  // const { payment } = useAppSelector((state) => state.payment);
+  // const { makePayment } = useMakePayment();
 
   function checkoutHandler(paymentMethod: "FLUTTERWAVE" | "WALLET") {
     checkoutUser({
@@ -21,6 +26,12 @@ export default function WalletPaymentModal({
       paymentMethod,
     });
   }
+
+  // useEffect(() => {
+  //   if (payment.order !== null) {
+  //     makePayment();
+  //   }
+  // }, [payment.order]);
 
   return (
     <>

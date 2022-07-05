@@ -5,10 +5,11 @@ import useToast from "@/hooks/useToast";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import {
   addToCartRequest,
+  deleteCartRequest,
   removeCartItemRequest,
   updateCartRequest,
 } from "@/utils/cartRequest";
-import { addToCart } from "@/redux/cart-slice";
+import { addToCart, clearCart } from "@/redux/cart-slice";
 import formatCart from "@/utils/formatCart";
 import {
   addToCartMutationType,
@@ -24,21 +25,23 @@ export default function useCartMutationAction() {
 
   const { lat, lng } = completeAddress[0];
 
-  const responseData = (toastID: any) => ({
+  const responseData = (toastID: any, type?: string) => ({
     onMutate: () => {
       loadingToast(toastID);
     },
-    onSettled: () => {
-      queryClient.invalidateQueries("getCartQuery");
-    },
+    onSettled: () => queryClient.invalidateQueries("getCartQuery"),
     onSuccess: (response: any) => {
-      const formattedCart = formatCart(response.data.cart);
-      dispatch(addToCart(formattedCart));
+      if (type === "emptyCart") {
+        dispatch(clearCart());
+      } else {
+        const formattedCart = formatCart(response.data.cart);
+        console.log("formattedCart", formattedCart);
+        dispatch(addToCart(formattedCart));
+      }
       updateToast(toastID, "success", response.data.message);
     },
-    onError: (err: any) => {
-      updateToast(toastID, "error", err?.response?.data?.message);
-    },
+    onError: (err: any) =>
+      updateToast(toastID, "error", err?.response?.data?.message),
   });
 
   function useAddToCart() {
@@ -88,7 +91,7 @@ export default function useCartMutationAction() {
   function useRemoveCartItem() {
     const toastID = useRef(null);
     const result = responseData(toastID);
-    const cartId = cart[0].cartId;
+    const cartId = cart[0]?.cartId;
     return useMutation(
       (itemId: string) => removeCartItemRequest({ cartId, itemId }),
       {
@@ -98,5 +101,21 @@ export default function useCartMutationAction() {
     );
   }
 
-  return { useAddToCart, useRemoveCartItem, cart, useUpdateCart };
+  function useDeleteCartItem() {
+    const toastID = useRef(null);
+    const result = responseData(toastID, "emptyCart");
+    const cartId = cart[0]?.cartId;
+    return useMutation(() => deleteCartRequest(cartId), {
+      mutationKey: "useDeleteCartItem",
+      ...result,
+    });
+  }
+
+  return {
+    useAddToCart,
+    useRemoveCartItem,
+    cart,
+    useUpdateCart,
+    useDeleteCartItem,
+  };
 }

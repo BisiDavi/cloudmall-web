@@ -15,6 +15,7 @@ export default function useCheckout() {
   const toastID = useRef(null);
   const { updateModalHandler } = useModal();
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
+  const { payment } = useAppSelector((state) => state.payment);
   const dispatch = useAppDispatch();
   const { makePayment } = useMakePayment();
 
@@ -29,7 +30,7 @@ export default function useCheckout() {
         return checkoutUserRequest(checkoutDetails, loginDetails.token)
           .then((checkoutUserResponse) => {
             console.log("response-checkoutUserRequest", checkoutUserResponse);
-            dispatch(updateOrder(fwKeysResponse.data.order));
+            dispatch(updateOrder(checkoutUserResponse.data.order));
             updateToast(
               toastID,
               "success",
@@ -38,7 +39,9 @@ export default function useCheckout() {
             updateModalHandler(null);
           })
           .then(() => {
-            makePayment();
+            if (payment.order !== null) {
+              makePayment();
+            }
           })
 
           .catch((err) => {
