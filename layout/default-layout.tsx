@@ -22,8 +22,6 @@ export default function DefaultLayout({
   const router = useRouter();
   const { completeAddress } = useAppSelector((state) => state.location);
 
-  console.log("completeAddress", completeAddress);
-
   function goBack() {
     router.back();
   }
