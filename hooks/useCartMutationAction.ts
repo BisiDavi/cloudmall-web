@@ -15,10 +15,12 @@ import {
   addToCartMutationType,
   updateCartMutationType,
 } from "@/types/cart-type";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 export default function useCartMutationAction() {
   const queryClient = useQueryClient();
   const { cart } = useAppSelector((state) => state.cart);
+  const { baseURL } = useBaseUrl();
   const { loadingToast, updateToast } = useToast();
   const { completeAddress } = useAppSelector((state) => state.location);
   const dispatch = useAppDispatch();
@@ -62,7 +64,7 @@ export default function useCartMutationAction() {
           },
           coordinates: [lng, lat],
         };
-        return addToCartRequest(productDetails);
+        return addToCartRequest(baseURL, productDetails);
       },
       {
         mutationKey: "addProductToCart",
@@ -82,7 +84,7 @@ export default function useCartMutationAction() {
           itemId,
           qty,
         };
-        return updateCartRequest(productDetails);
+        return updateCartRequest(baseURL, productDetails);
       },
       {
         mutationKey: "updateCartProduct",
@@ -96,7 +98,7 @@ export default function useCartMutationAction() {
     const result = responseData(toastID);
     const cartId = cart[0]?.cartId;
     return useMutation(
-      (itemId: string) => removeCartItemRequest({ cartId, itemId }),
+      (itemId: string) => removeCartItemRequest(baseURL, { cartId, itemId }),
       {
         mutationKey: "removeProducfromCart",
         ...result,
@@ -108,7 +110,7 @@ export default function useCartMutationAction() {
     const toastID = useRef(null);
     const result = responseData(toastID, "emptyCart");
     const cartId = cart[0]?.cartId;
-    return useMutation(() => deleteCartRequest(cartId), {
+    return useMutation(() => deleteCartRequest(baseURL, cartId), {
       mutationKey: "useDeleteCartItem",
       ...result,
     });

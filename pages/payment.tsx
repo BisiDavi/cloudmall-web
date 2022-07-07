@@ -9,11 +9,13 @@ import { verifyPaymentRequest } from "@/utils/cartRequest";
 import { updatePaymentStatus } from "@/redux/payment-slice";
 import PaymentView from "@/components/views/PaymentView";
 import { updateLogin } from "@/redux/login-slice";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 export default function PaymentPage() {
   const { makePayment } = useMakePayment();
   //   const [loading, setLoading] = useState(true);
   const { payment } = useAppSelector((state) => state.payment);
+  const { baseURL } = useBaseUrl();
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
   const dispatch = useAppDispatch();
   const { order, status } = payment;
@@ -26,6 +28,7 @@ export default function PaymentPage() {
 
   function verifyPayment() {
     return verifyPaymentRequest(
+      baseURL,
       payment.order.initialFees.transactions[0].flutterwave.txRef,
       loginDetails.token
     )

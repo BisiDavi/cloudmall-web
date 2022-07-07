@@ -6,19 +6,26 @@ import { listStore } from "@/utils/storeRequest";
 import { storeType } from "@/types/store-types";
 import { useAppSelector } from "@/hooks/useRedux";
 import StoreListLoader from "@/components/loaders/StoreListLoader";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
   const { search } = useAppSelector((state) => state.search);
+  const { baseURL } = useBaseUrl();
 
-  const storeviewFunc =
+  const storeviewFunc: any =
     search.length > 3
-      ? () => listStore({ text: search })
+      ? () => listStore(baseURL, { text: search })
       : search || category.length > 0
-      ? () => listStore({ categoryIds: category, text: search })
-      : listStore;
+      ? () => listStore(baseURL, { categoryIds: category, text: search })
+      : listStore(baseURL);
+
   const categoryKey = search ? search : category.length > 0 ? category : "";
-  const { data, status } = useQuery(`listStores-${categoryKey}`, storeviewFunc);
+
+  const { data, status }: any = useQuery(
+    `listStores-${categoryKey}`,
+    storeviewFunc
+  );
 
   return (
     <>

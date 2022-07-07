@@ -1,5 +1,5 @@
 import { baseRequest } from "@/utils/cartRequest";
 
-export function getFlutterwaveKeys() {
-  return baseRequest("get", "utils/fw-keys");
+export function getFlutterwaveKeys(baseURL: string) {
+  return baseRequest(baseURL, "get", "utils/fw-keys");
 }

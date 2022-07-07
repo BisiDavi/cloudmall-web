@@ -4,6 +4,7 @@ import Pill from "@/components/pills";
 import { listStoreCategories } from "@/utils/storeRequest";
 import { storeCategoryType } from "@/types/store-types";
 import PillLoader from "@/components/loaders/PillsLoader";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 interface Props {
   storeType: "restaurant" | "store";
@@ -11,7 +12,11 @@ interface Props {
 }
 
 export default function RestaurantPillsGroup({ storeType, category }: Props) {
-  const { data, status } = useQuery("listStoreCategories", listStoreCategories);
+  const { baseURL } = useBaseUrl();
+
+  const { data, status } = useQuery("listStoreCategories", () =>
+    listStoreCategories(baseURL)
+  );
 
   const pillGroupClassname = storeType === "store" ? "gray" : "normal";
 

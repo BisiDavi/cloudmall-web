@@ -5,14 +5,17 @@ import { productType } from "@/types/product-types";
 import { getStoreProducts } from "@/utils/storeRequest";
 import ProductGridViewLoader from "@/components/loaders/ProductGridViewLoader";
 import EmptyCart from "@/components/cart/EmptyCart";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 interface Props {
   storeId: string;
 }
 
 export default function ProductGridView({ storeId }: Props) {
+  const { baseURL } = useBaseUrl();
+
   const { data, status } = useQuery(`getStoreProducts-${storeId}`, () =>
-    getStoreProducts({ storeIds: [storeId] })
+    getStoreProducts(baseURL, { storeIds: [storeId] })
   );
   const productResult = data?.data?.products;
 

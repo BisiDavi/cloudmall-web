@@ -9,11 +9,13 @@ import useModal from "@/hooks/useModal";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { getFlutterwaveKeys } from "@/utils/utilsRequest";
 import { updateFWKeys, updateOrder } from "@/redux/payment-slice";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 export default function useCheckout() {
   const queryClient = useQueryClient();
   const toastID = useRef(null);
   const { updateModalHandler } = useModal();
+  const { baseURL } = useBaseUrl();
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
   const dispatch = useAppDispatch();
   const router = useRouter();
@@ -21,11 +23,11 @@ export default function useCheckout() {
 
   function checkoutUser(checkoutDetails: checkoutDetailsType) {
     loadingToast(toastID);
-    getFlutterwaveKeys()
+    getFlutterwaveKeys(baseURL)
       .then((fwKeysResponse) => {
         console.log("getFlutterwaveKeys-response", fwKeysResponse);
         dispatch(updateFWKeys(fwKeysResponse.data.public));
-        return checkoutUserRequest(checkoutDetails, loginDetails.token)
+        return checkoutUserRequest(baseURL, checkoutDetails, loginDetails.token)
           .then((checkoutUserResponse) => {
             console.log("response-checkoutUserRequest", checkoutUserResponse);
             dispatch(updateOrder(checkoutUserResponse.data.order));
@@ -65,6 +67,7 @@ export default function useCheckout() {
         voucher,
       }: checkoutDetailsType) =>
         checkoutFlowRequest(
+          baseURL,
           {
             address,
             paymentMethod,
@@ -109,6 +112,7 @@ export default function useCheckout() {
         voucher,
       }: checkoutDetailsType) =>
         checkoutUserRequest(
+          baseURL,
           {
             address,
             paymentMethod,
@@ -128,12 +132,10 @@ export default function useCheckout() {
           queryClient.invalidateQueries("getCartQuery");
         },
         onSuccess: (response: any) => {
-          console.log("response", response);
           updateToast(toastID, "success", response.data.message);
           updateModalHandler(null);
         },
         onError: (err: any) => {
-          console.log("err", err);
           updateToast(toastID, "error", err?.response?.data?.message);
           updateModalHandler(null);
         },

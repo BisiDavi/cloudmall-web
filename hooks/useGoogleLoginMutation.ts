@@ -4,13 +4,15 @@ import { useRef } from "react";
 import useToast from "@/hooks/useToast";
 import { googleRedirect, googleSignin } from "@/utils/authRequest";
 import { useAppSelector } from "@/hooks/useRedux";
+import useBaseUrl from "./useBaseUrl";
 
 export default function useGoogleLoginMutation() {
   const { loadingToast, updateToast } = useToast();
+  const { baseURL } = useBaseUrl();
 
   function useGoogleSignin() {
     return useMutation(
-      ({ code, cartId }: any) => googleSignin({ code, cartId }),
+      ({ code, cartId }: any) => googleSignin(baseURL, { code, cartId }),
       {
         mutationKey: "useGoogleSignin",
         onSuccess: (_, variables) => {
@@ -34,7 +36,7 @@ export default function useGoogleLoginMutation() {
 
     const cartId = cart[0]?.cartId;
 
-    return useMutation(googleRedirect, {
+    return useMutation(() => googleRedirect(baseURL), {
       mutationKey: "useGoogleLogin",
       onMutate: () => loadingToast(toastID),
       onSuccess: (data) => {

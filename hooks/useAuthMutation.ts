@@ -5,12 +5,14 @@ import { useRouter } from "next/router";
 import useToast from "@/hooks/useToast";
 import { userLogin } from "@/utils/authRequest";
 import { loginType } from "@/types/auth-type";
-import { useAppDispatch, useAppSelector } from "./useRedux";
+import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateLogin } from "@/redux/login-slice";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 export default function useAuthMutation() {
   const router = useRouter();
   const { loadingToast, updateToast } = useToast();
+  const { baseURL } = useBaseUrl();
   const toastID = useRef(null);
   const { cart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
@@ -21,7 +23,7 @@ export default function useAuthMutation() {
         const formatEmailOrPhone = emailOrPhone.includes("@")
           ? { email: emailOrPhone }
           : { phonenumber: emailOrPhone };
-        return userLogin({
+        return userLogin(baseURL, {
           userType,
           password,
           rememberMe: true,

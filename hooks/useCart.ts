@@ -1,19 +1,22 @@
 import { useAppSelector } from "@/hooks/useRedux";
+import { useQuery } from "react-query";
+
 import {
   getAuthenticatedCartRequest,
   getCartRequest,
 } from "@/utils/cartRequest";
-import { useQuery } from "react-query";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 export default function useCart() {
   const { cart } = useAppSelector((state) => state.cart);
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
+  const { baseURL } = useBaseUrl();
 
   function useGetCart() {
     const { data, status } = useQuery("getCartQuery", () => {
       return loginDetails === null
-        ? getCartRequest(cart[0]?.cartId)
-        : getAuthenticatedCartRequest(loginDetails.token);
+        ? getCartRequest(baseURL, cart[0]?.cartId)
+        : getAuthenticatedCartRequest(baseURL, loginDetails.token);
     });
     return [data?.data?.cart, status];
   }

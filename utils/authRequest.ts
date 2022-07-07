@@ -1,22 +1,17 @@
 import { googleSigninType, userLoginType } from "@/types/auth-type";
 import axios from "axios";
 
-export function userLogin(postData: userLoginType) {
-  return axios.post(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/auth/sign-in`,
-    postData
-  );
+export function userLogin(baseURL: string, postData: userLoginType) {
+  return axios.post(`${baseURL}/auth/sign-in`, postData);
 }
 
-export function googleRedirect() {
-  return axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/auth/google/get-redirect-url`
-  );
+export function googleRedirect(baseURL: string) {
+  return axios.get(`${baseURL}/auth/google/get-redirect-url`);
 }
 
-export function googleSignin(postData: googleSigninType) {
+export function googleSignin(baseURL: string, postData: googleSigninType) {
   const { code, cartId } = postData;
   return axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/auth/google/user/sign-in/web?code=${code}&cartId=${cartId}`
+    `${baseURL}/auth/google/user/sign-in/web?code=${code}&cartId=${cartId}`
   );
 }

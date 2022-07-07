@@ -8,15 +8,13 @@ type userDetailsType = {
   isDefault: boolean;
 };
 
-export function createUserAddress(userDetails: userDetailsType) {
-  return axios.post(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/users/addresses/create`,
-    userDetails
-  );
+export function createUserAddress(
+  baseURL: string,
+  userDetails: userDetailsType
+) {
+  return axios.post(`${baseURL}/users/addresses/create`, userDetails);
 }
 
-export function getUserProfile(userId: string) {
-  return axios.get(
-    `${process.env.NEXT_PUBLIC_BASE_URL}/users/profile?userId=${userId}`
-  );
+export function getUserProfile(baseURL: string, userId: string) {
+  return axios.get(`${baseURL}/users/profile?userId=${userId}`);
 }

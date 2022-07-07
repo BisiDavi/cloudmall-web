@@ -16,7 +16,7 @@ export default function useMakePayment() {
     currency: "NGN",
     payment_options: "card",
     customer: {
-      email: loginDetails?.user?.email,
+      email: loginDetails?.user?.email ? loginDetails?.user?.email : "cloudmallnigeria@gmail.com",
       phonenumber: payment?.order?.user.phonenumber,
       name: `${payment?.order?.user.surname} ${payment?.order?.user.firstname}`,
     },
