@@ -22,8 +22,8 @@ export default function PaymentView() {
             order
           </p>
         </div>
-        <Button className="itemButton" text="Go to WhatsApp" />
       </div>
+        <Button className="itemButton" text="Go to WhatsApp" />
       <style jsx>{`
         .image-wrapper {
           display: flex;

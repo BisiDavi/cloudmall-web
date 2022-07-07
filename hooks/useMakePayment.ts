@@ -14,7 +14,7 @@ export default function useMakePayment() {
     tx_ref: payment?.order?.initialFees.transactions[0].flutterwave.txRef,
     amount: payment?.order?.initialFees.total,
     currency: "NGN",
-    payment_options: "card,mobilemoney,ussd",
+    payment_options: "card",
     customer: {
       email: loginDetails?.user?.email,
       phonenumber: payment?.order?.user.phonenumber,
