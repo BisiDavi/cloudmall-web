@@ -1,5 +1,10 @@
-import { googleSigninType, userLoginType } from "@/types/auth-type";
 import axios from "axios";
+
+import {
+  googleSigninType,
+  userLoginType,
+  whatsappType,
+} from "@/types/auth-type";
 
 export function userLogin(baseURL: string, postData: userLoginType) {
   return axios.post(`${baseURL}/auth/sign-in`, postData);
@@ -14,4 +19,8 @@ export function googleSignin(baseURL: string, postData: googleSigninType) {
   return axios.get(
     `${baseURL}/auth/google/user/sign-in/web?code=${code}&cartId=${cartId}`
   );
+}
+
+export function whatsappSignin(baseURL: string, whatsappData: whatsappType) {
+  return axios.post(`${baseURL}/whatsapp/user/sign-in`, whatsappData);
 }

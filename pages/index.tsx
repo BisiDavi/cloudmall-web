@@ -7,6 +7,8 @@ import { useEffect } from "react";
 
 import useMapview from "@/hooks/useMapview";
 import { useAppSelector } from "@/hooks/useRedux";
+import useBaseUrl from "@/hooks/useBaseUrl";
+import { whatsappSignin } from "@/utils/authRequest";
 
 const DynamicAutocomplete = dynamic(
   () =>
@@ -33,11 +35,23 @@ export default function MapView() {
     useMapview();
   const { completeAddress } = useAppSelector((state) => state.location);
   const router = useRouter();
+  const { baseURL } = useBaseUrl();
+
+  const waCode: string | any = router?.query?.waCode;
 
   useEffect(() => {
     if (completeAddress.length !== 0) {
       router.push("/store-view");
     }
+  }, []);
+
+  useEffect(() => {
+    whatsappSignin(baseURL, {
+      waCode,
+      rememberMe: true,
+    })
+      .then((response) => console.log("response-whatsapp", response))
+      .catch((err) => console.log("error-whatsapp", err));
   }, []);
 
   return (

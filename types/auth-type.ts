@@ -20,3 +20,8 @@ export type googleSigninType = {
   code: string;
   cartId: string;
 };
+
+export type whatsappType = {
+  waCode:string;
+  rememberMe:boolean
+}

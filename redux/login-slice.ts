@@ -9,6 +9,7 @@ type loginSliceType = {
     id: string;
     walletBalance: string;
   };
+  whatsappLogin?: boolean;
   token: string;
 } | null;
 
