@@ -20,6 +20,7 @@ export default function Home() {
     }
   }, []);
 
+  console.log("baseURL", baseURL);
   console.log("waCode", waCode);
 
   useEffect(() => {
