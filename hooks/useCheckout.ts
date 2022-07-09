@@ -17,6 +17,7 @@ export default function useCheckout() {
   const { updateModalHandler } = useModal();
   const baseURL = useBaseUrl();
   const { user }: any = useAppSelector((state) => state.user);
+  const { cart }: any = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { loadingToast, updateToast } = useToast();
@@ -26,6 +27,7 @@ export default function useCheckout() {
     getFlutterwaveKeys(baseURL)
       .then((fwKeysResponse) => {
         console.log("getFlutterwaveKeys-response", fwKeysResponse);
+        console.log("checkoutDetails", checkoutDetails);
         dispatch(updateFWKeys(fwKeysResponse.data.public));
         return checkoutUserRequest(baseURL, checkoutDetails, user.token)
           .then((checkoutUserResponse) => {
@@ -76,6 +78,7 @@ export default function useCheckout() {
             instantDelivery,
             eta,
             voucher,
+            cartId: cart[0].cartId,
           },
           user.token
         ),
@@ -121,6 +124,7 @@ export default function useCheckout() {
             instantDelivery,
             eta,
             voucher,
+            cartId: cart[0].cartId,
           },
           user.token
         ),

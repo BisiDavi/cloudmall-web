@@ -50,5 +50,5 @@ export type checkoutDetailsType = {
   instantDelivery: boolean;
   eta?: string;
   voucher?: string;
-  cartId?: string;
+  cartId: string;
 };
