@@ -21,7 +21,5 @@ export default function useBaseUrl() {
     }
   }, []);
 
-  console.log("baseURL", baseURL);
-
   return { baseURL };
 }
