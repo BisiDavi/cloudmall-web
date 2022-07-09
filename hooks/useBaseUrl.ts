@@ -3,8 +3,7 @@ import { useEffect } from "react";
 export default function useBaseUrl(): any {
   // const [baseURL, setBaseURL] = useState("");
 
-  useEffect((): any => {
-    const windowLocation: any = window.location.href;
+  function getUrl(windowLocation: string) {
     if (
       windowLocation.includes("quick-order.cloudmall.africa") &&
       typeof window !== "undefined"
@@ -19,5 +18,10 @@ export default function useBaseUrl(): any {
     } else if (windowLocation.includes("quick-order.local.cloudmall.africa")) {
       return "https://localtunnel.nfmshow.com.ng/api";
     }
+  }
+
+  useEffect(() => {
+    const windowLocation: any = window.location.href;
+    getUrl(windowLocation);
   }, []);
 }
