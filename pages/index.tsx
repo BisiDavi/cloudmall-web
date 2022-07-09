@@ -39,6 +39,7 @@ export default function Home() {
               surname: response.data.user.surname,
               phonenumber: response.data.user.phonenumber,
               addresses: response.data.user.addresses,
+              walletBalance: response.data.user.walletBalance,
             })
           );
           updateToast(

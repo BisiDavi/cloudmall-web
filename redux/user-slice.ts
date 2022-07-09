@@ -6,6 +6,7 @@ type userState = {
     _id: string;
     token: string;
     email: string;
+    walletBalance: number;
     firstname: string;
     surname: string;
     phonenumber: string;
