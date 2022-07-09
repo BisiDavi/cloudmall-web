@@ -10,7 +10,7 @@ import useBaseUrl from "@/hooks/useBaseUrl";
 export default function useCart() {
   const { cart } = useAppSelector((state) => state.cart);
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
-  const baseURL = useBaseUrl();
+  const { baseURL } = useBaseUrl();
 
   function useGetCart() {
     const { data, status } = useQuery("getCartQuery", () => {

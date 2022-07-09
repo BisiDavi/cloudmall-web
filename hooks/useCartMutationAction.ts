@@ -20,7 +20,7 @@ import useBaseUrl from "@/hooks/useBaseUrl";
 export default function useCartMutationAction() {
   const queryClient = useQueryClient();
   const { cart } = useAppSelector((state) => state.cart);
-  const baseURL = useBaseUrl();
+  const { baseURL } = useBaseUrl();
   const { loadingToast, updateToast } = useToast();
   const { completeAddress } = useAppSelector((state) => state.location);
   const dispatch = useAppDispatch();

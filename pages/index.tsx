@@ -8,7 +8,7 @@ import StoreLayoutPage from "@/layout/store-layout";
 import { whatsappSignin } from "@/utils/authRequest";
 
 export default function Home() {
-  const baseURL = useBaseUrl();
+  const { baseURL } = useBaseUrl();
   const toastID = useRef(null);
   const { loadingToast, updateToast } = useToast();
 
@@ -19,7 +19,7 @@ export default function Home() {
       const waCode = window.location.href.split("?waCode=")[1];
       console.log("waCode", waCode);
 
-      if (baseURL && typeof window !== "undefined") {
+      if (baseURL?.length > 0 && typeof window !== "undefined") {
         loadingToast(toastID);
         whatsappSignin(baseURL, {
           waCode,

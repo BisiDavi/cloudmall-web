@@ -8,7 +8,7 @@ import useBaseUrl from "./useBaseUrl";
 
 export default function useGoogleLoginMutation() {
   const { loadingToast, updateToast } = useToast();
-  const baseURL = useBaseUrl();
+  const { baseURL } = useBaseUrl();
 
   function useGoogleSignin() {
     return useMutation(

@@ -1,27 +1,24 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
-export default function useBaseUrl(): any {
-  // const [baseURL, setBaseURL] = useState("");
+export default function useBaseUrl() {
+  const [baseURL, setBaseURL] = useState("");
 
-  function getUrl(windowLocation: string) {
-    if (
-      windowLocation.includes("quick-order.cloudmall.africa") &&
-      typeof window !== "undefined"
-    ) {
-      return "https://api.cloudmall.africa";
+  useEffect(() => {
+    const windowLocation: any = window.location;
+    if (windowLocation.includes("quick-order.cloudmall.africa") && typeof window !== undefined) {
+      setBaseURL("https://api.cloudmall.africa");
     } else if (
       windowLocation.includes("quick-order.test.cloudmall.africa") ||
       windowLocation.includes("http://localhost:3000/") ||
       windowLocation.includes("/")
     ) {
-      return "https://cloudmall-africa.herokuapp.com/api";
+      setBaseURL("https://cloudmall-africa.herokuapp.com/api");
     } else if (windowLocation.includes("quick-order.local.cloudmall.africa")) {
-      return "https://localtunnel.nfmshow.com.ng/api";
+      setBaseURL("https://localtunnel.nfmshow.com.ng/api");
     }
-  }
-
-  useEffect(() => {
-    const windowLocation: any = window.location.href;
-    getUrl(windowLocation);
   }, []);
+
+  console.log("baseURL", baseURL);
+
+  return { baseURL };
 }

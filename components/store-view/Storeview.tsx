@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function Storepageview({ storeId }: Props) {
-  const baseURL = useBaseUrl();
+  const { baseURL } = useBaseUrl();
 
   const { data, status } = useQuery(`store-profile-${storeId}`, () =>
     storeProfile(baseURL, storeId)

@@ -15,7 +15,7 @@ export default function PaymentPage() {
   const { makePayment } = useMakePayment();
   //   const [loading, setLoading] = useState(true);
   const { payment } = useAppSelector((state) => state.payment);
-  const baseURL = useBaseUrl();
+  const { baseURL } = useBaseUrl();
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
   const dispatch = useAppDispatch();
   const { order, status } = payment;

@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function RestaurantPillsGroup({ storeType, category }: Props) {
-  const baseURL = useBaseUrl();
+  const { baseURL } = useBaseUrl();
 
   const { data, status } = useQuery("listStoreCategories", () =>
     listStoreCategories(baseURL)

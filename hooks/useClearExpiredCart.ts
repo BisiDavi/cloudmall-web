@@ -8,7 +8,7 @@ import useBaseUrl from "@/hooks/useBaseUrl";
 
 export default function useClearExpiredCart() {
   const { cart } = useAppSelector((state) => state.cart);
-  const baseURL = useBaseUrl();
+  const { baseURL } = useBaseUrl();
 
   const dispatch = useAppDispatch();
 
