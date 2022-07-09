@@ -8,23 +8,17 @@ import StoreLayoutPage from "@/layout/store-layout";
 import { whatsappSignin } from "@/utils/authRequest";
 
 export default function Home() {
-  const { baseURL } = useBaseUrl();
-  const [waCode, setWaCode] = useState("");
+  const baseURL = useBaseUrl();
   const toastID = useRef(null);
   const { loadingToast, updateToast } = useToast();
 
-  useEffect(() => {
-    const WACode = window.location.href.split("?waCode=")[1];
-    if (WACode) {
-      setWaCode(WACode);
-    }
-  }, []);
-
   console.log("baseURL", baseURL);
-  console.log("waCode", waCode);
 
   useEffect(() => {
-    if (waCode?.length > 0) {
+    if (typeof window !== "undefined") {
+      const waCode = window.location.href.split("?waCode=")[1];
+      console.log("waCode", waCode);
+
       if (baseURL.length === 0 && typeof window !== "undefined") {
         loadingToast(toastID);
         whatsappSignin(baseURL, {
@@ -40,7 +34,7 @@ export default function Home() {
           });
       }
     }
-  }, [baseURL, waCode]);
+  }, [baseURL]);
 
   return (
     <StoreLayoutPage title="Cloudmall Africa" padding="0px" showArrow={false}>
