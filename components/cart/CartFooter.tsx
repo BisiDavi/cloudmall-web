@@ -1,13 +1,14 @@
 import FormatPrice from "@/utils/FormatPrice";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { updateModal } from "@/redux/ui-slice";
+import Link from "next/link";
+// import { useAppDispatch } from "@/hooks/useRedux";
+// import { updateModal } from "@/redux/ui-slice";
 
 export default function CartFooter({ total }: any) {
-  const dispatch = useAppDispatch();
+  // const dispatch = useAppDispatch();
 
-  function onCheckoutHandler() {
-    dispatch(updateModal("loginQuestionModal"));
-  }
+  // function onCheckoutHandler() {
+  //   dispatch(updateModal("loginQuestionModal"));
+  // }
 
   return (
     <>
@@ -18,13 +19,15 @@ export default function CartFooter({ total }: any) {
             <FormatPrice price={total} />
           </h4>
         </div>
-        <button
-          type="button"
-          className="itemButton cart"
-          onClick={onCheckoutHandler}
-        >
-          Checkout
-        </button>
+        <Link passHref href="/delivery-details">
+          <button
+            type="button"
+            className="itemButton cart"
+            // onClick={onCheckoutHandler}
+          >
+            Checkout
+          </button>
+        </Link>
       </div>
       <style jsx>
         {`

@@ -3,6 +3,7 @@ import Image from "next/image";
 import { productType } from "@/types/product-types";
 import ProductQtyDropdown from "@/components/product/ProductQtyDropdown";
 import { useState } from "react";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 interface Props {
   product: productType;
@@ -11,6 +12,13 @@ interface Props {
 
 export default function Product({ product, storeId }: Props) {
   const [dropdown, setDropdown] = useState(false);
+  const baseURL = useBaseUrl();
+
+  const baseImageURL = baseURL.includes(
+    "https://cloudmall-africa.herokuapp.com/api"
+  )
+    ? "https://cloudmall-africa.herokuapp.com"
+    : "https://api.cloudmall.africa";
 
   function dropdownHandler() {
     if (dropdown) {
@@ -22,11 +30,11 @@ export default function Product({ product, storeId }: Props) {
     <>
       <div className="product" onClick={dropdownHandler}>
         <Image
-          src={`https://cloudmall-africa.herokuapp.com${product.image}`}
+          src={`${baseImageURL}${product.image}`}
           alt={product.name}
           height={150}
           width={200}
-          blurDataURL={`https://cloudmall-africa.herokuapp.com${product.image}`}
+          blurDataURL={`${baseImageURL}${product.image}`}
           placeholder="blur"
         />
         <div className="content">

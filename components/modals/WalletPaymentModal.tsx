@@ -18,10 +18,9 @@ export default function WalletPaymentModal({
   const { checkoutUser } = useCheckout();
   const { deliveryDetails } = useAppSelector((state) => state.deliveryDetails);
   const { cart } = useAppSelector((state) => state.cart);
-  const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
+  const { user }: any = useAppSelector((state) => state.user);
 
-  const balance =
-    Number(loginDetails?.user.walletBalance) - Number(totalAmount);
+  const balance = Number(user?.walletBalance) - Number(totalAmount);
 
   function checkoutHandler(paymentMethod: "FLUTTERWAVE" | "WALLET") {
     checkoutUser({
@@ -40,7 +39,7 @@ export default function WalletPaymentModal({
             <div>
               Wallet balance:
               <span>
-                <FormatPrice price={loginDetails?.user?.walletBalance} />
+                <FormatPrice price={user?.walletBalance} />
               </span>
             </div>
             <div className="totalAmount">

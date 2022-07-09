@@ -15,25 +15,12 @@ import useDeliveryForm from "@/hooks/useDeliveryForm";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateDeliveryDetail } from "@/redux/delivery-details-slice";
 
-type loginDetailsType = {
-  loginDetails:
-    | {
-        phone?: string;
-        email?: string;
-      }
-    | null
-    | any;
-};
-
 export default function DeliverydetailsForm() {
   const { useGetCart } = useCart();
   const [cart, status] = useGetCart();
 
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
-  const { loginDetails }: loginDetailsType = useAppSelector(
-    (state) => state.loginDetails
-  );
   const { methods } = useDeliveryForm();
   const { modal, updateModalHandler } = useModal();
 
@@ -45,10 +32,7 @@ export default function DeliverydetailsForm() {
   ];
 
   methods.setValue("address", user?.addresses[0]?.address);
-
-  if (loginDetails?.user?.phone) {
-    methods.setValue("phone", loginDetails?.user?.phone);
-  }
+  methods.setValue("phone", user?.phonenumber);
 
   return (
     <>

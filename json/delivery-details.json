@@ -51,6 +51,6 @@
     "elementType": "input",
     "name": "phone",
     "id": "phone-number",
-    "type": "number"
+    "type": "text"
   }
 ]

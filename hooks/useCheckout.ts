@@ -16,7 +16,7 @@ export default function useCheckout() {
   const toastID = useRef(null);
   const { updateModalHandler } = useModal();
   const baseURL = useBaseUrl();
-  const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
+  const { user }: any = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
   const router = useRouter();
   const { loadingToast, updateToast } = useToast();
@@ -27,7 +27,7 @@ export default function useCheckout() {
       .then((fwKeysResponse) => {
         console.log("getFlutterwaveKeys-response", fwKeysResponse);
         dispatch(updateFWKeys(fwKeysResponse.data.public));
-        return checkoutUserRequest(baseURL, checkoutDetails, loginDetails.token)
+        return checkoutUserRequest(baseURL, checkoutDetails, user.token)
           .then((checkoutUserResponse) => {
             console.log("response-checkoutUserRequest", checkoutUserResponse);
             dispatch(updateOrder(checkoutUserResponse.data.order));
@@ -38,7 +38,8 @@ export default function useCheckout() {
             );
             updateModalHandler(null);
           })
-          .then(() => {
+          .then((erev) => {
+            console.log("errev", erev);
             if (checkoutDetails.paymentMethod === "FLUTTERWAVE") {
               return router.push("/payment");
             }
@@ -76,7 +77,7 @@ export default function useCheckout() {
             eta,
             voucher,
           },
-          loginDetails.token
+          user.token
         ),
       {
         mutationKey: "useCheckoutCustomer",
