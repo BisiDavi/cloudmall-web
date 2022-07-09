@@ -26,10 +26,11 @@ export default function Home() {
           rememberMe: true,
         })
           .then((response) => {
+            console.log(response, "response-whatsappSignin");
             updateToast(toastID, "success", response.data.message);
           })
           .catch((error) => {
-            console.log("error", error);
+            console.log("error-whatsappSignin", error);
             updateToast(toastID, "error", error?.data);
           });
       }
