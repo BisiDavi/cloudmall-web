@@ -4,10 +4,12 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type uiState = {
   modal: modalType;
+  baseURL: string;
 };
 
 const initialState: uiState = {
   modal: null,
+  baseURL: "",
 };
 
 export const uiSlice = createSlice({
@@ -17,9 +19,12 @@ export const uiSlice = createSlice({
     updateModal: (state, action: PayloadAction<modalType>) => {
       state.modal = action.payload;
     },
+    updateBaseURL: (state, action) => {
+      state.baseURL = action.payload;
+    },
   },
 });
 
-export const { updateModal } = uiSlice.actions;
+export const { updateModal, updateBaseURL } = uiSlice.actions;
 
 export default uiSlice.reducer;

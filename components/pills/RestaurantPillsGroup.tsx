@@ -12,10 +12,14 @@ interface Props {
 }
 
 export default function RestaurantPillsGroup({ storeType, category }: Props) {
-  const { baseURL } = useBaseUrl();
+  const baseURL = useBaseUrl();
 
-  const { data, status } = useQuery("listStoreCategories", () =>
-    listStoreCategories(baseURL)
+  const { data, status }: any = useQuery(
+    "listStoreCategories",
+    () => listStoreCategories(baseURL),
+    {
+      enabled: !!baseURL,
+    }
   );
 
   const pillGroupClassname = storeType === "store" ? "gray" : "normal";
@@ -38,7 +42,7 @@ export default function RestaurantPillsGroup({ storeType, category }: Props) {
         <PillLoader />
       ) : (
         <div className={`pill-group ${pillGroupClassname}`}>
-          {getCategory().map((category: storeCategoryType) => (
+          {getCategory()?.map((category: storeCategoryType) => (
             <Pill key={category._id} category={category} />
           ))}
         </div>

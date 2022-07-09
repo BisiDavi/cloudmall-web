@@ -11,20 +11,24 @@ import useBaseUrl from "@/hooks/useBaseUrl";
 export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
   const { search } = useAppSelector((state) => state.search);
-  const { baseURL } = useBaseUrl();
+  const baseURL = useBaseUrl();
 
-  const storeviewFunc: any =
-    search.length > 3
+  const storeviewFunc: any = () => {
+    return search.length > 3
       ? () => listStore(baseURL, { text: search })
       : search || category.length > 0
       ? () => listStore(baseURL, { categoryIds: category, text: search })
       : listStore(baseURL);
+  };
 
   const categoryKey = search ? search : category.length > 0 ? category : "";
 
   const { data, status }: any = useQuery(
     `listStores-${categoryKey}`,
-    storeviewFunc
+    () => storeviewFunc,
+    {
+      enabled: !!baseURL,
+    }
   );
 
   return (
