@@ -122,7 +122,7 @@ export default function useCheckout() {
             eta,
             voucher,
           },
-          loginDetails.token
+          user.token
         ),
       {
         mutationKey: "useCheckoutUser",
