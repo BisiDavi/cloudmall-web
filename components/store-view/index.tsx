@@ -25,7 +25,7 @@ export default function Storeview() {
 
   const { data, status }: any = useQuery(
     `listStores-${categoryKey}`,
-    () => storeviewFunc,
+    storeviewFunc,
     {
       enabled: !!baseURL,
     }

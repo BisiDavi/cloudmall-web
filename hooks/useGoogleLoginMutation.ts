@@ -4,7 +4,7 @@ import { useRef } from "react";
 import useToast from "@/hooks/useToast";
 import { googleRedirect, googleSignin } from "@/utils/authRequest";
 import { useAppSelector } from "@/hooks/useRedux";
-import useBaseUrl from "./useBaseUrl";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 export default function useGoogleLoginMutation() {
   const { loadingToast, updateToast } = useToast();
