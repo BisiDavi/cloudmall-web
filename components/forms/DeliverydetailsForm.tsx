@@ -30,7 +30,7 @@ export default function DeliverydetailsForm() {
   const [cart, status] = useGetCart();
 
   const dispatch = useAppDispatch();
-  const { completeAddress } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user);
   const { loginDetails }: loginDetailsType = useAppSelector(
     (state) => state.loginDetails
   );
@@ -44,7 +44,7 @@ export default function DeliverydetailsForm() {
     { text: "Total Amount", price: cart?.fees?.total },
   ];
 
-  methods.setValue("address", completeAddress[0]?.location);
+  methods.setValue("address", user?.addresses[0]?.address);
 
   if (loginDetails?.user?.phone) {
     methods.setValue("phone", loginDetails?.user?.phone);
