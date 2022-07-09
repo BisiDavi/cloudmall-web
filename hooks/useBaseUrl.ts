@@ -1,23 +1,25 @@
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
 export default function useBaseUrl() {
+  const [baseURL, setBaseURL] = useState("");
   const router = useRouter();
 
-  let baseURL = "";
+  useEffect(() => {
+    if (router.pathname.includes("quick-order.cloudmall.africa")) {
+      setBaseURL("https://api.cloudmall.africa");
+    } else if (
+      router.pathname.includes("quick-order.test.cloudmall.africa") ||
+      router.pathname.includes("http://localhost:3000/") ||
+      router.pathname.includes("/")
+    ) {
+      setBaseURL("https://cloudmall-africa.herokuapp.com/api");
+    } else if (router.pathname.includes("quick-order.local.cloudmall.africa")) {
+      setBaseURL("https://localtunnel.nfmshow.com.ng/api");
+    }
+  }, [router.pathname]);
 
-  if (router.pathname.includes("quick-order.cloudmall.africa")) {
-    baseURL = "https://api.cloudmall.africa";
-  }
+  console.log("baseURL", baseURL);
 
-  if (
-    router.pathname.includes("quick-order.test.cloudmall.africa") ||
-    router.pathname.includes("http://localhost:3000")
-  ) {
-    baseURL = "https://cloudmall-africa.herokuapp.com/api";
-  }
-
-  if (router.pathname.includes("quick-order.local.cloudmall.africa")) {
-    baseURL = "https://localtunnel.nfmshow.com.ng/api";
-  }
   return { baseURL };
 }

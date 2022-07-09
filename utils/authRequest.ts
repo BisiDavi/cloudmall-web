@@ -22,5 +22,5 @@ export function googleSignin(baseURL: string, postData: googleSigninType) {
 }
 
 export function whatsappSignin(baseURL: string, whatsappData: whatsappType) {
-  return axios.post(`${baseURL}/whatsapp/user/sign-in`, whatsappData);
+  return axios.post(`${baseURL}/auth/whatsapp/user/sign-in`, whatsappData);
 }

@@ -1,82 +1,42 @@
-/* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useRef } from "react";
 import { useRouter } from "next/router";
-import Script from "next/script";
-import dynamic from "next/dynamic";
-import { useEffect } from "react";
 
-import useMapview from "@/hooks/useMapview";
-import { useAppSelector } from "@/hooks/useRedux";
+import Storeview from "@/components/store-view";
 import useBaseUrl from "@/hooks/useBaseUrl";
+import useToast from "@/hooks/useToast";
+import StoreLayoutPage from "@/layout/store-layout";
 import { whatsappSignin } from "@/utils/authRequest";
 
-const DynamicAutocomplete = dynamic(
-  () =>
-    import(
-      /* webpackChunkName: 'autocomplete' */ "@/components/map/autocomplete"
-    ),
-  { ssr: false }
-);
-
-const DynamicMapModal = dynamic(
-  () =>
-    import(/* webpackChunkName: 'MapModal' */ "@/components/modals/MapModal")
-);
-
-const DynamicMap = dynamic(
-  () => import(/* webpackChunkName: 'Map' */ "@/components/map"),
-  {
-    ssr: false,
-  }
-);
-
-export default function MapView() {
-  const { closeModal, loadAutocomplete, updateAutocompleteStatus, modal } =
-    useMapview();
-  const { completeAddress } = useAppSelector((state) => state.location);
+export default function Home() {
   const router = useRouter();
   const { baseURL } = useBaseUrl();
+  const waCode: string | any = router.query?.waCode;
+  const toastID = useRef(null);
+  const { loadingToast, updateToast } = useToast();
 
-  const waCode: string | any = router?.query?.waCode;
+  console.log("baseURL", baseURL);
 
   useEffect(() => {
-    if (completeAddress.length !== 0) {
-      router.push("/store-view");
+    if (waCode && baseURL.length === 0) {
+      loadingToast(toastID);
+      whatsappSignin(baseURL, {
+        waCode,
+        rememberMe: true,
+      })
+        .then((response) => {
+          updateToast(toastID, "success", response.data.message);
+        })
+        .catch((error) => {
+          console.log("error", error);
+          updateToast(toastID, "error", error?.response?.data.message);
+        });
     }
-  }, []);
-
-  useEffect(() => {
-    whatsappSignin(baseURL, {
-      waCode,
-      rememberMe: true,
-    })
-      .then((response) => console.log("response-whatsapp", response))
-      .catch((err) => console.log("error-whatsapp", err));
-  }, []);
+  }, [waCode, baseURL]);
 
   return (
-    <>
-      <Script
-        type="text/javascript"
-        src={`https://maps.googleapis.com/maps/api/js?key=${process.env.NEXT_PUBLIC_GOOGLE_MAP_API_KEY}&libraries=places`}
-        strategy="afterInteractive"
-        onLoad={(response) => {
-          if (response) {
-            updateAutocompleteStatus(true);
-          }
-        }}
-        onError={() => updateAutocompleteStatus(false)}
-      />
-      <DynamicMapModal modal={modal} closeModal={closeModal} />
-      <div className="map-header">
-        <h3>Enter your Address</h3>
-      </div>
-      <DynamicMap />
-      {loadAutocomplete ? (
-        <DynamicAutocomplete />
-      ) : (
-        <img src="/loading.gif" alt="loading-gif" className="loading-icon" />
-      )}
-    </>
+    <StoreLayoutPage title="Cloudmall Africa" padding="0px" showArrow={false}>
+      <Storeview />
+    </StoreLayoutPage>
   );
 }
