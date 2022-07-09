@@ -8,8 +8,8 @@ export default function useStoreRequest() {
 
   axios.interceptors.request.use(
     (config: any) => {
-      if (user.token) {
-        config.headers["Authorization"] = "Bearer " + user.token;
+      if (user?.token) {
+        config.headers["Authorization"] = "Bearer " + user?.token;
       }
       return config;
     },

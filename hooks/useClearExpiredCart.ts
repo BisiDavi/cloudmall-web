@@ -19,7 +19,7 @@ export default function useClearExpiredCart() {
 
   useEffect(() => {
     if (cart.length > 0) {
-      clearExpiredCart(baseURL, cart[0].cartId, clearStoredCart);
+      clearExpiredCart(baseURL, clearStoredCart);
     }
   }, []);
 }

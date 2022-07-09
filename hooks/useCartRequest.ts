@@ -4,7 +4,6 @@ import axios from "axios";
 import {
   addToCartResponseType,
   checkoutDetailsType,
-  deleteCartItemMutationType,
   updateCartMutationType,
 } from "@/types/cart-type";
 import { useAppSelector } from "@/hooks/useRedux";
@@ -14,8 +13,8 @@ export default function useCartRequest() {
 
   axios.interceptors.request.use(
     (config: any) => {
-      if (user.token) {
-        config.headers["Authorization"] = "Bearer " + user.token;
+      if (user?.token) {
+        config.headers["Authorization"] = "Bearer " + user?.token;
       }
       return config;
     },
@@ -56,8 +55,8 @@ export default function useCartRequest() {
     );
   }
 
-  function getCartRequest(baseURL: string, cartId: string) {
-    return baseRequest(baseURL, "get", `users/cart?cartId=${cartId}`);
+  function getCartRequest(baseURL: string) {
+    return baseRequest(baseURL, "get", `users/cart`);
   }
 
   function getAuthenticatedCartRequest(baseURL: string) {
@@ -66,7 +65,7 @@ export default function useCartRequest() {
 
   function removeCartItemRequest(
     baseURL: string,
-    productDetails: deleteCartItemMutationType
+    productDetails: { itemId: string }
   ) {
     return baseRequest(
       baseURL,
@@ -83,12 +82,8 @@ export default function useCartRequest() {
     return baseRequest(baseURL, "post", "users/checkout", checkoutDetails);
   }
 
-  function clearExpiredCart(
-    baseURL: string,
-    cartId: string,
-    clearCart: () => void
-  ) {
-    return getCartRequest(baseURL, cartId).then((response) => {
+  function clearExpiredCart(baseURL: string, clearCart: () => void) {
+    return getCartRequest(baseURL).then((response) => {
       if (response.data?.message?.includes("No cart with")) {
         clearCart();
       }
@@ -110,8 +105,8 @@ export default function useCartRequest() {
       .catch((err: any) => console.log("getFlutterwaveKeys-error", err));
   }
 
-  function deleteCartRequest(baseURL: string, cartId: string) {
-    return baseRequest(baseURL, "post", "users/cart/delete", { cartId });
+  function deleteCartRequest(baseURL: string) {
+    return baseRequest(baseURL, "post", "users/cart/delete");
   }
 
   function verifyPaymentRequest(baseURL: string, txRefId: string) {

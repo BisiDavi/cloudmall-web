@@ -15,7 +15,7 @@ export default function useCart() {
       "getCartQuery",
       () => {
         return loginDetails === null
-          ? getCartRequest(baseURL, cart[0]?.cartId)
+          ? getCartRequest(baseURL)
           : getAuthenticatedCartRequest(baseURL);
       },
       {

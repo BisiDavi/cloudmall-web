@@ -53,9 +53,7 @@ export default function useCartMutationAction() {
 
     return useMutation(
       ({ product, qty }: addToCartMutationType) => {
-        const cartId = cart.length > 0 ? { cartId: cart[0]?.cartId } : "";
         const productDetails = {
-          ...cartId,
           item: {
             productId: product._id,
             qty,
@@ -78,7 +76,6 @@ export default function useCartMutationAction() {
     return useMutation(
       ({ itemId, qty }: updateCartMutationType) => {
         const productDetails = {
-          cartId: cart[0]?.cartId,
           itemId,
           qty,
         };
@@ -94,9 +91,8 @@ export default function useCartMutationAction() {
   function useRemoveCartItem() {
     const toastID = useRef(null);
     const result = responseData(toastID);
-    const cartId = cart[0]?.cartId;
     return useMutation(
-      (itemId: string) => removeCartItemRequest(baseURL, { cartId, itemId }),
+      (itemId: string) => removeCartItemRequest(baseURL, { itemId }),
       {
         mutationKey: "removeProducfromCart",
         ...result,
@@ -107,8 +103,7 @@ export default function useCartMutationAction() {
   function useDeleteCartItem() {
     const toastID = useRef(null);
     const result = responseData(toastID, "emptyCart");
-    const cartId = cart[0]?.cartId;
-    return useMutation(() => deleteCartRequest(baseURL, cartId), {
+    return useMutation(() => deleteCartRequest(baseURL), {
       mutationKey: "useDeleteCartItem",
       ...result,
     });
