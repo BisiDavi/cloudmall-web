@@ -12,7 +12,7 @@ import useBaseUrl from "@/hooks/useBaseUrl";
 export default function useAuthMutation() {
   const router = useRouter();
   const { loadingToast, updateToast } = useToast();
-  const { baseURL } = useBaseUrl();
+  const baseURL = useBaseUrl();
   const toastID = useRef(null);
   const { cart } = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();

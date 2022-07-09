@@ -11,7 +11,7 @@ import useBaseUrl from "@/hooks/useBaseUrl";
 export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
   const { search } = useAppSelector((state) => state.search);
-  const { baseURL } = useBaseUrl();
+  const baseURL = useBaseUrl();
 
   const storeviewFunc: any =
     search.length > 3

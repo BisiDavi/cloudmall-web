@@ -1,5 +1,5 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 
 import Storeview from "@/components/store-view";
 import useBaseUrl from "@/hooks/useBaseUrl";

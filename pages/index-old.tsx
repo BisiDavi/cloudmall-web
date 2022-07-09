@@ -35,7 +35,7 @@ export default function MapView() {
     useMapview();
   const { completeAddress } = useAppSelector((state) => state.location);
   const router = useRouter();
-  const { baseURL } = useBaseUrl();
+  const baseURL = useBaseUrl();
 
   const waCode: string | any = router?.query?.waCode;
 
