@@ -25,7 +25,9 @@ export default function useCartMutationAction() {
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
-  const [lat, lng] = user?.addresses[0]?.location?.coordinates;
+  const [lng, lat] = user?.addresses[0]?.location?.coordinates;
+
+  console.log(" [lat, lng]", [lat, lng]);
 
   const responseData = (toastID: any, type?: string) => ({
     onMutate: () => {
