@@ -48,6 +48,7 @@ export type checkoutDetailsType = {
   paymentMethod: "FLUTTERWAVE" | "WALLET";
   note?: string;
   instantDelivery: boolean;
+  byWhatsapp: true;
   eta?: string;
   voucher?: string;
   cartId: string;
