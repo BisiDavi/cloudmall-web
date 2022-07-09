@@ -16,9 +16,6 @@ export default function Home() {
   const { user } = useAppSelector((state) => state.user);
   const { loadingToast, updateToast } = useToast();
 
-  console.log("baseURL", baseURL);
-  console.log("user", user);
-
   useEffect(() => {
     if (typeof window !== "undefined" && baseURL?.length > 0 && user === null) {
       const waCode = window.location.href.split("?waCode=")[1];
