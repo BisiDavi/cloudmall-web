@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
 import StoreviewList from "@/components/store-view/StoreviewList";
-import { listStore } from "@/hooks/useStoreRequest";
+import useStoreRequest from "@/hooks/useStoreRequest";
 import { storeType } from "@/types/store-types";
 import { useAppSelector } from "@/hooks/useRedux";
 import StoreListLoader from "@/components/loaders/StoreListLoader";
@@ -12,6 +12,7 @@ export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
   const { search } = useAppSelector((state) => state.search);
   const baseURL = useBaseUrl();
+  const { listStore } = useStoreRequest();
 
   const storeviewFunc: any = () => {
     return search.length > 3

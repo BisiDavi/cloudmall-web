@@ -131,5 +131,6 @@ export default function useCartRequest() {
     removeCartItemRequest,
     getFlutterwaveKeys,
     checkoutUserRequest,
+    getCartRequest,
   };
 }

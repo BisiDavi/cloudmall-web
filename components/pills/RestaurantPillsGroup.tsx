@@ -1,10 +1,10 @@
 import { useQuery } from "react-query";
 
 import Pill from "@/components/pills";
-import { listStoreCategories } from "@/hooks/useStoreRequest";
 import { storeCategoryType } from "@/types/store-types";
 import PillLoader from "@/components/loaders/PillsLoader";
 import useBaseUrl from "@/hooks/useBaseUrl";
+import useStoreRequest from "@/hooks/useStoreRequest";
 
 interface Props {
   storeType: "restaurant" | "store";
@@ -13,6 +13,7 @@ interface Props {
 
 export default function RestaurantPillsGroup({ storeType, category }: Props) {
   const baseURL = useBaseUrl();
+  const { listStoreCategories } = useStoreRequest();
 
   const { data, status }: any = useQuery(
     "listStoreCategories",

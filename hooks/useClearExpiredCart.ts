@@ -2,13 +2,14 @@
 import { useEffect } from "react";
 
 import { clearCart } from "@/redux/cart-slice";
-import { clearExpiredCart } from "@/hooks/useCartRequest";
+import useCartRequest from "@/hooks/useCartRequest";
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import useBaseUrl from "@/hooks/useBaseUrl";
 
 export default function useClearExpiredCart() {
   const { cart } = useAppSelector((state) => state.cart);
   const baseURL = useBaseUrl();
+  const { clearExpiredCart } = useCartRequest();
 
   const dispatch = useAppDispatch();
 

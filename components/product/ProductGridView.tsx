@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 import Product from "@/components/product";
 import { productType } from "@/types/product-types";
-import { getStoreProducts } from "@/hooks/useStoreRequest";
+import useStoreRequest from "@/hooks/useStoreRequest";
 import ProductGridViewLoader from "@/components/loaders/ProductGridViewLoader";
 import EmptyCart from "@/components/cart/EmptyCart";
 import useBaseUrl from "@/hooks/useBaseUrl";
@@ -13,6 +13,7 @@ interface Props {
 
 export default function ProductGridView({ storeId }: Props) {
   const baseURL = useBaseUrl();
+  const { getStoreProducts } = useStoreRequest();
 
   const { data, status } = useQuery(
     `getStoreProducts-${storeId}`,
