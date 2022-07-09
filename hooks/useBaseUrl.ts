@@ -4,8 +4,11 @@ export default function useBaseUrl() {
   const [baseURL, setBaseURL] = useState("");
 
   useEffect(() => {
-    const windowLocation: any = window.location;
-    if (windowLocation.includes("quick-order.cloudmall.africa") && typeof window !== "undefined") {
+    const windowLocation: any = window.location.href;
+    if (
+      windowLocation.includes("quick-order.cloudmall.africa") &&
+      typeof window !== "undefined"
+    ) {
       setBaseURL("https://api.cloudmall.africa");
     } else if (
       windowLocation.includes("quick-order.test.cloudmall.africa") ||
