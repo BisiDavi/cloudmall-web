@@ -19,7 +19,7 @@ export default function Home() {
       const waCode = window.location.href.split("?waCode=")[1];
       console.log("waCode", waCode);
 
-      if (baseURL.length === 0 && typeof window !== "undefined") {
+      if (baseURL && typeof window !== "undefined") {
         loadingToast(toastID);
         whatsappSignin(baseURL, {
           waCode,
