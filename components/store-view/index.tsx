@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
 import StoreviewList from "@/components/store-view/StoreviewList";
-import { listStore } from "@/utils/storeRequest";
+import { listStore } from "@/hooks/useStoreRequest";
 import { storeType } from "@/types/store-types";
 import { useAppSelector } from "@/hooks/useRedux";
 import StoreListLoader from "@/components/loaders/StoreListLoader";

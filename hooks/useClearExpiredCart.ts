@@ -2,7 +2,7 @@
 import { useEffect } from "react";
 
 import { clearCart } from "@/redux/cart-slice";
-import { clearExpiredCart } from "@/utils/cartRequest";
+import { clearExpiredCart } from "@/hooks/useCartRequest";
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
 import useBaseUrl from "@/hooks/useBaseUrl";
 

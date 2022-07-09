@@ -1,7 +1,7 @@
 import { useQuery } from "react-query";
 
 import Pill from "@/components/pills";
-import { listStoreCategories } from "@/utils/storeRequest";
+import { listStoreCategories } from "@/hooks/useStoreRequest";
 import { storeCategoryType } from "@/types/store-types";
 import PillLoader from "@/components/loaders/PillsLoader";
 import useBaseUrl from "@/hooks/useBaseUrl";

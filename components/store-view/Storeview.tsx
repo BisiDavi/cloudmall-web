@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
 import ProductGridView from "@/components/product/ProductGridView";
 import StoreLayoutPage from "@/layout/store-layout";
-import { storeProfile } from "@/utils/storeRequest";
+import useStoreRequest from "@/hooks/useStoreRequest";
 import useClearExpiredCart from "@/hooks/useClearExpiredCart";
 import useBaseUrl from "@/hooks/useBaseUrl";
 
@@ -13,6 +13,7 @@ interface Props {
 
 export default function Storepageview({ storeId }: Props) {
   const baseURL = useBaseUrl();
+  const { storeProfile } = useStoreRequest();
 
   const { data, status } = useQuery(
     `store-profile-${storeId}`,

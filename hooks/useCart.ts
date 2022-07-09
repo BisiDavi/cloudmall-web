@@ -4,7 +4,7 @@ import { useQuery } from "react-query";
 import {
   getAuthenticatedCartRequest,
   getCartRequest,
-} from "@/utils/cartRequest";
+} from "@/hooks/useCartRequest";
 import useBaseUrl from "@/hooks/useBaseUrl";
 
 export default function useCart() {

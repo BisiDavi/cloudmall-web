@@ -2,7 +2,7 @@ import { useQuery } from "react-query";
 
 import Product from "@/components/product";
 import { productType } from "@/types/product-types";
-import { getStoreProducts } from "@/utils/storeRequest";
+import { getStoreProducts } from "@/hooks/useStoreRequest";
 import ProductGridViewLoader from "@/components/loaders/ProductGridViewLoader";
 import EmptyCart from "@/components/cart/EmptyCart";
 import useBaseUrl from "@/hooks/useBaseUrl";

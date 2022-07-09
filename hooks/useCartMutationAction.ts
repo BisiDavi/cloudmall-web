@@ -3,12 +3,7 @@ import { useRef } from "react";
 
 import useToast from "@/hooks/useToast";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import {
-  addToCartRequest,
-  deleteCartRequest,
-  removeCartItemRequest,
-  updateCartRequest,
-} from "@/utils/cartRequest";
+import useCartRequest from "@/hooks/useCartRequest";
 import { addToCart, clearCart } from "@/redux/cart-slice";
 import formatCart from "@/utils/formatCart";
 import {
@@ -20,6 +15,12 @@ import useBaseUrl from "@/hooks/useBaseUrl";
 export default function useCartMutationAction() {
   const queryClient = useQueryClient();
   const { cart } = useAppSelector((state) => state.cart);
+  const {
+    addToCartRequest,
+    deleteCartRequest,
+    removeCartItemRequest,
+    updateCartRequest,
+  } = useCartRequest();
   const baseURL = useBaseUrl();
   const { loadingToast, updateToast } = useToast();
   const { user } = useAppSelector((state) => state.user);

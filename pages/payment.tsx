@@ -5,7 +5,7 @@ import Ripples from "@/components/loaders/Ripples";
 import DefaultLayout from "@/layout/default-layout";
 import useMakePayment from "@/hooks/useMakePayment";
 import { useAppSelector, useAppDispatch } from "@/hooks/useRedux";
-import { verifyPaymentRequest } from "@/utils/cartRequest";
+import { verifyPaymentRequest } from "@/hooks/useCartRequest";
 import { updatePaymentStatus } from "@/redux/payment-slice";
 import PaymentView from "@/components/views/PaymentView";
 import { updateLogin } from "@/redux/login-slice";
