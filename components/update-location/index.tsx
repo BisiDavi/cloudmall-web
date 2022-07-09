@@ -3,18 +3,21 @@ import CaretIcon from "@/components/icons/CaretIcon";
 import { useAppSelector } from "@/hooks/useRedux";
 
 export default function UpdateLocation() {
-  const { completeAddress } = useAppSelector((state) => state?.location);
+  const { user } = useAppSelector((state) => state?.user);
 
-  const defaultAddress = completeAddress[0];
+  const userAddress = user?.addresses[0]?.address;
+  const isDefault = user?.addresses[0]?.isDefault ? "Home" : "";
   return (
     <>
-      <div className="updatelocation">
-        <span>{defaultAddress?.title}</span>
-        <div>
-          <h3>{defaultAddress?.location}</h3>
-          <CaretIcon />
+      {user !== null && (
+        <div className="updatelocation">
+          <span>{isDefault}</span>
+          <div>
+            <h3>{userAddress}</h3>
+            <CaretIcon />
+          </div>
         </div>
-      </div>
+      )}
       <style jsx>
         {`
           .updatelocation {
