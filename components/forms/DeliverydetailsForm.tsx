@@ -30,7 +30,7 @@ export default function DeliverydetailsForm() {
   const [cart, status] = useGetCart();
 
   const dispatch = useAppDispatch();
-  const { completeAddress } = useAppSelector((state) => state.location);
+  const { completeAddress } = useAppSelector((state) => state.user);
   const { loginDetails }: loginDetailsType = useAppSelector(
     (state) => state.loginDetails
   );

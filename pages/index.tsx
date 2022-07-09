@@ -27,7 +27,7 @@ export default function Home() {
   //       })
   //         .then((response) => {
   //           console.log(response, "response-whatsappSignin");
-  //           updateToast(toastID, "success", response.data.message);
+  //           updateToast(toastID, "success", `Welcome ${response.data.user.surname} ${response.data.user.firstname}`);
   //         })
   //         .catch((error) => {
   //           console.log("error-whatsappSignin", error);

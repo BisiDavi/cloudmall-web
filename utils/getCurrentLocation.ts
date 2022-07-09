@@ -1,7 +1,7 @@
 import {
   updateDefaultCoordinates,
   updateUserCurrentLocation,
-} from "@/redux/location-slice";
+} from "@/redux/user-slice";
 
 export default function getCurrentLocation(dispatch: any) {
   navigator.geolocation.getCurrentPosition(

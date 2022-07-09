@@ -4,7 +4,7 @@ import { combineReducers } from "redux";
 import { persistReducer } from "redux-persist";
 import thunk from "redux-thunk";
 
-import locationReducer from "@/redux/location-slice";
+import userReducer from "@/redux/user-slice";
 import cartReducer from "@/redux/cart-slice";
 import uiReducer from "@/redux/ui-slice";
 import categoryReducer from "@/redux/category-slice";
@@ -14,7 +14,7 @@ import loginReducer from "@/redux/login-slice";
 import paymentReducer from "@/redux/payment-slice";
 
 const reducers = combineReducers({
-  location: locationReducer,
+  user: userReducer,
   cart: cartReducer,
   ui: uiReducer,
   category: categoryReducer,
