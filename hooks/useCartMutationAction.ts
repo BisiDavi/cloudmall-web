@@ -22,13 +22,10 @@ export default function useCartMutationAction() {
   const { cart } = useAppSelector((state) => state.cart);
   const baseURL = useBaseUrl();
   const { loadingToast, updateToast } = useToast();
-  const { completeAddress } = useAppSelector((state) => state.user);
+  const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();
 
-  const { lat, lng } =
-    completeAddress.length > 0
-      ? completeAddress[0]
-      : { lat: 7.5207, lng: 4.5303 };
+  const [lat, lng] = user?.addresses[0]?.location?.coordinates;
 
   const responseData = (toastID: any, type?: string) => ({
     onMutate: () => {
