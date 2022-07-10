@@ -13,15 +13,7 @@ interface Props {
 export default function StoreviewList({ store }: Props) {
   const statusClassName = store.isCurrentlyOpen ? "active" : "inactive";
   const storeStatus = store.isCurrentlyOpen ? "OPEN" : "CLOSED";
-  const baseURL = useBaseUrl();
-
-  console.log("baseURL", baseURL);
-
-  const baseImageURL =
-    baseURL.includes("https://quick-order.test.cloudmall.africa/") ||
-    baseURL.includes("https://cloudmall-africa.herokuapp.com/api/")
-      ? "https://cloudmall-africa.herokuapp.com"
-      : "https://api.cloudmall.africa";
+  const [, formattedImage] = useBaseUrl();
 
   return (
     <>
@@ -35,11 +27,11 @@ export default function StoreviewList({ store }: Props) {
         <div className="store-view-list">
           {store.logo ? (
             <Image
-              src={`${baseImageURL}${store.logo}`}
+              src={`${formattedImage}${store.logo}`}
               alt="logo"
               height={100}
               width={100}
-              blurDataURL={`${baseImageURL}${store.logo}`}
+              blurDataURL={`${formattedImage}${store.logo}`}
               placeholder="blur"
             />
           ) : (

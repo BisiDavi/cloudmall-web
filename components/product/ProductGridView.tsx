@@ -12,7 +12,7 @@ interface Props {
 }
 
 export default function ProductGridView({ storeId }: Props) {
-  const baseURL = useBaseUrl();
+  const [baseURL] = useBaseUrl();
   const { getStoreProducts } = useStoreRequest();
 
   const { data, status } = useQuery(

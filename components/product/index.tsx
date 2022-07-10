@@ -12,13 +12,7 @@ interface Props {
 
 export default function Product({ product, storeId }: Props) {
   const [dropdown, setDropdown] = useState(false);
-  const baseURL = useBaseUrl();
-
-  const baseImageURL = baseURL.includes(
-    "https://quick-order.test.cloudmall.africa/"
-  )
-    ? "https://cloudmall-africa.herokuapp.com"
-    : "https://api.cloudmall.africa";
+  const [, formattedImage] = useBaseUrl();
 
   function dropdownHandler() {
     if (dropdown) {
@@ -30,16 +24,16 @@ export default function Product({ product, storeId }: Props) {
     <>
       <div className="product" onClick={dropdownHandler}>
         <Image
-          src={`${baseImageURL}${product.image}`}
+          src={`${formattedImage}${product.image}`}
           alt={product.name}
           height={150}
           width={200}
-          blurDataURL={`${baseImageURL}${product.image}`}
+          blurDataURL={`${formattedImage}${product.image}`}
           placeholder="blur"
         />
         <div className="content">
           <h3>{product.name}</h3>
-          <div className="layer"> 
+          <div className="layer">
             <h4>{product.unitPrice}</h4>
             <ProductQtyDropdown
               product={product}

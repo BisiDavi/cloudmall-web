@@ -16,7 +16,7 @@ export default function useCheckout() {
   const queryClient = useQueryClient();
   const toastID = useRef(null);
   const { updateModalHandler } = useModal();
-  const baseURL = useBaseUrl();
+  const [baseURL] = useBaseUrl();
   const { cart }: any = useAppSelector((state) => state.cart);
   const dispatch = useAppDispatch();
   const router = useRouter();

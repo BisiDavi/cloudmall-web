@@ -21,7 +21,7 @@ export default function useCartMutationAction() {
     removeCartItemRequest,
     updateCartRequest,
   } = useCartRequest();
-  const baseURL = useBaseUrl();
+  const [baseURL] = useBaseUrl();
   const { loadingToast, updateToast } = useToast();
   const { user } = useAppSelector((state) => state.user);
   const dispatch = useAppDispatch();

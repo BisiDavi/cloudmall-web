@@ -28,5 +28,23 @@ export default function useBaseUrl() {
     }
   }, []);
 
-  return baseURL;
+  const baseImageURL = baseURL.includes(
+    "https://quick-order.test.cloudmall.africa/"
+  )
+    ? "https://cloudmall-africa.herokuapp.com"
+    : "https://api.cloudmall.africa";
+
+  const baseLocalImageURL = baseURL.includes(
+    "https://cloudmall-africa.herokuapp.com/api"
+  )
+    ? "https://cloudmall-africa.herokuapp.com"
+    : "https://api.cloudmall.africa";
+
+  const formattedImage = baseURL.includes(
+    "https://cloudmall-africa.herokuapp.com/api"
+  )
+    ? baseLocalImageURL
+    : baseImageURL;
+
+  return [baseURL, formattedImage];
 }

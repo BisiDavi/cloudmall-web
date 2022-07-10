@@ -8,7 +8,7 @@ export default function useCart() {
   const { getAuthenticatedCartRequest, getCartRequest } = useCartRequest();
   const { cart } = useAppSelector((state) => state.cart);
   const { loginDetails }: any = useAppSelector((state) => state.loginDetails);
-  const baseURL = useBaseUrl();
+  const [baseURL] = useBaseUrl();
 
   function useGetCart() {
     const { data, status } = useQuery(

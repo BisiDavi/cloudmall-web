@@ -10,7 +10,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateUserDetails } from "@/redux/user-slice";
 
 export default function Home() {
-  const baseURL = useBaseUrl();
+  const [baseURL] = useBaseUrl();
   const toastID = useRef(null);
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);

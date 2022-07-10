@@ -12,7 +12,7 @@ import Image from "next/image";
 export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
   const { search } = useAppSelector((state) => state.search);
-  const baseURL = useBaseUrl();
+  const [baseURL] = useBaseUrl();
   const { listStore } = useStoreRequest();
   const { user } = useAppSelector((state) => state.user);
 
