@@ -28,6 +28,7 @@ export default function WalletPaymentModal({
       cartId: cart[0].cartId,
       instantDelivery: true,
       paymentMethod,
+      byWhatsapp: true,
     });
   }
 
