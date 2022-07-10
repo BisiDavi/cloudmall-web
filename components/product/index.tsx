@@ -1,5 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
-import Image from "next/image";
+// import Image from "next/image";
 
 import { productType } from "@/types/product-types";
 import ProductQtyDropdown from "@/components/product/ProductQtyDropdown";
