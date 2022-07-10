@@ -1,4 +1,5 @@
 import { useQuery } from "react-query";
+import Image from "next/image";
 
 import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
 import StoreviewList from "@/components/store-view/StoreviewList";
@@ -7,7 +8,6 @@ import { storeType } from "@/types/store-types";
 import { useAppSelector } from "@/hooks/useRedux";
 import StoreListLoader from "@/components/loaders/StoreListLoader";
 import useBaseUrl from "@/hooks/useBaseUrl";
-import Image from "next/image";
 
 export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
@@ -18,28 +18,30 @@ export default function Storeview() {
 
   const coordinates = user?.addresses[0]?.location?.coordinates;
 
-  const storeviewFunc: any = () => {
-    return search.length > 3
-      ? () => listStore(baseURL, { text: search, coordinates })
+  const storeviewFunc: any = () =>
+    search.length > 3
+      ? listStore(baseURL, { text: search, coordinates })
       : search || category.length > 0
-      ? () =>
-          listStore(baseURL, {
-            categoryIds: category,
-            text: search,
-            coordinates,
-          })
+      ? listStore(baseURL, {
+          categoryIds: category,
+          text: search,
+          coordinates,
+        })
       : listStore(baseURL, { coordinates });
-  };
 
   const categoryKey = search ? search : category.length > 0 ? category : "";
 
   const { data, status }: any = useQuery(
-    `listStores-${categoryKey}`,
+    [`listStores-${categoryKey}`, search, category],
     storeviewFunc,
     {
       enabled: !!baseURL,
     }
   );
+
+  console.log("status", status);
+
+  console.log(" data?.data?.stores", data?.data?.stores);
 
   return (
     <>

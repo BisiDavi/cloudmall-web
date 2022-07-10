@@ -2,6 +2,7 @@ import dynamic from "next/dynamic";
 import type { AppProps } from "next/app";
 import { QueryClient, QueryClientProvider } from "react-query";
 import { persistStore } from "redux-persist";
+import { ReactQueryDevtools } from "react-query/devtools";
 
 import { store } from "@/redux/store";
 
@@ -38,6 +39,7 @@ function MyApp({ Component, pageProps }: AppProps) {
           <QueryClientProvider client={queryClient}>
             <Component {...pageProps} />
             <DynamicToastContainer />
+            <ReactQueryDevtools />
           </QueryClientProvider>
         </DynamicPersistGate>
       </DynamicProvider>

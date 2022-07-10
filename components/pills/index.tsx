@@ -16,8 +16,6 @@ function PillComponent({ category }: PillProps) {
     ? "active"
     : "inactive";
 
-  console.log("category", category);
-
   function onClickHandler() {
     dispatch(updateCategory(category._id));
   }
