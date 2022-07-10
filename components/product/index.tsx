@@ -1,5 +1,4 @@
-/* eslint-disable @next/next/no-img-element */
-// import Image from "next/image";
+import Image from "next/image";
 
 import { productType } from "@/types/product-types";
 import ProductQtyDropdown from "@/components/product/ProductQtyDropdown";
@@ -32,13 +31,13 @@ export default function Product({ product, storeId }: Props) {
   return (
     <>
       <div className="product" onClick={dropdownHandler}>
-        <img
+        <Image
           src={`${baseImageURL}${product.image}`}
           alt={product.name}
           height={150}
           width={200}
-          // blurDataURL={`${baseImageURL}${product.image}`}
-          // placeholder="blur"
+          blurDataURL={`${baseImageURL}${product.image}`}
+          placeholder="blur"
         />
         <div className="content">
           <h3>{product.name}</h3>
