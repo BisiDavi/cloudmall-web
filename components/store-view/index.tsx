@@ -13,13 +13,21 @@ export default function Storeview() {
   const { search } = useAppSelector((state) => state.search);
   const baseURL = useBaseUrl();
   const { listStore } = useStoreRequest();
+  const { user } = useAppSelector((state) => state.user);
+
+  const coordinates  = user?.addresses[0]?.location?.coordinates;
 
   const storeviewFunc: any = () => {
     return search.length > 3
-      ? () => listStore(baseURL, { text: search })
+      ? () => listStore(baseURL, { text: search, coordinates})
       : search || category.length > 0
-      ? () => listStore(baseURL, { categoryIds: category, text: search })
-      : listStore(baseURL);
+      ? () =>
+          listStore(baseURL, {
+            categoryIds: category,
+            text: search,
+            coordinates,
+          })
+      : listStore(baseURL, { coordinates});
   };
 
   const categoryKey = search ? search : category.length > 0 ? category : "";
