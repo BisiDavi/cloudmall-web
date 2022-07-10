@@ -15,7 +15,7 @@ export default function Product({ product, storeId }: Props) {
   const baseURL = useBaseUrl();
 
   const baseImageURL = baseURL.includes(
-    "https://cloudmall-africa.herokuapp.com/api"
+    "https://quick-order.test.cloudmall.africa/"
   )
     ? "https://cloudmall-africa.herokuapp.com"
     : "https://api.cloudmall.africa";
