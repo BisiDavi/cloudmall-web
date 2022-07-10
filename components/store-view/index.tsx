@@ -56,7 +56,12 @@ export default function Storeview() {
             ))
           ) : (
             <div className="no-store">
-              <Image src="/errorIcon.webp" alt="error" />
+              <Image
+                src="/errorIcon.webp"
+                alt="error"
+                height={300}
+                width={300}
+              />
               <h6>No store in your locality yet</h6>
             </div>
           )}

@@ -39,7 +39,7 @@ export default function Product({ product, storeId }: Props) {
         />
         <div className="content">
           <h3>{product.name}</h3>
-          <div className="layer">
+          <div className="layer"> 
             <h4>{product.unitPrice}</h4>
             <ProductQtyDropdown
               product={product}
