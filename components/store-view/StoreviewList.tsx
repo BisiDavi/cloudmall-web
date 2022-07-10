@@ -37,6 +37,8 @@ export default function StoreviewList({ store }: Props) {
               alt="logo"
               height={100}
               width={100}
+              blurDataURL={`${baseImageURL}${store.logo}`}
+              placeholder="blur"
             />
           ) : (
             <StoreIcon storeName={store.name} />
