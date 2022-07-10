@@ -7,6 +7,7 @@ import { storeType } from "@/types/store-types";
 import { useAppSelector } from "@/hooks/useRedux";
 import StoreListLoader from "@/components/loaders/StoreListLoader";
 import useBaseUrl from "@/hooks/useBaseUrl";
+import Image from "next/image";
 
 export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
@@ -15,11 +16,11 @@ export default function Storeview() {
   const { listStore } = useStoreRequest();
   const { user } = useAppSelector((state) => state.user);
 
-  const coordinates  = user?.addresses[0]?.location?.coordinates;
+  const coordinates = user?.addresses[0]?.location?.coordinates;
 
   const storeviewFunc: any = () => {
     return search.length > 3
-      ? () => listStore(baseURL, { text: search, coordinates})
+      ? () => listStore(baseURL, { text: search, coordinates })
       : search || category.length > 0
       ? () =>
           listStore(baseURL, {
@@ -27,7 +28,7 @@ export default function Storeview() {
             text: search,
             coordinates,
           })
-      : listStore(baseURL, { coordinates});
+      : listStore(baseURL, { coordinates });
   };
 
   const categoryKey = search ? search : category.length > 0 ? category : "";
@@ -49,10 +50,15 @@ export default function Storeview() {
             "error occured"
           ) : status === "loading" ? (
             <StoreListLoader />
-          ) : (
+          ) : data?.data?.stores.length > 0 ? (
             data?.data?.stores.map((store: storeType) => (
               <StoreviewList store={store} key={store._id} />
             ))
+          ) : (
+            <div className="no-store">
+              <Image src="/errorIcon.webp" alt="error" />
+              <h6>No store in your locality yet</h6>
+            </div>
           )}
         </div>
       </div>
@@ -66,6 +72,18 @@ export default function Storeview() {
           .list {
             border-top: 1px solid rgba(62, 64, 68, 0.25);
             margin-top: 20px;
+          }
+          .no-store {
+            display: flex;
+            align-items: center;
+            margin: auto;
+            justify-content: center;
+          }
+          .no-store h6 {
+            font-size: 16px;
+            font-weight: 500;
+            color: red;
+            text-align: center;
           }
         `}
       </style>
