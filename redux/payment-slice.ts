@@ -5,6 +5,7 @@ type paymentType = {
   payment: {
     fwKey: string | null;
     order: any;
+    paymentInitiased: boolean;
     status:
       | "FLUTTERWAVE_SUCCESSFUL_AND_VERIFIED"
       | "FLUTTERWAVE_SUCCESSFUL"
@@ -17,6 +18,7 @@ const initialState: paymentType = {
     fwKey: null,
     order: null,
     status: null,
+    paymentInitiased: false,
   },
 };
 
@@ -33,10 +35,13 @@ export const paymentSlice = createSlice({
     updatePaymentStatus: (state, action) => {
       state.payment = { ...state.payment, status: action.payload };
     },
+    updatePaymentFlow: (state, action) => {
+      state.payment = { ...state.payment, paymentInitiased: action.payload };
+    },
   },
 });
 
-export const { updateOrder, updateFWKeys, updatePaymentStatus } =
+export const { updateOrder, updateFWKeys, updatePaymentStatus, updatePaymentFlow } =
   paymentSlice.actions;
 
 export default paymentSlice.reducer;

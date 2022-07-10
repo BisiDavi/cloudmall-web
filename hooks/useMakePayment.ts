@@ -1,7 +1,7 @@
 import { useFlutterwave, closePaymentModal } from "flutterwave-react-v3";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { updatePaymentStatus } from "@/redux/payment-slice";
+import { updatePaymentFlow, updatePaymentStatus } from "@/redux/payment-slice";
 import { clearCart } from "@/redux/cart-slice";
 
 export default function useMakePayment() {
@@ -16,7 +16,9 @@ export default function useMakePayment() {
     currency: "NGN",
     payment_options: "card",
     customer: {
-      email: loginDetails?.user?.email ? loginDetails?.user?.email : "cloudmallnigeria@gmail.com",
+      email: loginDetails?.user?.email
+        ? loginDetails?.user?.email
+        : "cloudmallnigeria@gmail.com",
       phonenumber: payment?.order?.user.phonenumber,
       name: `${payment?.order?.user.surname} ${payment?.order?.user.firstname}`,
     },
@@ -30,8 +32,9 @@ export default function useMakePayment() {
 
   const handlerFlutterPayment = useFlutterwave(config);
 
-  const makePayment = () =>
-    handlerFlutterPayment({
+  const makePayment = () => {
+    dispatch(updatePaymentFlow(true));
+    return handlerFlutterPayment({
       callback: (response) => {
         // setLoading(false);
         console.log("response-fw-callback", response);
@@ -41,8 +44,9 @@ export default function useMakePayment() {
         }
         return closePaymentModal();
       },
-      onClose: () => {},
+      onClose: () => dispatch(updatePaymentFlow(false)),
     });
+  };
 
   return { makePayment };
 }

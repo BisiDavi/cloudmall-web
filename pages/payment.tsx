@@ -18,10 +18,10 @@ export default function PaymentPage() {
   const { payment } = useAppSelector((state) => state.payment);
   const baseURL = useBaseUrl();
   const dispatch = useAppDispatch();
-  const { order, status } = payment;
+  const { order, status, paymentInitiased } = payment;
 
   //   useEffect(() => {
-  if (status === null && order !== null) {
+  if (status === null && order !== null && !paymentInitiased) {
     makePayment();
   }
   //   }, [status, order]);
