@@ -15,11 +15,13 @@ export default function StoreviewList({ store }: Props) {
   const storeStatus = store.isCurrentlyOpen ? "OPEN" : "CLOSED";
   const baseURL = useBaseUrl();
 
-  const baseImageURL = baseURL.includes(
-    "https://quick-order.test.cloudmall.africa/"
-  )
-    ? "https://cloudmall-africa.herokuapp.com"
-    : "https://api.cloudmall.africa";
+  console.log("baseURL", baseURL);
+
+  const baseImageURL =
+    baseURL.includes("https://quick-order.test.cloudmall.africa/") ||
+    baseURL.includes("https://cloudmall-africa.herokuapp.com/api/")
+      ? "https://cloudmall-africa.herokuapp.com"
+      : "https://api.cloudmall.africa";
 
   return (
     <>

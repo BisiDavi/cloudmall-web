@@ -83,6 +83,8 @@ export default function Storeview() {
             align-items: center;
             margin: auto;
             justify-content: center;
+            display: flex;
+            flex-direction: column;
           }
           .no-store h6 {
             font-size: 16px;
