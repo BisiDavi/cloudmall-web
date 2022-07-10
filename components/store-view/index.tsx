@@ -39,10 +39,6 @@ export default function Storeview() {
     }
   );
 
-  console.log("status", status);
-
-  console.log(" data?.data?.stores", data?.data?.stores);
-
   return (
     <>
       <div className="store-view">
