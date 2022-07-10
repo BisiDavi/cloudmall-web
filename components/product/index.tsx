@@ -20,6 +20,8 @@ export default function Product({ product, storeId }: Props) {
     ? "https://cloudmall-africa.herokuapp.com"
     : "https://api.cloudmall.africa";
 
+  console.log("product", product);
+
   function dropdownHandler() {
     if (dropdown) {
       setDropdown(false);
