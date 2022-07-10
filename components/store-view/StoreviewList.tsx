@@ -4,6 +4,7 @@ import StoreIcon from "@/components/store-view/store-icon";
 import MapIcon from "@/components/icons/MapIcon";
 import Image from "next/image";
 import { storeType } from "@/types/store-types";
+import useBaseUrl from "@/hooks/useBaseUrl";
 
 interface Props {
   store: storeType;
@@ -12,6 +13,13 @@ interface Props {
 export default function StoreviewList({ store }: Props) {
   const statusClassName = store.isCurrentlyOpen ? "active" : "inactive";
   const storeStatus = store.isCurrentlyOpen ? "OPEN" : "CLOSED";
+  const baseURL = useBaseUrl();
+
+  const baseImageURL = baseURL.includes(
+    "https://quick-order.test.cloudmall.africa/"
+  )
+    ? "https://cloudmall-africa.herokuapp.com"
+    : "https://api.cloudmall.africa";
 
   return (
     <>
@@ -25,7 +33,7 @@ export default function StoreviewList({ store }: Props) {
         <div className="store-view-list">
           {store.logo ? (
             <Image
-              src={`https://cloudmall-africa.herokuapp.com${store.logo}`}
+              src={`${baseImageURL}${store.logo}`}
               alt="logo"
               height={100}
               width={100}
