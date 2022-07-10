@@ -19,7 +19,6 @@ export default function Home() {
   useEffect(() => {
     if (typeof window !== "undefined" && baseURL?.length > 0 && user === null) {
       const waCode = window.location.href.split("?waCode=")[1];
-      console.log("waCode", waCode);
       loadingToast(toastID);
       whatsappSignin(baseURL, {
         waCode,
