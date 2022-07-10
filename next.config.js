@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   images: {
-    domains: ["cloudmall-africa.herokuapp.com", "https://api.cloudmall.africa"],
+    domains: ["cloudmall-africa.herokuapp.com", "api.cloudmall.africa"],
   },
 };
 
