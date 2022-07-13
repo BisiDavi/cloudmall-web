@@ -12,7 +12,7 @@ import { storeType } from "@/types/store-types";
 import StoreListView from "@/components/store-view/StoreListView";
 
 export default function Storeview() {
-  const { category } = useAppSelector((state) => state.category);
+  const { storeCategory } = useAppSelector((state) => state.category);
   const { search } = useAppSelector((state) => state.search);
   const [baseURL] = useBaseUrl();
   const { listStore } = useStoreRequest();
@@ -20,28 +20,30 @@ export default function Storeview() {
   const [page, setPage] = useState(0);
   const ref: any = useRef(null);
 
-  console.log("page", page);
-
   const coordinates = user?.addresses[0]?.location?.coordinates;
 
   const storeviewFunc: any = () =>
     search.length > 3
       ? listStore(baseURL, { text: search, coordinates })
-      : search || category.length > 0
+      : search || storeCategory.length > 0
       ? listStore(baseURL, {
-          categoryIds: category,
+          categoryIds: storeCategory,
           text: search,
           coordinates,
         })
       : listStore(baseURL, {
-          coordinates,
           maxDistance: 3000,
           availablity: "OPEN",
           forceClosed: false,
           pageNo: page,
+          coordinates,
         });
 
-  const categoryKey = search ? search : category.length > 0 ? category : "";
+  const categoryKey = search
+    ? search
+    : storeCategory.length > 0
+    ? storeCategory
+    : "";
 
   const handleObserver = useCallback((entries: any) => {
     const target = entries[0];
@@ -61,7 +63,7 @@ export default function Storeview() {
   }, [handleObserver]);
 
   const { data, status }: any = useQuery(
-    [`listStores-${categoryKey}`, page, search, category],
+    [`listStores-${categoryKey}`, page, search, storeCategory],
     storeviewFunc,
     {
       enabled: !!baseURL,
@@ -94,7 +96,7 @@ export default function Storeview() {
                   </a>
                 </Link>
               ) : (
-                <StoreListView key={store._id} store={store} status="closed"  />
+                <StoreListView key={store._id} store={store} status="closed" />
               );
             })
           ) : (

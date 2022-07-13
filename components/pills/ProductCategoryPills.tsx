@@ -22,8 +22,6 @@ export default function ProductCategoryPills() {
     }
   );
 
-  console.log("data-listProductCategories", data);
-
   return (
     <>
       {status === "error" ? (
@@ -33,7 +31,11 @@ export default function ProductCategoryPills() {
       ) : (
         <div className="pill-group normal">
           {data?.data?.categories.map((category: storeCategoryType) => (
-            <Pill key={category._id} category={category} />
+            <Pill
+              key={category._id}
+              category={category}
+              categoryType="product"
+            />
           ))}
         </div>
       )}

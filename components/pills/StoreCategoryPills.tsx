@@ -27,7 +27,7 @@ export default function StoreCategoryPills() {
       ) : (
         <div className={`pill-group gray`}>
           {data?.data?.categories.map((category: storeCategoryType) => (
-            <Pill key={category._id} category={category} />
+            <Pill key={category._id} category={category} categoryType="store" />
           ))}
         </div>
       )}

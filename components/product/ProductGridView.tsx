@@ -6,6 +6,7 @@ import useStoreRequest from "@/hooks/useStoreRequest";
 import ProductGridViewLoader from "@/components/loaders/ProductGridViewLoader";
 import EmptyCart from "@/components/cart/EmptyCart";
 import useBaseUrl from "@/hooks/useBaseUrl";
+import { useAppSelector } from "@/hooks/useRedux";
 
 interface Props {
   storeId: string;
@@ -14,10 +15,22 @@ interface Props {
 export default function ProductGridView({ storeId }: Props) {
   const [baseURL] = useBaseUrl();
   const { getStoreProducts } = useStoreRequest();
+  const { productCategory } = useAppSelector((state) => state.category);
+  const { user } = useAppSelector((state) => state.user);
+
+  const coordinates = user?.addresses[0]?.location?.coordinates;
+
+  const categories =
+    productCategory.length > 0 ? { categoryIds: productCategory } : "";
 
   const { data, status } = useQuery(
-    `getStoreProducts-${storeId}`,
-    () => getStoreProducts(baseURL, { storeIds: [storeId] }),
+    [`getStoreProducts-${storeId}`, productCategory],
+    () =>
+      getStoreProducts(baseURL, {
+        storeIds: [storeId],
+        coordinates,
+        ...categories,
+      }),
     {
       enabled: !!baseURL,
     }

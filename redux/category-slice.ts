@@ -2,28 +2,39 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type categoryState = {
-  category: string[];
+  storeCategory: string[];
+  productCategory: string[];
 };
 
 const initialState: categoryState = {
-  category: [],
+  storeCategory: [],
+  productCategory: [],
 };
 
 export const categorySlice = createSlice({
   name: "category",
   initialState,
   reducers: {
-    updateCategory: (state, action: PayloadAction<string>) => {
-      if (!state.category.includes(action.payload)) {
-        state.category = [...state.category, action.payload];
+    updateStoreCategory: (state, action: PayloadAction<string>) => {
+      if (!state.storeCategory.includes(action.payload)) {
+        state.storeCategory = [...state.storeCategory, action.payload];
       } else {
-        const categoryIndex = state.category.indexOf(action.payload);
-        state.category.splice(categoryIndex, 1);
+        const categoryIndex = state.storeCategory.indexOf(action.payload);
+        state.storeCategory.splice(categoryIndex, 1);
+      }
+    },
+    updateProductCategory: (state, action: PayloadAction<string>) => {
+      if (!state.productCategory.includes(action.payload)) {
+        state.productCategory = [...state.productCategory, action.payload];
+      } else {
+        const categoryIndex = state.productCategory.indexOf(action.payload);
+        state.productCategory.splice(categoryIndex, 1);
       }
     },
   },
 });
 
-export const { updateCategory } = categorySlice.actions;
+export const { updateStoreCategory, updateProductCategory } =
+  categorySlice.actions;
 
 export default categorySlice.reducer;

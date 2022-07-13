@@ -2,22 +2,45 @@ import { memo } from "react";
 
 import { storeCategoryType } from "@/types/store-types";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { updateCategory } from "@/redux/category-slice";
+import {
+  updateStoreCategory,
+  updateProductCategory,
+} from "@/redux/category-slice";
 
 interface PillProps {
   category: storeCategoryType;
+  categoryType: "store" | "product";
 }
 
-function PillComponent({ category }: PillProps) {
-  const appState = useAppSelector((state) => state.category);
+function PillComponent({ category, categoryType }: PillProps) {
+  const { storeCategory, productCategory } = useAppSelector(
+    (state) => state.category
+  );
   const dispatch = useAppDispatch();
 
-  const selectedClassName = appState.category.includes(category._id)
-    ? "active"
-    : "inactive";
+  console.log("categoryType", categoryType);
+  console.log(
+    "storeCategory, productCategory ",
+    storeCategory,
+    productCategory
+  );
+
+  function checkActiveCategory(categoryTypeArray: string[]) {
+    return categoryTypeArray.includes(category._id) ? "active" : "inactive";
+  }
+
+  const selectedClassName =
+    categoryType === "product"
+      ? checkActiveCategory(productCategory)
+      : checkActiveCategory(storeCategory);
 
   function onClickHandler() {
-    dispatch(updateCategory(category._id));
+    console.log("categoryType was clicked");
+    if (categoryType === "product") {
+      return dispatch(updateProductCategory(category._id));
+    } else {
+      return dispatch(updateStoreCategory(category._id));
+    }
   }
   return (
     <>
