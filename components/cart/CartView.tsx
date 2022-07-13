@@ -41,8 +41,8 @@ export default function CartView() {
           />
         </>
       ) : (
-        cart?.items.map((cartItem: any, index: number) => (
-          <CartItem item={cartItem} key={cartItem._id} index={index} />
+        cart?.items.map((cartItem: any) => (
+          <CartItem item={cartItem} key={cartItem._id} />
         ))
       )}
       {cart !== undefined && <CartFooter total={cart?.fees?.items} />}

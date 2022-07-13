@@ -13,15 +13,14 @@ import { useState } from "react";
 
 interface cartProps {
   item: any;
-  index: number;
 }
 
-export default function CartItem({ item, index }: cartProps) {
+export default function CartItem({ item }: cartProps) {
   const { useUpdateCart, useRemoveCartItem } = useCartMutationAction();
   const updateCartQty = useUpdateCart();
   const removeItem = useRemoveCartItem();
   const { modal, updateModalHandler } = useModal();
-  const [modalType, setModalType] = useState("");
+  const [selectedNote, setSelectedNote] = useState("");
 
   function updateQtyHandler(type: "inc" | "dec") {
     const newQty = type === "dec" ? item.qty - 1 : item.qty + 1;
@@ -33,9 +32,14 @@ export default function CartItem({ item, index }: cartProps) {
     }
   }
 
-  function displayNoteModal() {
+  function displayNoteModal(itemId: string) {
     updateModalHandler("noteModal");
-    setModalType("");
+    setSelectedNote(itemId);
+  }
+
+  function closeModalHandler() {
+    updateModalHandler(null);
+    setSelectedNote("");
   }
 
   function removeItemHandler() {
@@ -44,10 +48,10 @@ export default function CartItem({ item, index }: cartProps) {
 
   return (
     <>
-      {modal === "noteModal" && (
+      {selectedNote === item._id && modal === "noteModal" && (
         <NoteModal
           showModal={modal}
-          closeModal={() => updateModalHandler(null)}
+          closeModal={closeModalHandler}
           productName={item.product.name}
         />
       )}
@@ -77,10 +81,7 @@ export default function CartItem({ item, index }: cartProps) {
             <button type="button" onClick={removeItemHandler}>
               <TrashIcon />
             </button>
-            <button
-              type="button"
-              onClick={() => updateModalHandler("noteModal")}
-            >
+            <button type="button" onClick={() => displayNoteModal(item._id)}>
               <NoteIcon />
             </button>
             <div className="controls">
