@@ -1,5 +1,6 @@
 import { useQuery } from "react-query";
 import Image from "next/image";
+import { useCallback, useEffect, useRef, useState } from "react";
 
 import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
 import StoreviewList from "@/components/store-view/StoreviewList";
@@ -15,6 +16,8 @@ export default function Storeview() {
   const [baseURL] = useBaseUrl();
   const { listStore } = useStoreRequest();
   const { user } = useAppSelector((state) => state.user);
+  const [page, setPage] = useState(1);
+  const ref: any = useRef(null);
 
   const coordinates = user?.addresses[0]?.location?.coordinates;
 
@@ -27,15 +30,39 @@ export default function Storeview() {
           text: search,
           coordinates,
         })
-      : listStore(baseURL, { coordinates });
+      : listStore(baseURL, {
+          coordinates,
+          maxDistance: 3000,
+          availablity: "OPEN",
+          forceClosed: false,
+          pageNo: page,
+        });
 
   const categoryKey = search ? search : category.length > 0 ? category : "";
 
+  const handleObserver = useCallback((entries: any) => {
+    const target = entries[0];
+    if (target.isIntersection) {
+      setPage((prev) => prev + 1);
+    }
+  }, []);
+
+  useEffect(() => {
+    const option = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0,
+    };
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (ref.current) observer.observe(ref.current);
+  }, [handleObserver]);
+
   const { data, status }: any = useQuery(
-    [`listStores-${categoryKey}`, search, category],
+    [`listStores-${categoryKey}`, page, search, category],
     storeviewFunc,
     {
       enabled: !!baseURL,
+      keepPreviousData: true,
     }
   );
 
@@ -64,6 +91,7 @@ export default function Storeview() {
             </div>
           )}
         </div>
+        <div className="loader" ref={ref} />
       </div>
       <style jsx>
         {`

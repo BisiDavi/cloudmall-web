@@ -6,21 +6,14 @@ import useCart from "@/hooks/useCart";
 import CartFooter from "@/components/cart/CartFooter";
 import LoginQuestionModal from "@/components/modals/LoginQuestionModal";
 import useModal from "@/hooks/useModal";
-import TrashIcon from "../icons/TrashIcon";
-import useCartMutationAction from "@/hooks/useCartMutationAction";
 
 export default function CartView() {
   const { useGetCart } = useCart();
   const [cart, status] = useGetCart();
   const { modal, updateModalHandler } = useModal();
-  const { useDeleteCartItem } = useCartMutationAction();
-  const deleteCart = useDeleteCartItem();
 
   console.log("cart", cart);
 
-  function deleteCartHandler() {
-    return deleteCart.mutate();
-  }
 
   return (
     <>
@@ -52,16 +45,6 @@ export default function CartView() {
         cart?.items.map((cartItem: any) => (
           <CartItem item={cartItem} key={cartItem._id} />
         ))
-      )}
-      {cart !== undefined && (
-        <div className="empty-cart">
-          <button type="button" onClick={deleteCartHandler}>
-            <span className="trash">
-              <TrashIcon />
-            </span>
-            Empty cart
-          </button>
-        </div>
       )}
       {cart !== undefined && <CartFooter total={cart?.fees?.items} />}
       <div className="bottom" />

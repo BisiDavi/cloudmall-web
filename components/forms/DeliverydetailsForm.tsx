@@ -32,7 +32,7 @@ export default function DeliverydetailsForm() {
   ];
 
   methods.setValue("address", user?.addresses[0]?.address);
-  methods.setValue("phone", user?.phonenumber);
+  methods.setValue("phone", user?.whatsapp);
 
   return (
     <>

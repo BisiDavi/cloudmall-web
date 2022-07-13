@@ -7,9 +7,10 @@ type userState = {
     token: string;
     email: string;
     walletBalance: number;
-    firstname: string;
-    surname: string;
-    phonenumber: string;
+    firstname?: string;
+    surname?: string;
+    phonenumber?: string;
+    whatsapp?: string;
     addresses: any[];
   } | null;
 };

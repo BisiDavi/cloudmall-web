@@ -26,6 +26,12 @@ export default function Home() {
       })
         .then((response) => {
           console.log(response, "response-whatsappSignin");
+          const userSurName = response.data.user.surname
+            ? response.data.user.surname
+            : "";
+          const userFirstName = response.data.user.firstname
+            ? response.data.user.firstname
+            : "";
           dispatch(
             updateUserDetails({
               _id: response.data.user._id,
@@ -41,7 +47,7 @@ export default function Home() {
           updateToast(
             toastID,
             "success",
-            `Welcome ${response.data.user.surname} ${response.data.user.firstname}`
+            `Welcome ${userSurName} ${userFirstName}`
           );
         })
         .catch((error) => {
