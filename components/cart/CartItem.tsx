@@ -7,15 +7,21 @@ import MapIcon from "@/components/icons/MapIcon";
 import NoteIcon from "@/components/icons/NoteIcon";
 import SubtractIcon from "@/components/icons/SubtractIcon";
 import TrashIcon from "@/components/icons/TrashIcon";
+import useModal from "@/hooks/useModal";
+import NoteModal from "../modals/NoteModal";
+import { useState } from "react";
 
 interface cartProps {
   item: any;
+  index: number;
 }
 
-export default function CartItem({ item }: cartProps) {
+export default function CartItem({ item, index }: cartProps) {
   const { useUpdateCart, useRemoveCartItem } = useCartMutationAction();
   const updateCartQty = useUpdateCart();
   const removeItem = useRemoveCartItem();
+  const { modal, updateModalHandler } = useModal();
+  const [modalType, setModalType] = useState("");
 
   function updateQtyHandler(type: "inc" | "dec") {
     const newQty = type === "dec" ? item.qty - 1 : item.qty + 1;
@@ -27,12 +33,24 @@ export default function CartItem({ item }: cartProps) {
     }
   }
 
+  function displayNoteModal() {
+    updateModalHandler("noteModal");
+    setModalType("");
+  }
+
   function removeItemHandler() {
     return removeItem.mutate(item._id);
   }
 
   return (
     <>
+      {modal === "noteModal" && (
+        <NoteModal
+          showModal={modal}
+          closeModal={() => updateModalHandler(null)}
+          productName={item.product.name}
+        />
+      )}
       <div className="cartItem">
         <Image
           src={`https://cloudmall-africa.herokuapp.com${item.product.image}`}
@@ -59,7 +77,12 @@ export default function CartItem({ item }: cartProps) {
             <button type="button" onClick={removeItemHandler}>
               <TrashIcon />
             </button>
-            <NoteIcon />
+            <button
+              type="button"
+              onClick={() => updateModalHandler("noteModal")}
+            >
+              <NoteIcon />
+            </button>
             <div className="controls">
               <button onClick={() => updateQtyHandler("dec")}>
                 <SubtractIcon />

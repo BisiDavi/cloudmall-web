@@ -14,7 +14,6 @@ export default function CartView() {
 
   console.log("cart", cart);
 
-
   return (
     <>
       {modal === "loginQuestionModal" && (
@@ -42,8 +41,8 @@ export default function CartView() {
           />
         </>
       ) : (
-        cart?.items.map((cartItem: any) => (
-          <CartItem item={cartItem} key={cartItem._id} />
+        cart?.items.map((cartItem: any, index: number) => (
+          <CartItem item={cartItem} key={cartItem._id} index={index} />
         ))
       )}
       {cart !== undefined && <CartFooter total={cart?.fees?.items} />}

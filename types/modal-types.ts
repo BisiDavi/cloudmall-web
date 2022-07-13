@@ -4,4 +4,8 @@ export interface ModalProps {
   persistModal?: boolean;
 }
 
-export type modalType = "loginQuestionModal" | "paymentModal" | null;
+export type modalType =
+  | "loginQuestionModal"
+  | "paymentModal"
+  | "noteModal"
+  | null;
