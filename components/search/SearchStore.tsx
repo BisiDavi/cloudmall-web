@@ -15,7 +15,9 @@ export default function SearchStore() {
   );
   const router = useRouter();
 
-  const search = router?.route.includes("store") ? productSearch : categorySearch 
+  const search = router?.route.includes("store")
+    ? productSearch
+    : categorySearch;
 
   function inputHandler(e: any) {
     if (router?.route.includes("store")) {
@@ -26,7 +28,11 @@ export default function SearchStore() {
   }
 
   function resetHandler() {
-    dispatch(updateCategorySearch(""));
+    if (router?.route.includes("store")) {
+      dispatch(updateProductSearch(""));
+    } else {
+      dispatch(updateCategorySearch(""));
+    }
   }
 
   return (
