@@ -53,6 +53,7 @@ export default function CartItem({ item }: cartProps) {
           showModal={modal}
           closeModal={closeModalHandler}
           productName={item.product.name}
+          item={item}
         />
       )}
       <div className="cartItem">
@@ -88,10 +89,7 @@ export default function CartItem({ item }: cartProps) {
               <button onClick={() => updateQtyHandler("dec")}>
                 <SubtractIcon />
               </button>
-              <span>
-                {item.qty}
-                {/* {quantityText} */}
-              </span>
+              <span>{item.qty}</span>
               <button type="button" onClick={() => updateQtyHandler("inc")}>
                 <AddIcon fill="#013a93" />
               </button>

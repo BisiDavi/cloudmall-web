@@ -74,10 +74,11 @@ export default function useCartMutationAction() {
     const result = responseData(toastID);
 
     return useMutation(
-      ({ itemId, qty }: updateCartMutationType) => {
+      ({ itemId, qty, note }: updateCartMutationType) => {
+        const updateItem = qty ? { qty } : { note };
         const productDetails = {
           itemId,
-          qty,
+          ...updateItem,
         };
         return updateCartRequest(baseURL, productDetails);
       },

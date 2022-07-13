@@ -35,7 +35,8 @@ export type addToCartResponseType = {
 
 export type updateCartMutationType = {
   itemId: string;
-  qty: number;
+  qty?: number;
+  note?: string;
 };
 
 export type deleteCartItemMutationType = {

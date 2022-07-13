@@ -1,17 +1,22 @@
 import Modal from "@/components/modals";
+import useCartMutationAction from "@/hooks/useCartMutationAction";
 import { ModalProps } from "@/types/modal-types";
 import { useState } from "react";
 
 interface Props extends ModalProps {
   productName: string;
+  item: any;
 }
 
 export default function NoteModal({
   productName,
   closeModal,
   showModal,
+  item,
 }: Props) {
   const [noteText, setNoteText] = useState("");
+  const { useUpdateCart } = useCartMutationAction();
+  const updateCartItemNote = useUpdateCart();
 
   function cancelHandler() {
     closeModal();
@@ -21,9 +26,8 @@ export default function NoteModal({
     setNoteText(e.target.value);
   }
 
-  console.log("noteText", noteText);
-
   function saveHandler() {
+    updateCartItemNote.mutate({ itemId: item._id, note: noteText });
     closeModal();
   }
 
@@ -32,11 +36,15 @@ export default function NoteModal({
     { text: "Save", func: saveHandler },
   ];
 
+  const value = item?.note ? item.note : "";
+
   return (
-    <Modal closeModal={closeModal} showModal={showModal}>
+    <Modal closeModal={closeModal} showModal={showModal} persistModal>
       <div className="content">
         <h6>Add a note - {productName}</h6>
-        <textarea onChange={updateNoteChanges} rows={5}></textarea>
+        <textarea onChange={updateNoteChanges} rows={5}>
+          {value}
+        </textarea>
         <div className="buttonGroup">
           {buttonGroup.map((buttonItem, index) => (
             <button
