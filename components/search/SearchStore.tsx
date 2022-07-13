@@ -7,6 +7,8 @@ export default function SearchStore() {
   const dispatch = useAppDispatch();
   const { search } = useAppSelector((state) => state.search);
 
+  console.log("search", search);
+
   function inputHandler(e: any) {
     dispatch(updateSearch(e.target.value));
   }

@@ -6,16 +6,17 @@ import useBaseUrl from "@/hooks/useBaseUrl";
 
 interface Props {
   store: storeType;
+  status?: "closed";
 }
 
-export default function StoreListView({ store }: Props) {
+export default function StoreListView({ store, status }: Props) {
   const statusClassName = store.isCurrentlyOpen ? "active" : "inactive";
   const storeStatus = store.isCurrentlyOpen ? "OPEN" : "CLOSED";
   const [, formattedImage] = useBaseUrl();
 
   return (
     <>
-      <div className="store-view-list">
+      <div className={`store-view-list ${status}`}>
         {store.logo ? (
           <Image
             src={`${formattedImage}${store.logo}`}
@@ -49,6 +50,9 @@ export default function StoreListView({ store }: Props) {
       </div>
       <style jsx>
         {`
+          .store-view-list.closed {
+            background-color: #dddcdc33;
+          }
           .store-view-list {
             display: flex;
             align-items: center;

@@ -1,7 +1,9 @@
-import SearchStore from "@/components/search/SearchStore";
 import { PropsWithChildren } from "react";
-import DefaultLayout from "./default-layout";
+
+import SearchStore from "@/components/search/SearchStore";
+import DefaultLayout from "@/layout/default-layout";
 import Footer from "@/layout/footer";
+import { useRouter } from "next/router";
 
 interface Props {
   title: string;
@@ -17,6 +19,8 @@ export default function StoreLayoutPage({
   showArrow = true,
   padding,
 }: PropsWithChildren<Props>) {
+  const router = useRouter();
+  console.log("Storepageview", router);
   return (
     <DefaultLayout
       title={title}

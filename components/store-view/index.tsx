@@ -94,7 +94,7 @@ export default function Storeview() {
                   </a>
                 </Link>
               ) : (
-                <StoreListView key={store._id} store={store} />
+                <StoreListView key={store._id} store={store} status="closed"  />
               );
             })
           ) : (

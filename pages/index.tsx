@@ -58,7 +58,7 @@ export default function Home() {
   }, [baseURL]);
 
   return (
-    <StoreLayoutPage title="Cloudmall Africa" padding="0px" showArrow={false}>
+    <StoreLayoutPage title="Cloudmall Africa" padding="0px" showArrow={false} >
       <Storeview />
     </StoreLayoutPage>
   );
