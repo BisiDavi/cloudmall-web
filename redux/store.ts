@@ -12,6 +12,7 @@ import searchReducer from "@/redux/search-slice";
 import deliveryDetailsReducer from "@/redux/delivery-details-slice";
 import loginReducer from "@/redux/login-slice";
 import paymentReducer from "@/redux/payment-slice";
+import locationReducer from "@/redux/location-slice";
 
 const reducers = combineReducers({
   user: userReducer,
@@ -22,6 +23,7 @@ const reducers = combineReducers({
   deliveryDetails: deliveryDetailsReducer,
   loginDetails: loginReducer,
   payment: paymentReducer,
+  location: locationReducer,
 });
 
 const persistConfig = {
