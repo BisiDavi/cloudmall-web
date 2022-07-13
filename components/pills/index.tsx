@@ -18,13 +18,6 @@ function PillComponent({ category, categoryType }: PillProps) {
   );
   const dispatch = useAppDispatch();
 
-  console.log("categoryType", categoryType);
-  console.log(
-    "storeCategory, productCategory ",
-    storeCategory,
-    productCategory
-  );
-
   function checkActiveCategory(categoryTypeArray: string[]) {
     return categoryTypeArray.includes(category._id) ? "active" : "inactive";
   }
@@ -35,7 +28,6 @@ function PillComponent({ category, categoryType }: PillProps) {
       : checkActiveCategory(storeCategory);
 
   function onClickHandler() {
-    console.log("categoryType was clicked");
     if (categoryType === "product") {
       return dispatch(updateProductCategory(category._id));
     } else {
