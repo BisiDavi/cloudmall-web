@@ -22,7 +22,7 @@ export default function Storepageview({ storeId }: Props) {
       enabled: !!baseURL,
     }
   );
-  console.log("data-store", data);
+
   useClearExpiredCart();
 
   const storeName = status === "success" ? data?.data?.store?.name : "";

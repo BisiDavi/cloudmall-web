@@ -1,20 +1,32 @@
+import { useRouter } from "next/router";
+import Image from "next/image";
+
 import SearchIcon from "@/components/icons/SearchIcon";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
-import { updateSearch } from "@/redux/search-slice";
-import Image from "next/image";
+import {
+  updateProductSearch,
+  updateCategorySearch,
+} from "@/redux/search-slice";
 
 export default function SearchStore() {
   const dispatch = useAppDispatch();
-  const { search } = useAppSelector((state) => state.search);
+  const { categorySearch, productSearch } = useAppSelector(
+    (state) => state.search
+  );
+  const router = useRouter();
 
-  console.log("search", search);
+  const search = router?.route.includes("store") ? productSearch : categorySearch 
 
   function inputHandler(e: any) {
-    dispatch(updateSearch(e.target.value));
+    if (router?.route.includes("store")) {
+      dispatch(updateProductSearch(e.target.value));
+    } else {
+      dispatch(updateCategorySearch(e.target.value));
+    }
   }
 
   function resetHandler() {
-    dispatch(updateSearch(""));
+    dispatch(updateCategorySearch(""));
   }
 
   return (

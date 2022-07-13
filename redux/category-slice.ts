@@ -18,7 +18,7 @@ export const categorySlice = createSlice({
     updateStoreCategory: (state, action: PayloadAction<string>) => {
       if (!state.storeCategory.includes(action.payload)) {
         state.storeCategory = [...state.storeCategory, action.payload];
-      } else {
+    } else {
         const categoryIndex = state.storeCategory.indexOf(action.payload);
         state.storeCategory.splice(categoryIndex, 1);
       }

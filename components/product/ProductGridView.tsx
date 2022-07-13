@@ -17,19 +17,23 @@ export default function ProductGridView({ storeId }: Props) {
   const { getStoreProducts } = useStoreRequest();
   const { productCategory } = useAppSelector((state) => state.category);
   const { user } = useAppSelector((state) => state.user);
+  const { productSearch } = useAppSelector((state) => state.search);
 
   const coordinates = user?.addresses[0]?.location?.coordinates;
 
   const categories =
     productCategory.length > 0 ? { categoryIds: productCategory } : "";
 
+  const textSearch = productSearch.length > 3 ? { text: productSearch } : "";
+
   const { data, status } = useQuery(
-    [`getStoreProducts-${storeId}`, productCategory],
+    [`getStoreProducts-${storeId}`, productCategory, productSearch],
     () =>
       getStoreProducts(baseURL, {
         storeIds: [storeId],
         coordinates,
         ...categories,
+        ...textSearch,
       }),
     {
       enabled: !!baseURL,
@@ -43,7 +47,7 @@ export default function ProductGridView({ storeId }: Props) {
         "error"
       ) : status === "loading" ? (
         <ProductGridViewLoader />
-      ) : productResult.length > 0 ? (
+      ) : productResult?.length > 0 ? (
         <div className="gridview">
           {productResult.map((product: productType) => (
             <Product product={product} key={product.name} storeId={storeId} />

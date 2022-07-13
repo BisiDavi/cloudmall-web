@@ -13,7 +13,7 @@ import StoreListView from "@/components/store-view/StoreListView";
 
 export default function Storeview() {
   const { storeCategory } = useAppSelector((state) => state.category);
-  const { search } = useAppSelector((state) => state.search);
+  const { categorySearch } = useAppSelector((state) => state.search);
   const [baseURL] = useBaseUrl();
   const { listStore } = useStoreRequest();
   const { user } = useAppSelector((state) => state.user);
@@ -22,25 +22,24 @@ export default function Storeview() {
 
   const coordinates = user?.addresses[0]?.location?.coordinates;
 
-  const storeviewFunc: any = () =>
-    search.length > 3
-      ? listStore(baseURL, { text: search, coordinates })
-      : search || storeCategory.length > 0
-      ? listStore(baseURL, {
-          categoryIds: storeCategory,
-          text: search,
-          coordinates,
-        })
-      : listStore(baseURL, {
-          maxDistance: 3000,
-          availablity: "OPEN",
-          forceClosed: false,
-          pageNo: page,
-          coordinates,
-        });
+  const categories =
+    storeCategory.length > 0 ? { categoryIds: storeCategory } : "";
 
-  const categoryKey = search
-    ? search
+  const textSearch = categorySearch.length > 3 ? { text: categorySearch } : "";
+
+  const displayStores: any = () =>
+    listStore(baseURL, {
+      maxDistance: 3000,
+      availablity: "OPEN",
+      forceClosed: false,
+      pageNo: page,
+      coordinates,
+      ...textSearch,
+      ...categories,
+    });
+
+  const categoryKey = categorySearch
+    ? categorySearch
     : storeCategory.length > 0
     ? storeCategory
     : "";
@@ -63,8 +62,8 @@ export default function Storeview() {
   }, [handleObserver]);
 
   const { data, status }: any = useQuery(
-    [`listStores-${categoryKey}`, page, search, storeCategory],
-    storeviewFunc,
+    [`listStores-${categoryKey}`, page, categorySearch, storeCategory],
+    displayStores,
     {
       enabled: !!baseURL,
       keepPreviousData: true,
