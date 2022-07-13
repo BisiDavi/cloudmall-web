@@ -8,4 +8,5 @@ export type modalType =
   | "loginQuestionModal"
   | "paymentModal"
   | "noteModal"
+  | "error"
   | null;

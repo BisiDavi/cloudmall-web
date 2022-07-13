@@ -12,8 +12,6 @@ export default function CartView() {
   const [cart, status] = useGetCart();
   const { modal, updateModalHandler } = useModal();
 
-  console.log("cart", cart);
-
   return (
     <>
       {modal === "loginQuestionModal" && (

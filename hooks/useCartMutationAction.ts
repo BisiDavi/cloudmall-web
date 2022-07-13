@@ -11,6 +11,7 @@ import {
   updateCartMutationType,
 } from "@/types/cart-type";
 import useBaseUrl from "@/hooks/useBaseUrl";
+import { updateErrorText, updateModal } from "@/redux/ui-slice";
 
 export default function useCartMutationAction() {
   const queryClient = useQueryClient();
@@ -43,8 +44,12 @@ export default function useCartMutationAction() {
       }
       updateToast(toastID, "success", response.data.message);
     },
-    onError: (err: any) =>
-      updateToast(toastID, "error", err?.response?.data?.message),
+    onError: (err: any) => {
+      console.log("err?.response?.data?.message", err?.response?.data?.message);
+      dispatch(updateErrorText(err?.response?.data?.message));
+      dispatch(updateModal("error"));
+      updateToast(toastID, "error", "error");
+    },
   });
 
   function useAddToCart() {

@@ -5,13 +5,13 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type uiState = {
   modal: modalType;
   baseURL: string;
-  errorText: string | null;
+  errorText: string;
 };
 
 const initialState: uiState = {
   modal: null,
   baseURL: "",
-  errorText: null,
+  errorText: "",
 };
 
 export const uiSlice = createSlice({
@@ -24,9 +24,12 @@ export const uiSlice = createSlice({
     updateBaseURL: (state, action) => {
       state.baseURL = action.payload;
     },
+    updateErrorText: (state, action) => {
+      state.errorText = action.payload;
+    },
   },
 });
 
-export const { updateModal, updateBaseURL } = uiSlice.actions;
+export const { updateModal, updateBaseURL, updateErrorText } = uiSlice.actions;
 
 export default uiSlice.reducer;
