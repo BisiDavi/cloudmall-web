@@ -27,11 +27,9 @@ export default function Storepageview({ storeId }: Props) {
 
   const storeName = status === "success" ? data?.data?.store?.name : "";
 
-  console.log("storeId", storeId);
-
   return (
     <StoreLayoutPage title={storeName} padding="0px 0px 0px 0px">
-      {storeId !== undefined && <CategoryPills type="store" />}
+      {storeId !== undefined && <CategoryPills type="product" />}
       {storeId !== undefined && <ProductGridView storeId={storeId} />}
     </StoreLayoutPage>
   );

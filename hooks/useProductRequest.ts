@@ -18,12 +18,8 @@ export default function useProductRequest() {
     }
   );
 
-  type storeDataType = {
-    storeId: string;
-  };
-
-  function listProductCategories(baseURL: string, storeData: storeDataType) {
-    return axios.post(`${baseURL}/products/categories`, storeData);
+  function listProductCategories(baseURL: string, storeId: string) {
+    return axios.get(`${baseURL}/products/categories/?storeId=${storeId}`);
   }
 
   return {

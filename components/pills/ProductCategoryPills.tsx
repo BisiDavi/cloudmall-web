@@ -16,7 +16,7 @@ export default function ProductCategoryPills() {
 
   const { data, status }: any = useQuery(
     "listProductCategories",
-    () => listProductCategories(baseURL, { storeId }),
+    () => listProductCategories(baseURL, storeId),
     {
       enabled: !!baseURL,
     }

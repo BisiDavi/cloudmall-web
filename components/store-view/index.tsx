@@ -79,23 +79,24 @@ export default function Storeview() {
           ) : status === "loading" ? (
             <StoreListLoader />
           ) : data?.data?.stores.length > 0 ? (
-            data?.data?.stores.map((store: storeType) => (
-              <div key={store._id}>
-                {store.isCurrentlyOpen ? (
-                  <Link
-                    passHref
-                    href={{
-                      pathname: `/store/${store.name}`,
-                      query: { store_id: store._id },
-                    }}
-                  >
+            data?.data?.stores.map((store: storeType) => {
+              return store.isCurrentlyOpen ? (
+                <Link
+                  key={store._id}
+                  passHref
+                  href={{
+                    pathname: `/store/${store.name}`,
+                    query: { store_id: store._id },
+                  }}
+                >
+                  <a>
                     <StoreListView store={store} />
-                  </Link>
-                ) : (
-                  <StoreListView store={store} />
-                )}
-              </div>
-            ))
+                  </a>
+                </Link>
+              ) : (
+                <StoreListView key={store._id} store={store} />
+              );
+            })
           ) : (
             <div className="no-store">
               <Image
