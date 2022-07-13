@@ -39,13 +39,11 @@ export default function useCartMutationAction() {
         dispatch(clearCart());
       } else {
         const formattedCart = formatCart(response.data.cart);
-        console.log("formattedCart", formattedCart);
         dispatch(addToCart(formattedCart));
       }
       updateToast(toastID, "success", response.data.message);
     },
     onError: (err: any) => {
-      console.log("err?.response?.data?.message", err?.response?.data?.message);
       dispatch(updateErrorText(err?.response?.data?.message));
       dispatch(updateModal("error"));
       updateToast(toastID, "error", "error");

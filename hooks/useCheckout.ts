@@ -9,6 +9,7 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateFWKeys, updateOrder } from "@/redux/payment-slice";
 import useBaseUrl from "@/hooks/useBaseUrl";
 import useCartRequest from "@/hooks/useCartRequest";
+import { updateErrorText, updateModal } from "@/redux/ui-slice";
 
 export default function useCheckout() {
   const { getFlutterwaveKeys, checkoutFlowRequest, checkoutUserRequest } =
@@ -26,12 +27,9 @@ export default function useCheckout() {
     loadingToast(toastID);
     getFlutterwaveKeys(baseURL)
       .then((fwKeysResponse: any) => {
-        console.log("getFlutterwaveKeys-response", fwKeysResponse);
-        console.log("checkoutDetails", checkoutDetails);
         dispatch(updateFWKeys(fwKeysResponse.data.public));
         return checkoutUserRequest(baseURL, checkoutDetails)
           .then((checkoutUserResponse: any) => {
-            console.log("response-checkoutUserRequest", checkoutUserResponse);
             dispatch(updateOrder(checkoutUserResponse.data.order));
             updateToast(
               toastID,
@@ -47,9 +45,9 @@ export default function useCheckout() {
             }
           })
           .catch((err: any) => {
-            console.log("err-checkoutUserRequest", err);
-            updateToast(toastID, "error", err?.response?.data?.message);
-            updateModalHandler(null);
+            updateToast(toastID, "error", "error");
+            dispatch(updateErrorText(err?.response?.data?.message));
+            dispatch(updateModal("error"));
           });
       })
       .catch((err: any) => {
@@ -94,9 +92,9 @@ export default function useCheckout() {
           updateModalHandler(null);
         },
         onError: (data: any) => {
-          console.log("data-err", data);
-          updateToast(toastID, "error", data?.response?.data?.message);
-          updateModalHandler(null);
+          updateToast(toastID, "error", "");
+          dispatch(updateErrorText(data?.response?.data?.message));
+          dispatch(updateModal("error"));
         },
       }
     );
@@ -135,8 +133,9 @@ export default function useCheckout() {
           updateModalHandler(null);
         },
         onError: (err: any) => {
-          updateToast(toastID, "error", err?.response?.data?.message);
-          updateModalHandler(null);
+          updateToast(toastID, "error", "error");
+          dispatch(updateErrorText(err?.response?.data?.message));
+          dispatch(updateModal("error"));
         },
       }
     );
