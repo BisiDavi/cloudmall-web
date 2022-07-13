@@ -1,14 +1,15 @@
 import { useQuery } from "react-query";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
+import Link from "next/link";
 
-import RestaurantPillsGroup from "@/components/pills/RestaurantPillsGroup";
-import StoreviewList from "@/components/store-view/StoreviewList";
+import CategoryPills from "@/components/pills/CategoryPills";
 import useStoreRequest from "@/hooks/useStoreRequest";
-import { storeType } from "@/types/store-types";
 import { useAppSelector } from "@/hooks/useRedux";
 import StoreListLoader from "@/components/loaders/StoreListLoader";
 import useBaseUrl from "@/hooks/useBaseUrl";
+import { storeType } from "@/types/store-types";
+import StoreListView from "@/components/store-view/StoreListView";
 
 export default function Storeview() {
   const { category } = useAppSelector((state) => state.category);
@@ -16,8 +17,10 @@ export default function Storeview() {
   const [baseURL] = useBaseUrl();
   const { listStore } = useStoreRequest();
   const { user } = useAppSelector((state) => state.user);
-  const [page, setPage] = useState(1);
+  const [page, setPage] = useState(0);
   const ref: any = useRef(null);
+
+  console.log("page", page);
 
   const coordinates = user?.addresses[0]?.location?.coordinates;
 
@@ -42,8 +45,8 @@ export default function Storeview() {
 
   const handleObserver = useCallback((entries: any) => {
     const target = entries[0];
-    if (target.isIntersection) {
-      setPage((prev) => prev + 1);
+    if (target.isIntersecting) {
+      setPage(page + 1);
     }
   }, []);
 
@@ -69,7 +72,7 @@ export default function Storeview() {
   return (
     <>
       <div className="store-view">
-        <RestaurantPillsGroup storeType="restaurant" />
+        <CategoryPills type="store" />
         <div className="list">
           {status === "error" ? (
             "error occured"
@@ -77,14 +80,28 @@ export default function Storeview() {
             <StoreListLoader />
           ) : data?.data?.stores.length > 0 ? (
             data?.data?.stores.map((store: storeType) => (
-              <StoreviewList store={store} key={store._id} />
+              <div key={store._id}>
+                {store.isCurrentlyOpen ? (
+                  <Link
+                    passHref
+                    href={{
+                      pathname: `/store/${store.name}`,
+                      query: { store_id: store._id },
+                    }}
+                  >
+                    <StoreListView store={store} />
+                  </Link>
+                ) : (
+                  <StoreListView store={store} />
+                )}
+              </div>
             ))
           ) : (
             <div className="no-store">
               <Image
                 src="/errorIcon.webp"
                 alt="error"
-                height={300}
+                height={250}
                 width={300}
               />
               <h6>No store in your locality yet</h6>

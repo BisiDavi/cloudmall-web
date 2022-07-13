@@ -1,5 +1,3 @@
-import Link from "next/link";
-
 import StoreIcon from "@/components/store-view/store-icon";
 import MapIcon from "@/components/icons/MapIcon";
 import Image from "next/image";
@@ -10,53 +8,45 @@ interface Props {
   store: storeType;
 }
 
-export default function StoreviewList({ store }: Props) {
+export default function StoreListView({ store }: Props) {
   const statusClassName = store.isCurrentlyOpen ? "active" : "inactive";
   const storeStatus = store.isCurrentlyOpen ? "OPEN" : "CLOSED";
   const [, formattedImage] = useBaseUrl();
 
   return (
     <>
-      <Link
-        passHref
-        href={{
-          pathname: `/store/${store.name}`,
-          query: { store_id: store._id },
-        }}
-      >
-        <div className="store-view-list">
-          {store.logo ? (
-            <Image
-              src={`${formattedImage}${store.logo}`}
-              alt="logo"
-              height={100}
-              width={100}
-              blurDataURL={`${formattedImage}${store.logo}`}
-              placeholder="blur"
-            />
-          ) : (
-            <StoreIcon storeName={store.name} />
-          )}
-          <div className="content">
-            <div className="layer">
-              <div className="store-name">
-                <h4>{store.name}</h4>
-                <h6>{store.category.name}</h6>
-              </div>
-              <div className={`status ${statusClassName}`}>{storeStatus}</div>
+      <div className="store-view-list">
+        {store.logo ? (
+          <Image
+            src={`${formattedImage}${store.logo}`}
+            alt="logo"
+            height={100}
+            width={100}
+            blurDataURL={`${formattedImage}${store.logo}`}
+            placeholder="blur"
+          />
+        ) : (
+          <StoreIcon storeName={store.name} />
+        )}
+        <div className="content">
+          <div className="layer">
+            <div className="store-name">
+              <h4>{store.name}</h4>
+              <h6>{store.category.name}</h6>
             </div>
-            {store.address && (
-              <div className="layer">
-                <div className="address">
-                  <MapIcon />
-                  <span>{store.address}</span>
-                </div>
-                <h6>4km</h6>
-              </div>
-            )}
+            <div className={`status ${statusClassName}`}>{storeStatus}</div>
           </div>
+          {store.address && (
+            <div className="layer">
+              <div className="address">
+                <MapIcon />
+                <span>{store.address}</span>
+              </div>
+              <h6>4km</h6>
+            </div>
+          )}
         </div>
-      </Link>
+      </div>
       <style jsx>
         {`
           .store-view-list {

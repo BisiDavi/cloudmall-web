@@ -1,39 +1,28 @@
 import { useQuery } from "react-query";
+import { useRouter } from "next/router";
 
 import Pill from "@/components/pills";
 import { storeCategoryType } from "@/types/store-types";
 import PillLoader from "@/components/loaders/PillsLoader";
 import useBaseUrl from "@/hooks/useBaseUrl";
-import useStoreRequest from "@/hooks/useStoreRequest";
+import useProductRequest from "@/hooks/useProductRequest";
 
-interface Props {
-  storeType: "restaurant" | "store";
-  category?: string;
-}
+export default function ProductCategoryPills() {
+  const router: any = useRouter();
+  const storeId = router?.query?.store_id;
 
-export default function RestaurantPillsGroup({ storeType, category }: Props) {
   const [baseURL] = useBaseUrl();
-  const { listStoreCategories } = useStoreRequest();
+  const { listProductCategories } = useProductRequest();
 
   const { data, status }: any = useQuery(
-    "listStoreCategories",
-    () => listStoreCategories(baseURL),
+    "listProductCategories",
+    () => listProductCategories(baseURL, { storeId }),
     {
       enabled: !!baseURL,
     }
   );
 
-  const pillGroupClassname = storeType === "store" ? "gray" : "normal";
-
-  function getCategory() {
-    const categoryArray = data?.data.categories;
-    const categories = category
-      ? data?.data.categories.filter(
-          (cat: { name: string }) => cat.name === category
-        )
-      : categoryArray;
-    return categories;
-  }
+  console.log("data-listProductCategories", data);
 
   return (
     <>
@@ -42,8 +31,8 @@ export default function RestaurantPillsGroup({ storeType, category }: Props) {
       ) : status === "loading" ? (
         <PillLoader />
       ) : (
-        <div className={`pill-group ${pillGroupClassname}`}>
-          {getCategory()?.map((category: storeCategoryType) => (
+        <div className="pill-group normal">
+          {data?.data?.categories.map((category: storeCategoryType) => (
             <Pill key={category._id} category={category} />
           ))}
         </div>

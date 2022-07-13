@@ -1,6 +1,6 @@
 import { useRouter } from "next/router";
 
-import Storepageview from "@/components/store-view/Storeview";
+import Storepageview from "@/components/store-view/Storepageview";
 
 export default function StorePage() {
   const router: any = useRouter();
