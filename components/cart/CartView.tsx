@@ -25,12 +25,14 @@ export default function CartView() {
       {status === "error" ? (
         "error occured"
       ) : status === "loading" ? (
-        <Image
-          src="/shopping-cart.gif"
-          alt="cart loading"
-          height={300}
-          width={300}
-        />
+        <div className="loading">
+          <Image
+            src="/shopping-cart.gif"
+            alt="cart loading"
+            height={300}
+            width={300}
+          />
+        </div>
       ) : cart === undefined ? (
         <>
           <h4 className="emptyCartText">Cart is Empty</h4>
@@ -49,6 +51,11 @@ export default function CartView() {
       <div className="bottom" />
       <style jsx>
         {`
+          .loading {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+          }
           .emptyCartText {
             text-align: center;
             font-size: 20px;

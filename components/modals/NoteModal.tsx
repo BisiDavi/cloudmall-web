@@ -1,7 +1,8 @@
+import { useState } from "react";
+
 import Modal from "@/components/modals";
 import useCartMutationAction from "@/hooks/useCartMutationAction";
 import { ModalProps } from "@/types/modal-types";
-import { useState } from "react";
 
 interface Props extends ModalProps {
   productName: string;

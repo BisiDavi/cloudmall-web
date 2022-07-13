@@ -75,7 +75,7 @@ export default function CartItem({ item }: cartProps) {
               </h6>
             </div>
             <h4 className="price">
-              <FormatPrice price={item.product.unitPrice} />
+              <FormatPrice price={item.price} />
             </h4>
           </div>
           <div className="layer cart-controls">
