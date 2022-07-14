@@ -33,7 +33,7 @@ export const mapSlice = createSlice({
   initialState,
   reducers: {
     saveCompleteAddress: (state, action: PayloadAction<AddressType>) => {
-      state.completeAddress = [...state.completeAddress, action.payload];
+      state.completeAddress = [action.payload];
     },
     updateDefaultCoordinates: (
       state,
@@ -42,14 +42,8 @@ export const mapSlice = createSlice({
       state.lat = action.payload.lat;
       state.lng = action.payload.lng;
     },
-    updateCompletedAddress: (
-      state,
-      action: PayloadAction<{
-        index: number;
-        address: AddressType;
-      }>
-    ) => {
-      state.completeAddress[action.payload.index] = action.payload.address;
+    updateCompletedAddress: (state, action: PayloadAction<AddressType[]>) => {
+      state.completeAddress = action.payload;
     },
     updateAddress: (state, action: PayloadAction<string>) => {
       state.address = action.payload;

@@ -1,14 +1,14 @@
 import Image from "next/image";
 import { memo } from "react";
-// import { useRouter } from "next/router";
+import { useRouter } from "next/router";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import Modal from "@/components/modals";
 import { modalType } from "@/types/modal-types";
 import { updateModal } from "@/redux/ui-slice";
 import { updateAddress, updateCompletedAddress } from "@/redux/map-slice";
-import UserAddresses from "../views/UserAddresses";
-import AddressModalInput from "./AddressModalInput";
+import UserAddresses from "@/components/views/UserAddresses";
+import AddressModalInput from "@/components/modals/AddressModalInput";
 
 interface Props {
   modal: modalType;
@@ -16,43 +16,23 @@ interface Props {
 }
 
 function MapModalComponent({ modal, closeModal }: Props) {
-  // const router = useRouter();
+  const router = useRouter();
   const dispatch = useAppDispatch();
 
   const { completeAddress, incompleteAddress } = useAppSelector(
     (state) => state.map
   );
 
-  const editedAddress = completeAddress
-    ? completeAddress?.filter(
-        (adr) => adr.location === incompleteAddress.location
-      )
-    : [];
-
-  const editedAddressIndex = completeAddress
-    ? completeAddress.indexOf(editedAddress[0])
-    : 0;
-
   function newAddressHandler() {
-    dispatch(
-      updateCompletedAddress({
-        index: editedAddressIndex,
-        address: incompleteAddress,
-      })
-    );
+    dispatch(updateCompletedAddress([incompleteAddress]));
     dispatch(updateAddress(""));
     dispatch(updateModal(null));
   }
 
   function complete() {
-    dispatch(
-      updateCompletedAddress({
-        index: editedAddressIndex,
-        address: incompleteAddress,
-      })
-    );
+    dispatch(updateCompletedAddress([incompleteAddress]));
     dispatch(updateAddress(""));
-    // router.push("/store-view");
+    router.push("/store-view");
     dispatch(updateModal(null));
   }
 
@@ -62,7 +42,7 @@ function MapModalComponent({ modal, closeModal }: Props) {
         <h6 className="title">Select an Address</h6>
         <UserAddresses />
         <div className="content">
-          {completeAddress?.map((addressValue, index) => {
+          {completeAddress?.map((addressValue: any, index) => {
             return (
               <AddressModalInput
                 key={`addressView-${index}`}

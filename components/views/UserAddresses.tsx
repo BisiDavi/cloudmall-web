@@ -8,6 +8,7 @@ type addressType = {
   _id: string;
   type: string;
   address: string;
+  isDefault: boolean;
 };
 
 export default function UserAddresses() {
@@ -16,6 +17,7 @@ export default function UserAddresses() {
   const { data, status } = useQuery("getUserProfile", () => getUserProfile());
 
   const addresses = data?.data.user?.addresses;
+
   return (
     <>
       {status === "error" ? (

@@ -3,20 +3,26 @@ import { useRef } from "react";
 
 import useToast from "@/hooks/useToast";
 import useAddressRequest from "@/hooks/useAddressRequest";
+import { useAppDispatch } from "./useRedux";
+import { updateCompletedAddress } from "@/redux/map-slice";
 
 export default function useAddressMutation() {
   const queryClient = useQueryClient();
   const { createUserAddress, updateUserAddress, deleteUserAddress } =
     useAddressRequest();
   const { loadingToast, updateToast } = useToast();
+  const dispatch = useAppDispatch();
 
-  const responseData = (toastID: any) => ({
+  const responseData = (toastID: any, type?: string) => ({
     onMutate: () => {
       loadingToast(toastID);
     },
     onSettled: () => queryClient.invalidateQueries("getUserProfile"),
     onSuccess: (response: any) => {
       updateToast(toastID, "success", response.data.message);
+      if (type === "createAddress") {
+        dispatch(updateCompletedAddress([]));
+      }
     },
     onError: (err: any) => {
       updateToast(toastID, "error", err?.response?.data?.message);
@@ -45,7 +51,7 @@ export default function useAddressMutation() {
 
   function useCreateAddress() {
     const toastID = useRef(null);
-    const result = responseData(toastID);
+    const result = responseData(toastID, "createAddress");
 
     return useMutation((userDetails: any) => createUserAddress(userDetails), {
       mutationKey: "useCreateAddress",

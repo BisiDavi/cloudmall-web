@@ -1,5 +1,6 @@
 /* eslint-disable unused-imports/no-unused-vars */
 import { useState } from "react";
+
 import EditIcon from "@/components/icons/EditIcon";
 import TrashIcon from "@/components/icons/TrashIcon";
 import BorderlineInput from "@/components/forms/FormElements/BorderlineInput";
@@ -87,6 +88,7 @@ export default function AddressList({ address }: AddressProps) {
         .view {
           border-bottom: 1px solid var(--neutral-gray);
           padding-bottom: 5px;
+          margin-bottom: 10px;
         }
         .user-address {
           display: flex;

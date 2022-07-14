@@ -28,8 +28,6 @@ export default function AutocompleteView() {
   const { address } = useAppSelector((state) => state.map);
   const dispatch = useAppDispatch();
 
-  console.log("address", address);
-
   function showModal() {
     if (address?.length > 0) {
       dispatch(updateModal("userAddresses"));
