@@ -20,9 +20,12 @@ export default function Product({ product, storeId }: Props) {
     }
   }
 
+  const productClass = dropdown ? "overlay" : "";
+
   return (
-    <>
-      <div className="product" onClick={dropdownHandler}>
+    <div className="product-view">
+      <div className={`${productClass}`} onClick={dropdownHandler} />
+      <div className="product">
         <Image
           src={`${formattedImage}${product.image}`}
           alt={product.name}
@@ -46,9 +49,22 @@ export default function Product({ product, storeId }: Props) {
       </div>
       <style jsx>
         {`
+          .product-view {
+            position: relative;
+          }
+          .overlay {
+            background-color: #00000080;
+            top: 0px;
+            height: 100%;
+            width: 100%;
+            z-index: 100;
+            position: absolute;
+            border-radius: 5px;
+          }
           .product {
             display: flex;
             flex-direction: column;
+            position: relative;
           }
           .content {
             display: flex;
@@ -90,6 +106,6 @@ export default function Product({ product, storeId }: Props) {
           }
         `}
       </style>
-    </>
+    </div>
   );
 }

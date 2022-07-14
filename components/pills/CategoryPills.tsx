@@ -6,7 +6,6 @@ interface Props {
 }
 
 export default function CategoryPills({ type }: Props) {
-  console.log("type", type);
   return (
     <>{type === "store" ? <StoreCategoryPills /> : <ProductCategoryPills />}</>
   );

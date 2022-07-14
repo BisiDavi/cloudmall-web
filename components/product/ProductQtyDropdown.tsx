@@ -67,6 +67,7 @@ export default function ProductQtyDropdown({
         {productQuantity > 0 ? productQuantity : <AddIcon />}
       </button>
       {dropdown && (
+        // <div className="dropdown-overlay">
         <ul className="dropdown">
           {qtyArray.map((qtyItem) => (
             <li key={qtyItem} onClick={() => productQtyHandler(qtyItem)}>
@@ -74,9 +75,16 @@ export default function ProductQtyDropdown({
             </li>
           ))}
         </ul>
+        // </div>
       )}
       <style jsx>
         {`
+          .dropdown-overlay {
+            background-color: black;
+            width: 100%;
+            heigth: 100%;
+            display: flex;
+          }
           .button {
             padding: 5px 10px;
             border: none;
@@ -93,14 +101,15 @@ export default function ProductQtyDropdown({
             display: flex;
             flex-direction: column;
             padding: 0px;
-            top: 0px;
+            top: auto;
             width: 40px;
             z-index: 100;
             border: 1px solid var(--neutral-gray-2);
             background-color: white;
             position: absolute;
             right: 0;
-            margin-top: -20px;
+            margin-top: -60px;
+            border-radius: 5px;
           }
           .dropdown li {
             list-style: none;

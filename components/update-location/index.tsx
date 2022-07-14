@@ -9,13 +9,10 @@ export default function UpdateLocation() {
 
   const addresses = data?.data.user?.addresses;
 
-  console.log("addresses-footer", addresses);
   const defaultAddress =
     status === "success"
       ? addresses?.filter((address: any) => address.isDefault)
       : [];
-
-  console.log("defaultAddress", defaultAddress);
 
   return (
     <>
