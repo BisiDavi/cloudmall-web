@@ -4,30 +4,32 @@ import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 type AddressType = {
   title?: string;
   location?: string;
-  lat?: number;
-  lng?: number;
+  lat?: number | null;
+  lng?: number | null;
 };
 
-type locationState = {
-  lat: number;
-  lng: number;
+type mapState = {
+  lat: number | null;
+  lng: number | null;
   completeAddress: Array<AddressType>;
   incompleteAddress: AddressType;
   address: string;
   useUserCurrentLocation: boolean;
+  loadMap: boolean;
 };
 
-const initialState: locationState = {
-  lat: 7.5207,
-  lng: 4.5303,
+const initialState: mapState = {
+  lat: null,
+  lng: null,
   useUserCurrentLocation: false,
   completeAddress: [],
   incompleteAddress: {},
   address: "",
+  loadMap: false,
 };
 
-export const locationSlice = createSlice({
-  name: "location",
+export const mapSlice = createSlice({
+  name: "map",
   initialState,
   reducers: {
     saveCompleteAddress: (state, action: PayloadAction<AddressType>) => {
@@ -58,6 +60,9 @@ export const locationSlice = createSlice({
     updateUserCurrentLocation: (state) => {
       state.useUserCurrentLocation = true;
     },
+    updateLoadMap: (state, action) => {
+      state.loadMap = action.payload;
+    },
   },
 });
 
@@ -68,6 +73,7 @@ export const {
   saveIncompleteAddress,
   updateCompletedAddress,
   updateUserCurrentLocation,
-} = locationSlice.actions;
+  updateLoadMap,
+} = mapSlice.actions;
 
-export default locationSlice.reducer;
+export default mapSlice.reducer;

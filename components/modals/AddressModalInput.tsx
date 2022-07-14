@@ -1,7 +1,7 @@
 import type { ChangeEvent } from "react";
 
 import BorderlineInput from "@/components/forms/FormElements/BorderlineInput";
-import { saveIncompleteAddress } from "@/redux/location-slice";
+import { saveIncompleteAddress } from "@/redux/map-slice";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 
 interface Props {
@@ -10,7 +10,7 @@ interface Props {
 
 export default function AddressModalInput({ addressValue }: Props) {
   const dispatch = useAppDispatch();
-  const { incompleteAddress } = useAppSelector((state) => state.location);
+  const { incompleteAddress } = useAppSelector((state) => state.map);
 
   function onChangeHandler(e: ChangeEvent<HTMLInputElement>) {
     dispatch(

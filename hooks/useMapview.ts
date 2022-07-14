@@ -1,17 +1,16 @@
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useState } from "react";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateModal } from "@/redux/ui-slice";
+import { updateLoadMap } from "@/redux/map-slice";
 
 export default function useMapview() {
   const dispatch = useAppDispatch();
-  const [loadAutocomplete, setLoadAutocomplete] = useState(false);
   const { modal } = useAppSelector((state) => state.ui);
-  //   const {  } = useAppSelector((state) => state.location);
+  const { loadMap } = useAppSelector((state) => state.map);
 
   const updateAutocompleteStatus = (status: boolean) =>
-    setLoadAutocomplete(status);
+    dispatch(updateLoadMap(status));
 
   function closeModal() {
     dispatch(updateModal(null));
@@ -19,7 +18,7 @@ export default function useMapview() {
 
   return {
     closeModal,
-    loadAutocomplete,
+    loadMap,
     updateAutocompleteStatus,
     modal,
   };

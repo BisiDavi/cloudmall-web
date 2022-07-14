@@ -27,7 +27,7 @@ function MapCompmonent() {
       render={renderStatus}
     >
       <GoogleMap />
-    </Wrapper>
+    </Wrapper> 
   );
 }
 
@@ -41,8 +41,7 @@ function GoogleMap() {
   const ref = useRef<HTMLDivElement>(null);
   const [, setMap] = useState(null);
   const { user } = useAppSelector((state) => state.user);
-
-  const [lng, lat] = user?.addresses[0]?.location?.coordinates;
+  const { lng, lat } = useAppSelector((state) => state.map);
 
   const zoomFactor = user ? 15 : 12;
 
@@ -62,7 +61,11 @@ function GoogleMap() {
 
   return (
     <>
-      <div ref={ref} id="google-map" className="googleMap" />
+      {lat === null ? (
+        <Ripples centerRipple />
+      ) : (
+        <div ref={ref} id="google-map" className="googleMap" />
+      )}
       <style jsx>
         {`
           .googleMap {

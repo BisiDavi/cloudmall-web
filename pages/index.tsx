@@ -8,6 +8,7 @@ import StoreLayoutPage from "@/layout/store-layout";
 import { whatsappSignin } from "@/utils/authRequest";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateUserDetails } from "@/redux/user-slice";
+import { updateDefaultCoordinates } from "@/redux/map-slice";
 
 export default function Home() {
   const [baseURL] = useBaseUrl();
@@ -26,6 +27,9 @@ export default function Home() {
       })
         .then((response) => {
           console.log(response, "response-whatsappSignin");
+          const coordinates =
+            response.data.user?.addresses[0]?.location?.coordinates;
+
           const userSurName = response.data.user.surname
             ? response.data.user.surname
             : "";
@@ -44,6 +48,12 @@ export default function Home() {
               walletBalance: response.data.user.walletBalance,
             })
           );
+          dispatch(
+            updateDefaultCoordinates({
+              lat: coordinates[1],
+              lng: coordinates[0],
+            })
+          );
           updateToast(
             toastID,
             "success",
@@ -58,7 +68,7 @@ export default function Home() {
   }, [baseURL]);
 
   return (
-    <StoreLayoutPage title="Cloudmall Africa" padding="0px" showArrow={false} >
+    <StoreLayoutPage title="Cloudmall Africa" padding="0px" showArrow={false}>
       <Storeview />
     </StoreLayoutPage>
   );

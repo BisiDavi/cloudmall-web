@@ -7,7 +7,7 @@ import Modal from "@/components/modals";
 import { modalType } from "@/types/modal-types";
 import { updateModal } from "@/redux/ui-slice";
 import AddressModalInput from "@/components/modals/AddressModalInput";
-import { updateAddress, updateCompletedAddress } from "@/redux/location-slice";
+import { updateAddress, updateCompletedAddress } from "@/redux/map-slice";
 
 interface Props {
   modal: modalType;
@@ -19,7 +19,7 @@ function MapModalComponent({ modal, closeModal }: Props) {
   const dispatch = useAppDispatch();
 
   const { completeAddress, incompleteAddress } = useAppSelector(
-    (state) => state.location
+    (state) => state.map
   );
 
   const editedAddress = completeAddress
@@ -31,8 +31,6 @@ function MapModalComponent({ modal, closeModal }: Props) {
   const editedAddressIndex = completeAddress
     ? completeAddress.indexOf(editedAddress[0])
     : 0;
-
-  console.log("editedAddressIndex", editedAddressIndex);
 
   function newAddressHandler() {
     dispatch(
@@ -53,7 +51,7 @@ function MapModalComponent({ modal, closeModal }: Props) {
       })
     );
     dispatch(updateAddress(""));
-    router.push("/store-view");
+    // router.push("/store-view");
     dispatch(updateModal(null));
   }
 

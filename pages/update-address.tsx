@@ -3,10 +3,8 @@
 import { useRouter } from "next/router";
 import Script from "next/script";
 import dynamic from "next/dynamic";
-import { useEffect } from "react";
 
 import useMapview from "@/hooks/useMapview";
-import { useAppSelector } from "@/hooks/useRedux";
 
 const DynamicAutocomplete = dynamic(
   () =>
@@ -29,16 +27,7 @@ const DynamicMap = dynamic(
 );
 
 export default function MapView() {
-  const { closeModal, loadAutocomplete, updateAutocompleteStatus, modal } =
-    useMapview();
-  const { completeAddress } = useAppSelector((state) => state.location);
-  const router = useRouter();
-
-  useEffect(() => {
-    if (completeAddress.length !== 0) {
-      router.push("/store-view");
-    }
-  }, []);
+  const { closeModal, loadMap, updateAutocompleteStatus, modal } = useMapview();
 
   return (
     <>
@@ -58,7 +47,7 @@ export default function MapView() {
         <h3>Enter your Address</h3>
       </div>
       <DynamicMap />
-      {loadAutocomplete ? (
+      {loadMap ? (
         <DynamicAutocomplete />
       ) : (
         <img src="/loading.gif" alt="loading-gif" className="loading-icon" />
