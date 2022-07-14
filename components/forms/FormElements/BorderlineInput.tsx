@@ -48,12 +48,13 @@ export default function BorderlineInput({
           display: flex;
           align-items: center;
           padding: 5px 8px;
-          height: 40px;
+          height: 20px;
         }
         .form-element {
           display: flex;
           flex-direction: column;
-          margin: 10px 0px;
+          margin-bottom: 10px;
+          height: 20px;
           font-family: Roboto;
           font-style: normal;
         }

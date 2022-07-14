@@ -48,7 +48,7 @@ export default function AddressList({ address }: AddressProps) {
           <p>{address.address}</p>
         </div>
         <div className="buttonGroup">
-          <button type="button" onClick={updateList}>
+          <button type="button" className="edit" onClick={updateList}>
             {!editTitle ? <EditIcon /> : <SaveIcon />}
           </button>
           <button type="button">
@@ -57,6 +57,10 @@ export default function AddressList({ address }: AddressProps) {
         </div>
       </div>
       <style jsx>{`
+        .view {
+          border-bottom: 1px solid var(--neutral-gray);
+          padding-bottom: 5px;
+        }
         .user-address {
           display: flex;
           justify-content: space-between;
@@ -66,8 +70,10 @@ export default function AddressList({ address }: AddressProps) {
           display: flex;
           flex-direction: column;
         }
+        .buttonGroup button.edit {
+          margin-bottom: 5px;
+        }
         .buttonGroup button {
-          margin: 5px 0px;
           background-color: var(--mall-blue);
         }
         .view p {
@@ -85,8 +91,8 @@ export default function AddressList({ address }: AddressProps) {
           border: 1px solid var(--mall-blue);
           background-color: transparent;
           border-radius: 50%;
-          height: 35px;
-          width: 35px;
+          height: 30px;
+          width: 30px;
           display: flex;
           align-items: center;
           justify-content: center;
