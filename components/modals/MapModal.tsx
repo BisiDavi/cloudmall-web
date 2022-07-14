@@ -6,7 +6,6 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import Modal from "@/components/modals";
 import { modalType } from "@/types/modal-types";
 import { updateModal } from "@/redux/ui-slice";
-import AddressModalInput from "@/components/modals/AddressModalInput";
 import { updateAddress, updateCompletedAddress } from "@/redux/map-slice";
 import UserAddresses from "../views/UserAddresses";
 

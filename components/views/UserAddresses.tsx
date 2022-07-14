@@ -4,6 +4,7 @@ import { getUserProfile } from "@/utils/userRequest";
 import useBaseUrl from "@/hooks/useBaseUrl";
 import { useAppSelector } from "@/hooks/useRedux";
 import Ripples from "../loaders/Ripples";
+import AddressList from "./AddressList";
 
 type addressType = {
   _id: string;
@@ -33,28 +34,17 @@ export default function UserAddresses() {
           <Ripples centerRipple />
         </div>
       ) : (
-        <div className="view">
+        <>
           {addresses.map((address: addressType) => (
-            <div className="user-address" key={address._id}>
-              <h5>{address.type}</h5>
-              <p>{address.address}</p>
-            </div>
+            <AddressList address={address} key={address._id} />
           ))}
-        </div>
+        </>
       )}
       <style jsx>{`
         .loading {
           display: flex;
           align-items: center;
           justify-content: center;
-        }
-        .view p {
-          margin: 0px 0px 10px 0px;
-          font-size: 12px;
-        }
-        .view h5 {
-          margin-bottom: 5px;
-          color: var(--mall-blue);
         }
       `}</style>
     </>

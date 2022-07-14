@@ -1,4 +1,4 @@
-import NairaIcon from "@/components/icon/NairaIcon";
+import NairaIcon from "@/components/icons/NairaIcon";
 
 function numberWithCommas(x: number | string) {
   return x?.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
