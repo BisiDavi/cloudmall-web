@@ -1,6 +1,6 @@
 /* eslint-disable @next/next/no-img-element */
 /* eslint-disable react-hooks/exhaustive-deps */
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 import Script from "next/script";
 import dynamic from "next/dynamic";
 

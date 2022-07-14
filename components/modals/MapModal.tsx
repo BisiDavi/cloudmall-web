@@ -1,6 +1,6 @@
 import Image from "next/image";
 import { memo } from "react";
-import { useRouter } from "next/router";
+// import { useRouter } from "next/router";
 
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import Modal from "@/components/modals";
@@ -15,7 +15,7 @@ interface Props {
 }
 
 function MapModalComponent({ modal, closeModal }: Props) {
-  const router = useRouter();
+  // const router = useRouter();
   const dispatch = useAppDispatch();
 
   const { completeAddress, incompleteAddress } = useAppSelector(
