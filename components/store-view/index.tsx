@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { useQuery } from "react-query";
 import Image from "next/image";
 import { useCallback, useEffect, useRef, useState } from "react";
@@ -10,41 +11,30 @@ import StoreListLoader from "@/components/loaders/StoreListLoader";
 import useBaseUrl from "@/hooks/useBaseUrl";
 import { storeType } from "@/types/store-types";
 import StoreListView from "@/components/store-view/StoreListView";
+import useFetch from "@/hooks/useFetch";
 
 export default function Storeview() {
   const { storeCategory } = useAppSelector((state) => state.category);
   const { categorySearch } = useAppSelector((state) => state.search);
   const [baseURL] = useBaseUrl();
+  const [page, setPage] = useState(1);
+  const { stores, loading, error, sendQuery } = useFetch();
   const { listStore } = useStoreRequest();
   const { user } = useAppSelector((state) => state.user);
-  const [page, setPage] = useState(0);
   const ref: any = useRef(null);
+
+  console.log("stores", stores);
+  console.log("page", page);
+
+  useEffect(() => {
+    // if (stores && stores[0]?.pageNo >= page) {
+    sendQuery(page);
+    // }
+  }, [page]);
 
   const coordinates = user?.addresses[0]?.location?.coordinates;
 
-  const categories =
-    storeCategory.length > 0 ? { categoryIds: storeCategory } : "";
-
-  const textSearch = categorySearch.length > 3 ? { text: categorySearch } : "";
-
-  const displayStores: any = () =>
-    listStore(baseURL, {
-      maxDistance: 3000,
-      availablity: "OPEN",
-      forceClosed: false,
-      pageNo: page,
-      coordinates,
-      ...textSearch,
-      ...categories,
-    });
-
-  const categoryKey = categorySearch
-    ? categorySearch
-    : storeCategory.length > 0
-    ? storeCategory
-    : "";
-
-  const handleObserver = useCallback((entries: any) => {
+  const handleObserver = useCallback((entries: any[]) => {
     const target = entries[0];
     if (target.isIntersecting) {
       setPage(page + 1);
@@ -61,8 +51,30 @@ export default function Storeview() {
     if (ref.current) observer.observe(ref.current);
   }, [handleObserver]);
 
+  const categories =
+    storeCategory.length > 0 ? { categoryIds: storeCategory } : "";
+
+  const textSearch = categorySearch.length > 3 ? { text: categorySearch } : "";
+
+  const displayStores: any = () =>
+    listStore(baseURL, {
+      maxDistance: 3000,
+      availablity: "OPEN",
+      forceClosed: false,
+      pageNo: 1,
+      coordinates,
+      ...textSearch,
+      ...categories,
+    });
+
+  const categoryKey = categorySearch
+    ? categorySearch
+    : storeCategory.length > 0
+    ? storeCategory
+    : "";
+
   const { data, status }: any = useQuery(
-    [`listStores-${categoryKey}`, page, categorySearch, storeCategory],
+    [`listStores-${categoryKey}`, categorySearch, storeCategory],
     displayStores,
     {
       enabled: !!baseURL,

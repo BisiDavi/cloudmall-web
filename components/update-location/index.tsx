@@ -1,5 +1,6 @@
-import React from "react";
-import CaretIcon from "@/components/icons/CaretIcon";
+import Link from "next/link";
+
+// import CaretIcon from "@/components/icons/CaretIcon";
 import { useAppSelector } from "@/hooks/useRedux";
 
 export default function UpdateLocation() {
@@ -7,17 +8,22 @@ export default function UpdateLocation() {
 
   const userAddress = user?.addresses[0]?.address;
   const isDefault = user?.addresses[0]?.isDefault ? "Home" : "";
+
   return (
     <>
-      {user !== null && (
-        <div className="updatelocation">
-          <span>{isDefault}</span>
-          <div>
-            <h3>{userAddress}</h3>
-            <CaretIcon />
-          </div>
-        </div>
-      )}
+      <Link href="/update-address" passHref>
+        <a>
+          {user !== null && (
+            <div className="updatelocation">
+              <span>{isDefault}</span>
+              <div>
+                <h3>{userAddress}</h3>
+                {/* <CaretIcon /> */}
+              </div>
+            </div>
+          )}
+        </a>
+      </Link>
       <style jsx>
         {`
           .updatelocation {
