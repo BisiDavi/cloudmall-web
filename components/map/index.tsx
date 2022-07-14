@@ -4,7 +4,7 @@ import { memo, useEffect, useRef, useState } from "react";
 import { Wrapper, Status } from "@googlemaps/react-wrapper";
 
 import { useAppSelector } from "@/hooks/useRedux";
-import Ripples from "../loaders/Ripples";
+import Ripples from "@/components/loaders/Ripples";
 
 const renderStatus = (status: Status) => {
   switch (status) {
@@ -27,7 +27,7 @@ function MapCompmonent() {
       render={renderStatus}
     >
       <GoogleMap />
-    </Wrapper> 
+    </Wrapper>
   );
 }
 

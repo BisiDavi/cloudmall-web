@@ -5,6 +5,9 @@ import Script from "next/script";
 import dynamic from "next/dynamic";
 
 import useMapview from "@/hooks/useMapview";
+import { useEffect } from "react";
+import { updateModal } from "@/redux/ui-slice";
+import { useAppDispatch } from "@/hooks/useRedux";
 
 const DynamicAutocomplete = dynamic(
   () =>
@@ -28,6 +31,11 @@ const DynamicMap = dynamic(
 
 export default function MapView() {
   const { closeModal, loadMap, updateAutocompleteStatus, modal } = useMapview();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(updateModal("userAddresses"));
+  }, []);
 
   return (
     <>
@@ -42,7 +50,9 @@ export default function MapView() {
         }}
         onError={() => updateAutocompleteStatus(false)}
       />
-      <DynamicMapModal modal={modal} closeModal={closeModal} />
+      {modal === "userAddresses" && (
+        <DynamicMapModal modal={modal} closeModal={closeModal} />
+      )}
       <div className="map-header">
         <h3>Enter your Address</h3>
       </div>

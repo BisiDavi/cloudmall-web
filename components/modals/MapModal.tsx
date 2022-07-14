@@ -8,6 +8,7 @@ import { modalType } from "@/types/modal-types";
 import { updateModal } from "@/redux/ui-slice";
 import AddressModalInput from "@/components/modals/AddressModalInput";
 import { updateAddress, updateCompletedAddress } from "@/redux/map-slice";
+import UserAddresses from "../views/UserAddresses";
 
 interface Props {
   modal: modalType;
@@ -59,15 +60,8 @@ function MapModalComponent({ modal, closeModal }: Props) {
     <Modal showModal={modal} closeModal={closeModal} persistModal>
       <div className="map-content">
         <h6 className="title">Select an Address</h6>
+        <UserAddresses />
         <div className="content">
-          {completeAddress?.map((addressValue, index) => {
-            return (
-              <AddressModalInput
-                key={`addressView-${index}`}
-                addressValue={addressValue}
-              />
-            );
-          })}
           <div className="button-group">
             <button type="button" onClick={newAddressHandler}>
               <span>Enter New Address </span>

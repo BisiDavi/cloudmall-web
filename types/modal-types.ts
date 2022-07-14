@@ -9,4 +9,5 @@ export type modalType =
   | "paymentModal"
   | "noteModal"
   | "error"
+  | "userAddresses"
   | null;

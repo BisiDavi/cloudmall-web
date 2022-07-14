@@ -32,7 +32,7 @@ export default function AutocompleteView() {
 
   function showModal() {
     if (address?.length > 0) {
-      dispatch(updateModal("loginQuestionModal"));
+      dispatch(updateModal("userAddresses"));
     } else {
       toast.error("Please enter your address");
     }

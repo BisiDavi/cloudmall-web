@@ -1,7 +1,6 @@
 import axios from "axios";
 
 type userDetailsType = {
-  userId: string;
   address: string;
   coordinates: number[];
   type: string;
