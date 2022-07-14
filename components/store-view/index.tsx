@@ -21,6 +21,7 @@ export default function Storeview() {
   const ref: any = useRef(null);
 
   const coordinates = user?.addresses[0]?.location?.coordinates;
+  console.log("coordinates", coordinates);
 
   const categories =
     storeCategory.length > 0 ? { categoryIds: storeCategory } : "";
@@ -45,13 +46,15 @@ export default function Storeview() {
     ? storeCategory
     : "";
 
-  const { data, status }: any = useQuery(
+  const { data, status, error }: any = useQuery(
     [`listStores-${categoryKey}`, categorySearch, storeCategory],
     displayStores,
     {
-      enabled: !!baseURL,
+      enabled: !!baseURL && coordinates?.length > 0,
     }
   );
+
+  console.log("status", status, "error", error);
 
   return (
     <>
