@@ -1,17 +1,14 @@
 import { useMutation, useQueryClient } from "react-query";
 import { useRef } from "react";
 
-import useBaseUrl from "@/hooks/useBaseUrl";
-import { createUserAddress } from "@/utils/userRequest";
 import useToast from "@/hooks/useToast";
-import { useAppDispatch } from "@/hooks/useRedux";
-import { updateErrorText, updateModal } from "@/redux/ui-slice";
+import useAddressRequest from "@/hooks/useAddressRequest";
 
 export default function useAddressMutation() {
   const queryClient = useQueryClient();
-  const [baseURL] = useBaseUrl();
+  const { createUserAddress, updateUserAddress, deleteUserAddress } =
+    useAddressRequest();
   const { loadingToast, updateToast } = useToast();
-  const dispatch = useAppDispatch();
 
   const responseData = (toastID: any) => ({
     onMutate: () => {
@@ -22,9 +19,7 @@ export default function useAddressMutation() {
       updateToast(toastID, "success", response.data.message);
     },
     onError: (err: any) => {
-      dispatch(updateErrorText(err?.response?.data?.message));
-      dispatch(updateModal("error"));
-      updateToast(toastID, "error", "error");
+      updateToast(toastID, "error", err?.response?.data?.message);
     },
   });
 
@@ -32,26 +27,30 @@ export default function useAddressMutation() {
     const toastID = useRef(null);
     const result = responseData(toastID);
 
-    return useMutation(
-      ({ userDetails }: any) => createUserAddress(baseURL, userDetails),
-      {
-        mutationKey: "useUpdateAddress",
-        ...result,
-      }
-    );
+    return useMutation((userDetails: any) => updateUserAddress(userDetails), {
+      mutationKey: "useUpdateAddress",
+      ...result,
+    });
+  }
+
+  function useDeleteAddress() {
+    const toastID = useRef(null);
+    const result = responseData(toastID);
+
+    return useMutation((addressId: any) => deleteUserAddress(addressId), {
+      mutationKey: "useDeleteAddress",
+      ...result,
+    });
   }
 
   function useCreateAddress() {
     const toastID = useRef(null);
     const result = responseData(toastID);
 
-    return useMutation(
-      ({ userDetails }: any) => createUserAddress(baseURL, userDetails),
-      {
-        mutationKey: "useUpdateAddress",
-        ...result,
-      }
-    );
+    return useMutation((userDetails: any) => createUserAddress(userDetails), {
+      mutationKey: "useCreateAddress",
+      ...result,
+    });
   }
-  return { useUpdateAddress, useCreateAddress };
+  return { useUpdateAddress, useCreateAddress, useDeleteAddress };
 }
