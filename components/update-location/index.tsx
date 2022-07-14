@@ -1,27 +1,38 @@
 import Link from "next/link";
+import { useQuery } from "react-query";
 
-// import CaretIcon from "@/components/icons/CaretIcon";
-import { useAppSelector } from "@/hooks/useRedux";
+import useAddressRequest from "@/hooks/useAddressRequest";
 
 export default function UpdateLocation() {
-  const { user } = useAppSelector((state) => state?.user);
+  const { getUserProfile } = useAddressRequest();
+  const { data, status } = useQuery("getUserProfile", getUserProfile);
 
-  const userAddress = user?.addresses[0]?.address;
-  const isDefault = user?.addresses[0]?.isDefault ? "Home" : "";
+  const addresses = data?.data.user?.addresses;
+
+  console.log("addresses-footer", addresses);
+  const defaultAddress =
+    status === "success"
+      ? addresses?.filter((address: any) => address.isDefault)
+      : [];
+
+  console.log("defaultAddress", defaultAddress);
 
   return (
     <>
       <Link href="/update-address" passHref>
         <a>
-          {user !== null && (
-            <div className="updatelocation">
-              <span>{isDefault}</span>
-              <div>
-                <h3>{userAddress}</h3>
-                {/* <CaretIcon /> */}
-              </div>
-            </div>
-          )}
+          {status === "error"
+            ? "error"
+            : status === "loading"
+            ? "loading"
+            : defaultAddress.length > 0 && (
+                <div className="updatelocation">
+                  <span>{defaultAddress[0].type}</span>
+                  <div>
+                    <h3>{defaultAddress[0].address}</h3>
+                  </div>
+                </div>
+              )}
         </a>
       </Link>
       <style jsx>
@@ -36,7 +47,7 @@ export default function UpdateLocation() {
             margin-left: 0px;
           }
           .updatelocation span {
-            font-weight: 300;
+            font-weight: 600;
           }
           .updatelocation h3 {
             font-weight: 500;
