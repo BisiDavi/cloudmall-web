@@ -45,7 +45,7 @@ export default function Storeview() {
   const displayStores: any = () =>
     listStore(baseURL, {
       maxDistance: 3000,
-      availablity: "OPEN",
+      availablity: "ANY",
       forceClosed: false,
       pageNo: 1,
       pageSize: 20,
