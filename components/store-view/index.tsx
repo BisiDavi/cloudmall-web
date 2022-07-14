@@ -11,17 +11,31 @@ import StoreListLoader from "@/components/loaders/StoreListLoader";
 import useBaseUrl from "@/hooks/useBaseUrl";
 import { storeType } from "@/types/store-types";
 import StoreListView from "@/components/store-view/StoreListView";
+import useAddressRequest from "@/hooks/useAddressRequest";
 
 export default function Storeview() {
   const { storeCategory } = useAppSelector((state) => state.category);
   const { categorySearch } = useAppSelector((state) => state.search);
   const [baseURL] = useBaseUrl();
   const { listStore } = useStoreRequest();
-  const { user } = useAppSelector((state) => state.user);
   const ref: any = useRef(null);
+  const { getUserProfile } = useAddressRequest();
+  const { data: addressData, status: addressStatus } = useQuery(
+    "getUserProfile",
+    getUserProfile,
+    {
+      staleTime: Infinity,
+    }
+  );
 
-  const coordinates = user?.addresses[0]?.location?.coordinates;
-  console.log("coordinates", coordinates);
+  const addresses = addressData?.data.user?.addresses;
+
+  const defaultAddress =
+    addressStatus === "success"
+      ? addresses?.filter((address: any) => address.isDefault)
+      : [];
+
+  const mapCoordinates = defaultAddress[0]?.location.coordinates;
 
   const categories =
     storeCategory.length > 0 ? { categoryIds: storeCategory } : "";
@@ -35,7 +49,7 @@ export default function Storeview() {
       forceClosed: false,
       pageNo: 1,
       pageSize: 20,
-      coordinates,
+      coordinates: mapCoordinates,
       ...textSearch,
       ...categories,
     });
@@ -50,7 +64,7 @@ export default function Storeview() {
     [`listStores-${categoryKey}`, categorySearch, storeCategory],
     displayStores,
     {
-      enabled: !!baseURL && coordinates?.length > 0,
+      enabled: !!baseURL && mapCoordinates?.length > 0,
     }
   );
 

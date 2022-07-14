@@ -5,7 +5,9 @@ import useAddressRequest from "@/hooks/useAddressRequest";
 
 export default function UpdateLocation() {
   const { getUserProfile } = useAddressRequest();
-  const { data, status } = useQuery("getUserProfile", getUserProfile);
+  const { data, status } = useQuery("getUserProfile", getUserProfile, {
+    staleTime: Infinity,
+  });
 
   const addresses = data?.data.user?.addresses;
 

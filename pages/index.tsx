@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useEffect, useRef } from "react";
+import { useQuery } from "react-query";
 
 import Storeview from "@/components/store-view";
 import useBaseUrl from "@/hooks/useBaseUrl";
@@ -9,13 +10,24 @@ import { whatsappSignin } from "@/utils/authRequest";
 import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateUserDetails } from "@/redux/user-slice";
 import { updateDefaultCoordinates } from "@/redux/map-slice";
+import useAddressRequest from "@/hooks/useAddressRequest";
 
 export default function Home() {
   const [baseURL] = useBaseUrl();
   const toastID = useRef(null);
   const dispatch = useAppDispatch();
   const { user } = useAppSelector((state) => state.user);
+  const { getUserProfile } = useAddressRequest();
+  const { data, status } = useQuery("getUserProfile", getUserProfile);
   const { loadingToast, updateToast } = useToast();
+
+  const addresses = data?.data.user?.addresses;
+  const defaultAddress =
+    status === "success"
+      ? addresses?.filter((address: any) => address.isDefault)
+      : [];
+
+  console.log("addresses-status", defaultAddress);
 
   useEffect(() => {
     if (typeof window !== "undefined" && baseURL?.length > 0 && user === null) {
