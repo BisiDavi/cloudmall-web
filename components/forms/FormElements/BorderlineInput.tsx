@@ -27,6 +27,7 @@ export default function BorderlineInput({
       <div className="form-element">
         {label && <label htmlFor={id}>{label}</label>}
         <input
+          required
           id={id}
           name={name}
           type={type}

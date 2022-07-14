@@ -1,10 +1,9 @@
 import { useQuery } from "react-query";
 
-import { getUserProfile } from "@/utils/userRequest";
 import useBaseUrl from "@/hooks/useBaseUrl";
-import { useAppSelector } from "@/hooks/useRedux";
-import Ripples from "../loaders/Ripples";
-import AddressList from "./AddressList";
+import Ripples from "@/components/loaders/Ripples";
+import AddressList from "@/components/views/AddressList";
+import useAddressRequest from "@/hooks/useAddressRequest";
 
 type addressType = {
   _id: string;
@@ -13,12 +12,12 @@ type addressType = {
 };
 
 export default function UserAddresses() {
-  const { user }: any = useAppSelector((state) => state.user);
+  const { getUserProfile } = useAddressRequest();
   const [baseUrl] = useBaseUrl();
 
   const { data, status } = useQuery(
     "getUserProfile",
-    () => getUserProfile(baseUrl, user?._id),
+    () => getUserProfile(baseUrl),
     {
       enabled: !!baseUrl,
     }

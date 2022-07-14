@@ -14,6 +14,13 @@ export function createUserAddress(
   return axios.post(`${baseURL}/users/addresses/create`, userDetails);
 }
 
+export function updateUserAddress(
+  baseURL: string,
+  userDetails: userDetailsType
+) {
+  return axios.post(`${baseURL}/users/addresses/update`, userDetails);
+}
+
 export function getUserProfile(baseURL: string, userId: string) {
   return axios.get(`${baseURL}/users/profile?userId=${userId}`);
 }
