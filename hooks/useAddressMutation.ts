@@ -22,6 +22,7 @@ export default function useAddressMutation() {
       updateToast(toastID, "success", response.data.message);
       if (type === "createAddress") {
         dispatch(updateCompletedAddress([]));
+        queryClient.invalidateQueries("getUserProfile");
       }
     },
     onError: (err: any) => {

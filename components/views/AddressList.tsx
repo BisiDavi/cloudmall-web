@@ -1,5 +1,6 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable unused-imports/no-unused-vars */
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import EditIcon from "@/components/icons/EditIcon";
 import TrashIcon from "@/components/icons/TrashIcon";
@@ -20,11 +21,21 @@ export default function AddressList({ address }: AddressProps) {
   const [editTitle, setEditTitle] = useState(false);
   const [defaultAddress, setDefaultAddress] = useState(address.isDefault);
   const [title, setTitle] = useState(address.type);
-  const { useCreateAddress, useDeleteAddress, useUpdateAddress } =
-    useAddressMutation();
+  const { useDeleteAddress, useUpdateAddress } = useAddressMutation();
   const updateAddress = useUpdateAddress();
   const deleteAddress = useDeleteAddress();
-  const createAddress = useCreateAddress();
+
+  useEffect(() => {}, [address.isDefault]);
+
+  const checkboxHandler = useCallback(() => {
+    setDefaultAddress(!defaultAddress);
+    updateAddress.mutate({
+      isDefault: true,
+      type: title.toUpperCase(),
+      addressId: address._id,
+      address: address.address,
+    });
+  }, [defaultAddress]);
 
   function inputHandler(e: any) {
     setTitle(e.target.value);
@@ -41,7 +52,6 @@ export default function AddressList({ address }: AddressProps) {
   function saveHandler() {
     setEditTitle(false);
     updateAddress.mutate({
-      isDefault: true,
       type: title.toUpperCase(),
       addressId: address._id,
       address: address.address,
@@ -70,7 +80,8 @@ export default function AddressList({ address }: AddressProps) {
             <input
               id="addressDefault"
               type="checkbox"
-              defaultChecked={defaultAddress}
+              checked={defaultAddress}
+              onChange={checkboxHandler}
             />
             <label htmlFor="addressDefault">Make default</label>
           </div>

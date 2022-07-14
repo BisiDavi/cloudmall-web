@@ -14,7 +14,7 @@ type addressType = {
 export default function UserAddresses() {
   const { getUserProfile } = useAddressRequest();
 
-  const { data, status } = useQuery("getUserProfile", () => getUserProfile());
+  const { data, status } = useQuery("getUserProfile", getUserProfile);
 
   const addresses = data?.data.user?.addresses;
 

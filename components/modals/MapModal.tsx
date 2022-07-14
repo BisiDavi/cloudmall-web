@@ -30,10 +30,9 @@ function MapModalComponent({ modal, closeModal }: Props) {
   }
 
   function complete() {
-    dispatch(updateCompletedAddress([incompleteAddress]));
     dispatch(updateAddress(""));
-    router.push("/store-view");
     dispatch(updateModal(null));
+    router.push("/");
   }
 
   return (
