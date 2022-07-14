@@ -78,7 +78,7 @@ export default function Storeview() {
       maxDistance: 3000,
       availablity: "OPEN",
       forceClosed: false,
-      pageNo: page,
+      pageNo: 1,
       pageSize: 20,
       coordinates,
       ...textSearch,
