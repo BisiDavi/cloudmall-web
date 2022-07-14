@@ -8,6 +8,7 @@ import useMapview from "@/hooks/useMapview";
 import { useEffect } from "react";
 import { updateModal } from "@/redux/ui-slice";
 import { useAppDispatch } from "@/hooks/useRedux";
+import { useRouter } from "next/router";
 
 const DynamicAutocomplete = dynamic(
   () =>
@@ -19,7 +20,8 @@ const DynamicAutocomplete = dynamic(
 
 const DynamicMapModal = dynamic(
   () =>
-    import(/* webpackChunkName: 'MapModal' */ "@/components/modals/MapModal")
+    import(/* webpackChunkName: 'MapModal' */ "@/components/modals/MapModal"),
+  { ssr: false }
 );
 
 const DynamicMap = dynamic(
@@ -32,6 +34,7 @@ const DynamicMap = dynamic(
 export default function MapView() {
   const { closeModal, loadMap, updateAutocompleteStatus, modal } = useMapview();
   const dispatch = useAppDispatch();
+  const router = useRouter();
 
   useEffect(() => {
     dispatch(updateModal("userAddresses"));
@@ -45,10 +48,15 @@ export default function MapView() {
         strategy="afterInteractive"
         onLoad={(response) => {
           if (response) {
+            console.log("response", response);
             updateAutocompleteStatus(true);
           }
         }}
-        onError={() => updateAutocompleteStatus(false)}
+        onError={(err) => {
+          console.log("err", err);
+          updateAutocompleteStatus(false);
+          router.reload();
+        }}
       />
       {modal === "userAddresses" && (
         <DynamicMapModal modal={modal} closeModal={closeModal} />
