@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 import { useQuery } from "react-query";
 import Image from "next/image";
-import { useRef } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 import CategoryPills from "@/components/pills/CategoryPills";
@@ -11,16 +11,62 @@ import StoreListLoader from "@/components/loaders/StoreListLoader";
 import useBaseUrl from "@/hooks/useBaseUrl";
 import { storeType } from "@/types/store-types";
 import StoreListView from "@/components/store-view/StoreListView";
+import useFetch from "@/hooks/useFetch";
 
 export default function Storeview() {
   const { storeCategory } = useAppSelector((state) => state.category);
   const { categorySearch } = useAppSelector((state) => state.search);
   const [baseURL] = useBaseUrl();
+  const [page, setPage] = useState(1);
+  const [pageCount, setPageCount] = useState(1);
+  const { stores, loading, error, sendQuery } = useFetch();
   const { listStore } = useStoreRequest();
   const { user } = useAppSelector((state) => state.user);
   const ref: any = useRef(null);
+  let storeList: any[] = [];
+
+  useEffect(() => {
+    if (stores.length > 0 && !loading) {
+      setPageCount(stores[0]?.pageCount);
+    }
+  }, [loading]);
+
+  console.log("pageCount", pageCount);
+
+  useEffect(() => {
+    sendQuery(page);
+  }, [page]);
+
+  if (pageCount === page && page !== 1) {
+    const storeView = stores.filter(
+      (v, i, a) => a.findIndex((v2) => v2.pageNo === v.pageNo) === i
+    );
+    console.log("storeView", storeView);
+    storeView.map((store) => {
+      storeList = [...storeList, ...store.stores];
+    });
+  }
+
+  console.log("dfrd", storeList);
 
   const coordinates = user?.addresses[0]?.location?.coordinates;
+
+  const handleObserver = useCallback((entries: any[]) => {
+    const target = entries[0];
+    if (target.isIntersecting) {
+      setPage(page + 1);
+    }
+  }, []);
+
+  useEffect(() => {
+    const option = {
+      root: null,
+      rootMargin: "20px",
+      threshold: 0,
+    };
+    const observer = new IntersectionObserver(handleObserver, option);
+    if (ref.current) observer.observe(ref.current);
+  }, [handleObserver]);
 
   const categories =
     storeCategory.length > 0 ? { categoryIds: storeCategory } : "";
@@ -32,7 +78,7 @@ export default function Storeview() {
       maxDistance: 3000,
       availablity: "OPEN",
       forceClosed: false,
-      pageNo: 1,
+      pageNo: page,
       pageSize: 20,
       coordinates,
       ...textSearch,

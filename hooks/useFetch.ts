@@ -37,7 +37,6 @@ function useFetch() {
     displayStores(page)
       .then((response) => {
         setLoading(false);
-        console.log("storesrer", stores);
         if (stores.length > 0) {
           stores.filter((store) => {
             console.log("store.pageNo", store.pageNo);
@@ -50,9 +49,9 @@ function useFetch() {
           setStores((prev) => [...prev, response?.data]);
         }
       })
-      .catch((error) => {
+      .catch(() => {
         setLoading(false);
-        setError(error);
+        setError(true);
       });
   }
 
