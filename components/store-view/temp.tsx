@@ -19,7 +19,7 @@ export default function Storeview() {
   const [baseURL] = useBaseUrl();
   const [page, setPage] = useState(1);
   const [pageCount, setPageCount] = useState(1);
-  const { stores, loading, error, sendQuery } = useFetch();
+  const { stores, loading, sendQuery } = useFetch();
   const { listStore } = useStoreRequest();
   const { user } = useAppSelector((state) => state.user);
   const ref: any = useRef(null);
