@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import { useQuery } from "react-query";
 
-import Storeview from "@/components/store-view";
+// import Storeview from "@/components/store-view";
 import useBaseUrl from "@/hooks/useBaseUrl";
 import useToast from "@/hooks/useToast";
 import StoreLayoutPage from "@/layout/store-layout";
@@ -11,6 +11,11 @@ import { useAppDispatch, useAppSelector } from "@/hooks/useRedux";
 import { updateUserDetails } from "@/redux/user-slice";
 import { updateDefaultCoordinates } from "@/redux/map-slice";
 import useAddressRequest from "@/hooks/useAddressRequest";
+import dynamic from "next/dynamic";
+
+const DynamicStoreview = dynamic(() => import("@/components/store-view"), {
+  ssr: false,
+});
 
 export default function Home() {
   const [baseURL] = useBaseUrl();
@@ -81,7 +86,7 @@ export default function Home() {
 
   return (
     <StoreLayoutPage title="Cloudmall Africa" padding="0px" showArrow={false}>
-      <Storeview />
+      <DynamicStoreview />
     </StoreLayoutPage>
   );
 }

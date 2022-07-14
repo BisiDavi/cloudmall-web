@@ -8,7 +8,6 @@ import CategoryPills from "@/components/pills/CategoryPills";
 import useStoreRequest from "@/hooks/useStoreRequest";
 import { useAppSelector } from "@/hooks/useRedux";
 import StoreListLoader from "@/components/loaders/StoreListLoader";
-import useBaseUrl from "@/hooks/useBaseUrl";
 import { storeType } from "@/types/store-types";
 import StoreListView from "@/components/store-view/StoreListView";
 import useAddressRequest from "@/hooks/useAddressRequest";
@@ -16,7 +15,6 @@ import useAddressRequest from "@/hooks/useAddressRequest";
 export default function Storeview() {
   const { storeCategory } = useAppSelector((state) => state.category);
   const { categorySearch } = useAppSelector((state) => state.search);
-  const [baseURL] = useBaseUrl();
   const { listStore } = useStoreRequest();
   const ref: any = useRef(null);
   const { getUserProfile } = useAddressRequest();
@@ -43,7 +41,7 @@ export default function Storeview() {
   const textSearch = categorySearch.length > 3 ? { text: categorySearch } : "";
 
   const displayStores: any = () =>
-    listStore(baseURL, {
+    listStore({
       maxDistance: 3000,
       availablity: "ANY",
       forceClosed: false,
@@ -64,7 +62,7 @@ export default function Storeview() {
     [`listStores-${categoryKey}`, categorySearch, storeCategory],
     displayStores,
     {
-      enabled: !!baseURL && mapCoordinates?.length > 0,
+      enabled: !!(mapCoordinates?.length > 0),
     }
   );
 

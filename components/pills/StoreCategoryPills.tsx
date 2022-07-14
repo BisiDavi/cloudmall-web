@@ -3,19 +3,13 @@ import { useQuery } from "react-query";
 import Pill from "@/components/pills";
 import { storeCategoryType } from "@/types/store-types";
 import PillLoader from "@/components/loaders/PillsLoader";
-import useBaseUrl from "@/hooks/useBaseUrl";
 import useStoreRequest from "@/hooks/useStoreRequest";
 
 export default function StoreCategoryPills() {
-  const [baseURL] = useBaseUrl();
   const { listStoreCategories } = useStoreRequest();
 
-  const { data, status }: any = useQuery(
-    "listStoreCategories",
-    () => listStoreCategories(baseURL),
-    {
-      enabled: !!baseURL,
-    }
+  const { data, status }: any = useQuery("listStoreCategories", () =>
+    listStoreCategories()
   );
 
   return (

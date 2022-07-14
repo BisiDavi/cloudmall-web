@@ -2,9 +2,11 @@
 import axios from "axios";
 
 import { useAppSelector } from "@/hooks/useRedux";
+import useBaseUrl from "./useBaseUrl";
 
 export default function useStoreRequest() {
   const { user }: any = useAppSelector((state) => state.user);
+  const [baseURL] = useBaseUrl();
 
   axios.interceptors.request.use(
     (config: any) => {
@@ -18,7 +20,7 @@ export default function useStoreRequest() {
     }
   );
 
-  function listStore(baseURL: string, storeData?: any) {
+  function listStore(storeData?: any) {
     if (storeData) {
       return axios.post(`${baseURL}/stores/search`, storeData);
     } else {
@@ -26,15 +28,15 @@ export default function useStoreRequest() {
     }
   }
 
-  function storeProfile(baseURL: string, storeId: any) {
+  function storeProfile(storeId: any) {
     return axios.get(`${baseURL}/stores/profile/?storeId=${storeId}`);
   }
 
-  function listStoreCategories(baseURL: string) {
+  function listStoreCategories() {
     return axios.get(`${baseURL}/stores/categories`);
   }
 
-  function getStoreProducts(baseURL: string, postData: any) {
+  function getStoreProducts(postData: any) {
     return axios.post(`${baseURL}/products/search`, postData);
   }
 

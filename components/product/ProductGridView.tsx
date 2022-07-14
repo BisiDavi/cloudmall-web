@@ -5,7 +5,6 @@ import { productType } from "@/types/product-types";
 import useStoreRequest from "@/hooks/useStoreRequest";
 import ProductGridViewLoader from "@/components/loaders/ProductGridViewLoader";
 import EmptyCart from "@/components/cart/EmptyCart";
-import useBaseUrl from "@/hooks/useBaseUrl";
 import { useAppSelector } from "@/hooks/useRedux";
 
 interface Props {
@@ -13,7 +12,6 @@ interface Props {
 }
 
 export default function ProductGridView({ storeId }: Props) {
-  const [baseURL] = useBaseUrl();
   const { getStoreProducts } = useStoreRequest();
   const { productCategory } = useAppSelector((state) => state.category);
   const { user } = useAppSelector((state) => state.user);
@@ -29,15 +27,12 @@ export default function ProductGridView({ storeId }: Props) {
   const { data, status } = useQuery(
     [`getStoreProducts-${storeId}`, productCategory, productSearch],
     () =>
-      getStoreProducts(baseURL, {
+      getStoreProducts({
         storeIds: [storeId],
         coordinates,
         ...categories,
         ...textSearch,
-      }),
-    {
-      enabled: !!baseURL,
-    }
+      })
   );
   const productResult = data?.data?.products;
 

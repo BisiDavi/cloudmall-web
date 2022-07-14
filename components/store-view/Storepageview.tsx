@@ -4,7 +4,6 @@ import ProductGridView from "@/components/product/ProductGridView";
 import StoreLayoutPage from "@/layout/store-layout";
 import useStoreRequest from "@/hooks/useStoreRequest";
 import useClearExpiredCart from "@/hooks/useClearExpiredCart";
-import useBaseUrl from "@/hooks/useBaseUrl";
 import CategoryPills from "@/components/pills/CategoryPills";
 
 interface Props {
@@ -12,15 +11,10 @@ interface Props {
 }
 
 export default function Storepageview({ storeId }: Props) {
-  const [baseURL] = useBaseUrl();
   const { storeProfile } = useStoreRequest();
 
-  const { data, status } = useQuery(
-    `store-profile-${storeId}`,
-    () => storeProfile(baseURL, storeId),
-    {
-      enabled: !!baseURL,
-    }
+  const { data, status } = useQuery(`store-profile-${storeId}`, () =>
+    storeProfile(storeId)
   );
 
   useClearExpiredCart();

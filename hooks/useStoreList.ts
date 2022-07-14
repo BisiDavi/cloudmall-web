@@ -2,12 +2,10 @@ import { useInfiniteQuery } from "react-query";
 import { useState } from "react";
 
 import useStoreRequest from "@/hooks/useStoreRequest";
-import useBaseUrl from "@/hooks/useBaseUrl";
 import { useAppSelector } from "@/hooks/useRedux";
 
 export default function useStoreList() {
   const { listStore } = useStoreRequest();
-  const [baseURL] = useBaseUrl();
   const [page, setPage] = useState(1);
   const { user } = useAppSelector((state) => state.user);
   const { storeCategory } = useAppSelector((state) => state.category);
@@ -22,7 +20,7 @@ export default function useStoreList() {
 
   const displayStores: any = ({ pageParam = 1 }) => {
     console.log("pageParam", pageParam);
-    return listStore(baseURL, {
+    return listStore({
       maxDistance: 3000,
       availablity: "OPEN",
       forceClosed: false,
@@ -33,7 +31,6 @@ export default function useStoreList() {
     });
   };
   const infiniteData: any = useInfiniteQuery("storeList", displayStores, {
-    enabled: !!baseURL,
     keepPreviousData: true,
     getNextPageParam: () => page,
   });
